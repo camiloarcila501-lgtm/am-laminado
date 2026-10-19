@@ -1,439 +1,707 @@
 <!DOCTYPE html>
 <html lang="es-CO">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>A&amp;M laminado 18k | Joyería en oro laminado 18k</title>
-<meta name="description" content="Joyería en oro laminado 18k: cadenas, aretes, anillos, collares y pulseras. Compra en línea o por WhatsApp.">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A&amp;M Laminado 18k · Joyería en oro laminado 18k</title>
+<meta name="description" content="Joyería en oro laminado 18k: anillos, aretes, candongas, cadenas, dijes y pulseras. Compra al detal con envíos a toda Colombia y asesoría por WhatsApp.">
+<meta property="og:title" content="A&amp;M Laminado 18k">
+<meta property="og:description" content="Joyería en oro laminado 18k con envíos a toda Colombia.">
+<meta property="og:image" content="fotos/hero.jpg">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#c9a34a;--gold2:#e8cf8a;--black:#111;--cream:#f8f2e6;--text:#2a2a2a}
+:root{--ink:#141414;--muted:#6f6a60;--line:#ebe7df;--soft:#f8f6f1;--gold:#b8923f;--gold-l:#d9bf7f;--dark:#0d0d0d;--ok:#1f7a4d;--err:#b42318;--wa:#25d366;--r:2px;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Montserrat,sans-serif;color:var(--text);background:var(--cream);line-height:1.6}
-h1,h2,h3{font-family:'Cormorant Garamond',serif}
-a{color:inherit}
-header{position:sticky;top:0;z-index:20;background:var(--black);color:var(--gold2);display:flex;justify-content:space-between;align-items:center;padding:.8rem 1.2rem}
-.logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;text-decoration:none}
-nav a{margin-left:1rem;text-decoration:none;font-size:.85rem;display:none}
-@media(min-width:760px){nav a{display:inline}}
-.cart-btn{background:var(--gold);color:var(--black);border:0;border-radius:30px;padding:.5rem 1rem;font-weight:600;cursor:pointer;margin-left:1rem}
-.hero{background:radial-gradient(circle at 70% 30%,#3a2e14,#111 65%);color:var(--cream);text-align:center;padding:5rem 1.2rem 4.5rem}
-.hero h1{font-size:clamp(2.6rem,9vw,5rem);background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));-webkit-background-clip:text;color:transparent}
-.hero p{max-width:540px;margin:1rem auto 2rem;opacity:.9}
-.btn{display:inline-block;background:var(--gold);color:var(--black);padding:.85rem 1.8rem;border-radius:40px;text-decoration:none;font-weight:600;border:0;cursor:pointer}
-.btn.outline{background:transparent;color:var(--gold2);border:1px solid var(--gold);margin-left:.5rem}
-section{padding:3.5rem 1.2rem;max-width:1150px;margin:auto}
-section h2{font-size:2.3rem;text-align:center;margin-bottom:.4rem}
-.sub{text-align:center;color:#7a6a45;margin-bottom:2rem}
-.filters{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.5rem;margin-bottom:1.5rem;justify-content:flex-start}
-@media(min-width:760px){.filters{justify-content:center;flex-wrap:wrap}}
-.filters button{flex:none;border:1px solid var(--gold);background:#fff;padding:.45rem 1rem;border-radius:30px;cursor:pointer;font-family:inherit}
-.filters button.active{background:var(--black);color:var(--gold2)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr);gap:1.5rem}}
-.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06);display:flex;flex-direction:column;position:relative}
-.card .img{aspect-ratio:1;background:linear-gradient(145deg,#1a1a1a,#2d2513);display:flex;align-items:center;justify-content:center}
-.card .img svg{width:62%;height:62%}
-.tag{position:absolute;top:8px;left:8px;background:var(--gold2);color:var(--black);font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:10px;text-transform:uppercase}
-.card .info{padding:.8rem;display:flex;flex-direction:column;flex:1}
-.card h3{font-size:1.15rem;line-height:1.2}
-.price{font-weight:600;color:#8a6a1f;margin:.3rem 0 .7rem}
-.card button{margin-top:auto;background:var(--black);color:var(--gold2);border:0;padding:.6rem;border-radius:8px;cursor:pointer;font-family:inherit}
-.about{display:grid;gap:2rem;align-items:center}
-@media(min-width:760px){.about{grid-template-columns:1fr 1fr}}
-.about .box{background:var(--black);color:var(--gold2);border-radius:18px;padding:2.5rem;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem}
-.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-top:1.5rem}
-.feats div{background:#fff;padding:1rem;border-radius:12px;border-left:3px solid var(--gold);font-size:.9rem}
-.care{background:var(--black);color:var(--cream);max-width:none}
-.care .wrap{max-width:1150px;margin:auto}
-.care h2{color:var(--gold2)}.care .sub{color:#bba;}
-.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
-.tips div{border:1px solid #3d3420;border-radius:12px;padding:1.2rem}
-.tips b{color:var(--gold2);display:block;margin-bottom:.3rem}
-footer{background:#0a0a0a;color:#aaa;text-align:center;padding:2.5rem 1rem;font-size:.85rem}
-footer .logo{color:var(--gold2);display:block;margin-bottom:.5rem}
-.wa-float{position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.3);z-index:30}
-.drawer{position:fixed;top:0;right:-100%;width:min(420px,100%);height:100%;background:var(--cream);z-index:50;transition:right .3s;display:flex;flex-direction:column;box-shadow:-6px 0 20px rgba(0,0,0,.3)}
-.drawer.open{right:0}
-.drawer header{position:static}
-.items{flex:1;overflow:auto;padding:1rem}
-.item{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e3d9c3;padding:.7rem 0;gap:.5rem}
-.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--gold);background:#fff;cursor:pointer}
-.drawer .foot{padding:1rem;border-top:1px solid #e3d9c3}
-.drawer input,.drawer textarea{width:100%;padding:.6rem;margin-bottom:.5rem;border:1px solid #d8c99f;border-radius:8px;font-family:inherit}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40;display:none}.overlay.show{display:block}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--black);color:var(--gold2);padding:.6rem 1.2rem;border-radius:30px;opacity:0;transition:.3s;z-index:60}
-.toast.show{opacity:1}
-
-header>div{display:flex;align-items:center}
-.menu{background:none;border:0;color:var(--gold2);font-size:1.5rem;margin-left:.6rem;cursor:pointer}
-@media(max-width:759px){nav.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--black);padding:.5rem 1.2rem 1rem}nav.open a{display:block;margin:0;padding:.5rem 0;border-bottom:1px solid #2a2415}}
-@media(min-width:760px){.menu{display:none}nav a{margin-left:.9rem;font-size:.78rem}}
-.dark{background:var(--black);color:var(--cream);max-width:none}.dark .wrap{max-width:1150px;margin:auto}.dark h2{color:var(--gold2)}.dark .sub{color:#bba}
-.mv{display:grid;gap:1rem}@media(min-width:760px){.mv{grid-template-columns:1fr 1fr}}
-.mv div{background:#fff;border-radius:16px;padding:1.6rem;border-top:4px solid var(--gold)}.mv h3{font-size:1.6rem}
-.vals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem}
-.vals div{background:#fff;border-radius:16px;padding:1.3rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.05)}
-.vals span{display:inline-flex;width:54px;height:54px;border-radius:50%;background:var(--black);align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:.5rem}
-.vals b{display:block;font-family:'Cormorant Garamond',serif;font-size:1.3rem}.vals p{font-size:.85rem}
-.two{display:grid;gap:1rem}@media(min-width:760px){.two{grid-template-columns:1fr 1fr}}
-.panel{background:#fff;border-radius:16px;padding:1.5rem}.panel h3{font-size:1.5rem;margin-bottom:.5rem}.panel ul,.mbox ul{padding-left:1.2rem}
-.pays{display:flex;flex-wrap:wrap;gap:.5rem}.pays span{border:1px solid var(--gold);border-radius:30px;padding:.35rem .9rem;font-size:.85rem}
-.testi div{background:#fff}.testi p{font-style:italic;margin:.6rem 0}
-.more{color:var(--gold2);font-size:.85rem;display:inline-block;margin-top:.5rem}
-.faq{max-width:760px;margin:auto}.faq details{background:#fff;border-radius:12px;margin-bottom:.6rem;padding:1rem 1.2rem}
-.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between}.faq summary::after{content:'+';color:var(--gold)}
-.faq details[open] summary::after{content:'−'}.faq details p{margin-top:.6rem}
-.cform input,.cform textarea{width:100%;padding:.75rem;margin-bottom:.6rem;border-radius:10px;border:1px solid #3d3420;background:#1b1b1b;color:#fff;font-family:inherit}
-.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.5rem;max-width:1150px;margin:0 auto 2rem;text-align:left}
-.fgrid b{color:var(--gold2);display:block;margin-bottom:.4rem}.fgrid a{display:block;text-decoration:none;padding:.15rem 0}.fgrid a:hover{color:var(--gold2)}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:70;display:none;align-items:center;justify-content:center;padding:1rem}.modal.show{display:flex}
-.mbox{background:var(--cream);border-radius:16px;max-width:620px;max-height:85vh;overflow:auto;padding:2rem;position:relative}
-.mbox h2{text-align:left}.mbox h3{margin-top:1rem}.x{position:absolute;top:12px;right:12px;border:0;background:var(--black);color:var(--gold2);width:32px;height:32px;border-radius:50%;cursor:pointer}
-
-/* ===== estilo empresarial ===== */
-:root{--cream:#fff;--text:#1d1d1d}
-body{background:#fff}
-section{padding:4.5rem 1.2rem}
-section h2{font-weight:500;letter-spacing:.02em}
-.sub{color:#8a7a55}
-.topbar{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:.55rem 1.1rem}
-.social{display:flex;gap:1rem}.social svg{width:20px;height:20px;fill:#fff}
-.phone{text-decoration:none;font-size:.9rem;letter-spacing:.04em}
-.marquee{background:#000;overflow:hidden;padding:0 0 .55rem}
-.track{display:inline-flex;white-space:nowrap;background:#fff;color:#111;animation:mq 28s linear infinite;font-weight:600;font-size:.85rem}
-.track span{padding:.3rem 1.2rem}.track span::after{content:'•';margin-left:2.4rem;color:var(--gold)}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:var(--sans);font-weight:400;color:var(--ink);background:#fff;line-height:1.65;font-size:15px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:inherit}button{font-family:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.15;letter-spacing:.005em}
+.eyebrow{display:block;font-size:.7rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
+.sec{padding:88px 0}.sec.soft{background:var(--soft)}.sec.dark{background:var(--dark);color:#eee}
+.sec-head{text-align:center;max-width:640px;margin:0 auto 48px}
+.sec-head h2{font-size:clamp(2rem,4.2vw,2.8rem)}
+.sec-head p{color:var(--muted);margin-top:.8rem}
+.sec.dark .sec-head p{color:#a9a49a}
+.sec-head:after{content:'';display:block;width:42px;height:1px;background:var(--gold);margin:22px auto 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--ink);color:#fff;border:1px solid var(--ink);padding:14px 28px;font-size:.74rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .25s,color .25s,border-color .25s;border-radius:var(--r)}
+.btn:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink)}.btn.ghost:hover{background:var(--ink);color:#fff}
+.btn.wa{background:var(--wa);border-color:var(--wa)}.btn.wa:hover{background:#1ebe5b;border-color:#1ebe5b}
+.btn.block{width:100%}.btn[disabled]{opacity:.5;pointer-events:none}
+/* top */
+.topbar{background:var(--dark);color:#d8d4cc;font-size:.78rem}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:38px}
+.social{display:flex;gap:14px}.social a{display:flex}.social svg{width:16px;height:16px;fill:#d8d4cc}.social a:hover svg{fill:var(--gold-l)}
+.topbar .phone{text-decoration:none;letter-spacing:.06em}.topbar .phone:hover{color:var(--gold-l)}
+.marquee{background:var(--soft);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap}
+.track{display:inline-flex;animation:mq 40s linear infinite;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#4a463f;padding:9px 0}
+.track span{padding:0 28px;position:relative}.track span:after{content:'';position:absolute;right:-2px;top:50%;width:4px;height:4px;background:var(--gold);transform:translateY(-50%) rotate(45deg)}
 @keyframes mq{to{transform:translateX(-50%)}}
-header.main{position:sticky;top:0;z-index:20;background:#fff;color:#111;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:1rem 1.2rem;border-bottom:1px solid #eee}
-.wordmark{text-decoration:none;display:flex;flex-direction:column;align-items:center;line-height:1.1}
-.wordmark b{font-family:'Cormorant Garamond',serif;font-size:1.55rem;letter-spacing:.08em}
-.wordmark small{font-size:.6rem;letter-spacing:.3em;color:#8a6a1f;margin-top:3px}
-.hicons{display:flex;gap:.9rem;align-items:center}
-.ibtn{position:relative;background:none;border:0;cursor:pointer;padding:6px}
-.ibtn svg{width:26px;height:26px;fill:none;stroke:#111;stroke-width:1.8;stroke-linecap:round}
-.ibtn.menu{background:#f1f1f1;border-radius:6px}
-.badge{position:absolute;top:-2px;right:-4px;background:#e0322b;color:#fff;font-size:.65rem;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:600}
-header.main nav{display:none;width:100%}
-header.main nav.open{display:flex;flex-direction:column;position:static;background:#fff;padding:.5rem 0 0}
-header.main nav a{display:block;margin:0;padding:.6rem 0;border-bottom:1px solid #eee;color:#111;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
-@media(min-width:960px){header.main .menu{display:none}header.main nav{display:flex;width:auto;order:2}header.main nav a{border:0;padding:0;margin:0 .7rem;font-size:.72rem}header.main nav a:hover{color:#8a6a1f}.hicons{order:3}}
-.hero2{position:relative;padding:0;max-width:none;height:min(82vh,760px);overflow:hidden}
-.hero2 img{width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block}
-.hcap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(255,255,255,.92) 35%);padding:5rem 1.5rem 2.5rem;text-align:center}
-.eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#8a6a1f}
-.hcap h1{font-weight:500;font-size:clamp(2rem,6vw,3.6rem);line-height:1.1;margin:.5rem auto;max-width:760px;color:#111}
-.offer{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.2rem}
-.btn{background:#111;color:#fff;border-radius:0;letter-spacing:.15em;text-transform:uppercase;font-size:.8rem;padding:1rem 2.2rem}
-.btn:hover{background:var(--gold);color:#111}
-.trust{display:grid;grid-template-columns:repeat(2,1fr);border-bottom:1px solid #eee}
-@media(min-width:760px){.trust{grid-template-columns:repeat(4,1fr)}}
-.trust div{text-align:center;padding:1.4rem .6rem;border-right:1px solid #eee;border-top:1px solid #eee}
-.trust span{font-size:1.4rem;display:block}.trust b{display:block;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;margin-top:.3rem}.trust small{color:#777;font-size:.78rem}
-.search{display:block;width:100%;max-width:520px;margin:0 auto 1.2rem;padding:.8rem 1rem;border:1px solid #ddd;font-family:inherit}
-.filters button{border-radius:0;border-color:#ddd;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
-.filters button.active{background:#111;color:#fff;border-color:#111}
-.card{border-radius:0;box-shadow:none;border:1px solid #eee}
-.card .img{background:#f6f4ef}.card .img img{width:100%;height:100%;object-fit:cover}
-.card h3{font-size:1.05rem;font-weight:500}
-.ref{font-size:.7rem;letter-spacing:.12em;color:#999;text-transform:uppercase}
-.price{color:#111}
-.price.ask{color:#8a6a1f;font-weight:500}
-.card button{border-radius:0;background:#111;color:#fff;letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
-.mv div,.vals div,.panel,.faq details,.testi div{border-radius:0;box-shadow:none;border:1px solid #eee}
-.vals span{background:#111}
-.wa-tip{position:fixed;right:86px;bottom:26px;background:#fff;border:1px solid #eee;box-shadow:0 4px 14px rgba(0,0,0,.12);padding:.5rem .9rem;font-size:.8rem;line-height:1.3;z-index:30;border-radius:8px}
-@media(max-width:600px){.wordmark b{font-size:1.2rem}.wordmark small{font-size:.52rem;letter-spacing:.25em}.hicons{gap:.2rem}.ibtn svg{width:23px;height:23px}.offer{font-size:1.05rem;letter-spacing:.08em}.hcap{padding:4rem 1rem 2rem}.hero2{height:78vh}}
-.drawer{overflow-y:auto}.drawer .items{flex:none;max-height:38vh}
-.foot .row{display:flex;justify-content:space-between;gap:1rem;margin-bottom:.35rem;font-size:.9rem}.foot .row.ship span:last-child{text-align:right;color:#8a6a1f;font-size:.8rem;max-width:62%}.foot .row.big{font-weight:600;font-size:1.05rem;border-top:1px solid #e3d9c3;padding-top:.5rem;margin-bottom:.8rem}
-#cform summary{cursor:pointer;font-weight:600;margin-bottom:.5rem;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}.two-in{display:flex;gap:.5rem}.cerr{color:#c53030;font-size:.85rem}
-.btn.pay{margin-bottom:.5rem;background:#c9a34a;color:#111}.btn.wa{background:#25d366;color:#fff}.muted-s{font-size:.75rem;color:#777;text-align:center;margin-top:.4rem}
+header.main{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line);transition:box-shadow .3s}
+header.main.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.05)}
+header.main .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
+.wordmark{text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+.wordmark b{font-family:var(--serif);font-weight:600;font-size:1.6rem;letter-spacing:.14em}
+.wordmark small{font-size:.56rem;letter-spacing:.42em;color:var(--gold);margin-top:6px;padding-left:2px}
+nav.menu{display:flex;gap:28px}
+nav.menu a{text-decoration:none;font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#333;position:relative;padding:6px 0}
+nav.menu a:after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .3s}nav.menu a:hover:after{width:100%}
+.hicons{display:flex;gap:4px;align-items:center}
+.ibtn{position:relative;background:none;border:0;cursor:pointer;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .2s}
+.ibtn:hover{background:var(--soft)}
+.ibtn svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.badge{position:absolute;top:4px;right:2px;background:var(--gold);color:#fff;font-size:.6rem;font-weight:600;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;transform:scale(0);transition:transform .25s}
+.badge.on{transform:scale(1)}.badge.bump{animation:bump .4s}
+@keyframes bump{50%{transform:scale(1.35)}}
+.burger{display:none}
+@media(max-width:1020px){
+ nav.menu{position:fixed;inset:0 0 0 auto;width:min(320px,86vw);background:#fff;flex-direction:column;gap:0;padding:90px 28px 28px;transform:translateX(100%);transition:transform .35s ease;box-shadow:-10px 0 30px rgba(0,0,0,.08);z-index:60}
+ nav.menu.open{transform:none}nav.menu a{padding:16px 0;border-bottom:1px solid var(--line);font-size:.78rem}
+ .burger{display:flex}
+}
+@media(max-width:560px){header.main .wrap{height:66px}.wordmark b{font-size:1.25rem;letter-spacing:.1em}.wordmark small{font-size:.5rem;letter-spacing:.34em}.ibtn{width:38px;height:38px}}
+/* hero */
+.hero{position:relative;min-height:min(88vh,820px);display:flex;align-items:center;overflow:hidden;background:#ece6dc}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 35%;animation:heroZoom 14s ease-out both}
+@keyframes heroZoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.8) 38%,rgba(255,255,255,0) 68%);z-index:1}
+.hero .wrap{position:relative;z-index:2;width:100%}
+.hero-copy{max-width:520px}
+.hero h1{font-size:clamp(2.6rem,5.6vw,4.4rem);font-weight:400;margin-bottom:1.1rem}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero p.lead{font-size:1.02rem;color:#4a463f;max-width:440px;margin-bottom:2rem}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:760px){
+ .hero{min-height:auto;flex-direction:column;align-items:stretch;background:#fff}
+ .hero img{position:relative;height:62vh;min-height:380px;animation:none;object-position:60% 30%}
+ .hero:before{display:none}
+ .hero .wrap{padding-top:32px;padding-bottom:40px;text-align:center}.hero-copy{margin:0 auto}.hero p.lead{margin-left:auto;margin-right:auto}.hero .ctas{justify-content:center}
+}
+/* trust */
+.trust{border-bottom:1px solid var(--line)}
+.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.trust div{display:flex;gap:14px;align-items:center;padding:28px 18px;border-right:1px solid var(--line)}
+.trust div:last-child{border-right:0}
+.trust svg{flex:none;width:30px;height:30px;fill:none;stroke:var(--gold);stroke-width:1.3}
+.trust b{display:block;font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}.trust small{color:var(--muted);font-size:.82rem}
+@media(max-width:860px){.trust .wrap{grid-template-columns:repeat(2,1fr);padding:0}.trust div{border-bottom:1px solid var(--line);padding:20px 16px}.trust div:nth-child(2n){border-right:0}}
+@media(max-width:420px){.trust div{flex-direction:column;text-align:center;gap:8px}}
+/* catalog */
+.toolbar{display:flex;flex-direction:column;gap:18px;align-items:center;margin-bottom:36px}
+.search{position:relative;width:100%;max-width:460px}
+.search input{width:100%;padding:13px 16px 13px 44px;border:1px solid var(--line);background:#fff;font:inherit;font-size:.92rem;border-radius:var(--r);transition:border-color .2s}
+.search input:focus{outline:0;border-color:var(--gold)}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;fill:none;stroke:#999;stroke-width:1.6}
+.filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.filters button{background:#fff;border:1px solid var(--line);padding:9px 16px;font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;color:#444;border-radius:40px;transition:all .2s}
+.filters button:hover{border-color:var(--ink)}.filters button.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.filters button span{opacity:.55;margin-left:4px;font-weight:400}
+@media(max-width:700px){.filters{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;width:calc(100% + 40px);margin:0 -20px;padding:0 20px 4px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filters button{flex:none}}
+.count{font-size:.8rem;color:var(--muted);text-align:center;margin:-18px 0 26px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px 22px}
+@media(max-width:1020px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr);gap:24px 12px}}
+.card{display:flex;flex-direction:column;background:#fff;opacity:0;transform:translateY(14px);animation:rise .5s ease forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.card .ph{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--soft);border-radius:var(--r)}
+.card .ph img{width:100%;height:100%;object-fit:cover;object-position:center 58%;transition:transform .7s ease}
+.card:hover .ph img{transform:scale(1.05)}
+.card .quick{position:absolute;left:10px;right:10px;bottom:10px;opacity:0;transform:translateY(8px);transition:all .3s}
+.card:hover .quick{opacity:1;transform:none}
+.card .body{padding:14px 2px 0;display:flex;flex-direction:column;flex:1}
+.card .ref{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.card h3{font-family:var(--sans);font-size:.9rem;font-weight:400;line-height:1.4;margin:5px 0 8px;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
+.card .price{font-size:.98rem;font-weight:600;letter-spacing:.02em;margin-top:auto}
+.card .price.ask{font-weight:500;color:var(--gold);font-size:.86rem}
+.add{margin-top:12px;width:100%;background:#fff;border:1px solid var(--ink);color:var(--ink);padding:11px 8px;font-size:.66rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-radius:var(--r);transition:all .2s}
+.add:hover{background:var(--ink);color:#fff}.add.done{background:var(--ok);border-color:var(--ok);color:#fff}
+@media(hover:none){.card .quick{display:none}}
+@media(max-width:700px){.card h3{font-size:.84rem}.add{padding:10px 4px;font-size:.6rem;letter-spacing:.1em}}
+.more-wrap{text-align:center;margin-top:48px}
+/* about */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.split .img{aspect-ratio:4/5;overflow:hidden;border-radius:var(--r)}.split .img img{width:100%;height:100%;object-fit:cover}
+.split h2{font-size:clamp(2rem,4vw,2.7rem);margin-bottom:1.2rem}
+.split p{color:#4a463f;margin-bottom:1rem}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:32px}.split .img{aspect-ratio:16/11}}
+.mv{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:64px}
+.mv article{background:#fff;padding:36px;border:1px solid var(--line);border-radius:var(--r)}
+.mv h3{font-size:1.7rem;margin-bottom:.6rem}.mv p{color:#4a463f}
+@media(max-width:760px){.mv{grid-template-columns:1fr}.mv article{padding:28px}}
+.vals{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.vals div{text-align:center;padding:28px 14px;background:#fff;border:1px solid var(--line);border-radius:var(--r);transition:transform .3s,box-shadow .3s}
+.vals div:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.06)}
+.vals svg{width:34px;height:34px;fill:none;stroke:var(--gold);stroke-width:1.3;margin:0 auto 14px}
+.vals b{display:block;font-family:var(--serif);font-size:1.3rem;font-weight:500;margin-bottom:4px}.vals p{font-size:.84rem;color:var(--muted)}
+@media(max-width:960px){.vals{grid-template-columns:repeat(2,1fr)}.vals div:last-child{grid-column:1/-1}}
+.feat{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#262626;border:1px solid #262626}
+.feat div{background:var(--dark);padding:34px 26px}
+.feat svg{width:30px;height:30px;fill:none;stroke:var(--gold-l);stroke-width:1.3;margin-bottom:16px}
+.feat b{display:block;font-family:var(--serif);font-size:1.35rem;font-weight:500;color:#fff;margin-bottom:6px}.feat p{color:#a9a49a;font-size:.88rem}
+@media(max-width:900px){.feat{grid-template-columns:1fr 1fr}}@media(max-width:520px){.feat{grid-template-columns:1fr}}
+.tips{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.tips div{padding-top:20px;border-top:1px solid var(--gold)}
+.tips b{display:block;font-family:var(--serif);font-size:1.25rem;font-weight:500;margin-bottom:6px}.tips p{font-size:.88rem;color:#4a463f}
+@media(max-width:900px){.tips{grid-template-columns:1fr 1fr}}@media(max-width:520px){.tips{grid-template-columns:1fr}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.panel{background:#fff;border:1px solid var(--line);padding:34px;border-radius:var(--r)}
+.panel h3{font-size:1.6rem;margin-bottom:1rem}
+.panel ul{list-style:none}.panel li{padding:9px 0 9px 22px;border-bottom:1px solid var(--line);position:relative;font-size:.92rem;color:#4a463f}
+.panel li:before{content:'';position:absolute;left:2px;top:17px;width:6px;height:6px;background:var(--gold);transform:rotate(45deg)}
+.panel li:last-child{border-bottom:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px}.chips span{border:1px solid var(--line);padding:7px 14px;font-size:.8rem;border-radius:40px}
+.small{font-size:.8rem;color:var(--muted)}
+@media(max-width:760px){.two{grid-template-columns:1fr}.panel{padding:26px}}
+.pol{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.pol button{text-align:left;background:#fff;border:1px solid var(--line);padding:30px;cursor:pointer;border-radius:var(--r);transition:border-color .25s,transform .25s;font:inherit;color:inherit}
+.pol button:hover{border-color:var(--gold);transform:translateY(-3px)}
+.pol b{display:block;font-family:var(--serif);font-size:1.45rem;font-weight:500;margin-bottom:6px}.pol p{font-size:.88rem;color:var(--muted)}
+.pol .lnk{display:inline-block;margin-top:14px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500}
+@media(max-width:860px){.pol{grid-template-columns:1fr}}
+.faq{max-width:780px;margin:0 auto}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font-weight:500;position:relative;font-size:.98rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:'';position:absolute;right:6px;top:50%;width:10px;height:10px;border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);transform:translateY(-70%) rotate(45deg);transition:transform .3s}
+.faq details[open] summary:after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{padding:0 0 22px;color:#4a463f;font-size:.94rem}
+.exp{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+.exp .panel{display:flex;flex-direction:column;justify-content:center}
+.exp .panel p{color:#4a463f;margin-bottom:1.2rem}
+.cform label{display:block;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#555;margin-bottom:6px}
+.cform .f{margin-bottom:14px}
+@media(max-width:860px){.exp{grid-template-columns:1fr}}
+input.in,select.in,textarea.in{width:100%;padding:12px 14px;border:1px solid #dcd7cd;background:#fff;font:inherit;font-size:.92rem;border-radius:var(--r);transition:border-color .2s,box-shadow .2s;color:var(--ink)}
+input.in:focus,select.in:focus,textarea.in:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,146,63,.12)}
+.f.bad .in{border-color:var(--err)}.f .msg{display:none;color:var(--err);font-size:.76rem;margin-top:5px}.f.bad .msg{display:block}
+.f.good .in{border-color:#9bc8ad}
+/* footer */
+footer{background:var(--dark);color:#a9a49a;font-size:.88rem}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 48px}
+footer .wordmark b{color:#fff}footer .wordmark{margin-bottom:18px}
+footer h4{font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+footer a{text-decoration:none;display:block;padding:4px 0;color:#a9a49a;background:none;border:0;font:inherit;cursor:pointer;text-align:left}footer a:hover{color:var(--gold-l)}
+footer .legal{border-top:1px solid #262626;padding:22px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.78rem}
+footer .social{margin-top:16px}
+@media(max-width:860px){.fgrid{grid-template-columns:1fr 1fr;gap:32px;padding:56px 0 36px}.fgrid>div:first-child{grid-column:1/-1}}
+/* floating wa */
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:45;display:flex;align-items:center;gap:10px;text-decoration:none}
+.wa-float .tip{background:#fff;color:var(--ink);font-size:.8rem;line-height:1.3;padding:9px 14px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.12);opacity:0;transform:translateX(8px);transition:all .4s}
+.wa-float .tip.show{opacity:1;transform:none}
+.wa-float .bub{width:56px;height:56px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.35);transition:transform .25s}
+.wa-float:hover .bub{transform:scale(1.07)}.wa-float svg{width:30px;height:30px;fill:#fff}
+@media(max-width:560px){.wa-float .tip{display:none}.wa-float{right:14px;bottom:14px}}
+/* drawers & modals */
+.overlay{position:fixed;inset:0;background:rgba(10,10,10,.45);z-index:70;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(440px,100%);background:#fff;z-index:80;transform:translateX(100%);transition:transform .35s ease;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.dhead{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line)}
+.dhead h3{font-size:1.5rem}
+.x{background:none;border:0;width:38px;height:38px;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center}.x:hover{background:var(--soft)}
+.x svg{width:18px;height:18px;stroke:var(--ink);stroke-width:1.6}
+.items{flex:1;overflow-y:auto;padding:8px 24px}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.item img{width:64px;height:80px;object-fit:cover;background:var(--soft)}
+.item .nm{font-size:.86rem;line-height:1.35}.item .rf{font-size:.66rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}.item .pr{font-size:.86rem;font-weight:600;margin-top:2px}
+.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:var(--r)}
+.qty button{width:30px;height:32px;border:0;background:none;cursor:pointer;font-size:1rem}.qty span{min-width:22px;text-align:center;font-size:.86rem}
+.rm{background:none;border:0;color:var(--muted);font-size:.7rem;text-decoration:underline;cursor:pointer;margin-top:4px}
+.empty{text-align:center;color:var(--muted);padding:60px 10px}
+.dfoot{border-top:1px solid var(--line);padding:20px 24px;background:#fff}
+.row{display:flex;justify-content:space-between;gap:12px;font-size:.9rem;margin-bottom:8px}
+.row.tot{font-size:1.05rem;font-weight:600;border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.row .note{color:var(--muted);font-size:.82rem;text-align:right}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:12px 22px;font-size:.84rem;border-radius:40px;opacity:0;transition:all .35s;z-index:90;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;z-index:85;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(10,10,10,.5)}
+.modal.show{display:flex;animation:fade .25s}
+@keyframes fade{from{opacity:0}}
+.mbox{background:#fff;max-width:640px;width:100%;max-height:88vh;overflow:auto;padding:40px;position:relative;border-radius:var(--r)}
+.mbox h2{font-size:2rem;margin-bottom:1rem}.mbox h3{font-size:1.25rem;margin:1.2rem 0 .4rem}.mbox ul{padding-left:1.2rem}.mbox li,.mbox p{font-size:.92rem;color:#4a463f;margin-bottom:.4rem}
+.mbox>.x{position:absolute;top:12px;right:12px}
+/* checkout */
+.co{position:fixed;inset:0;z-index:88;background:#fff;display:none;overflow-y:auto}
+.co.show{display:block;animation:fade .25s}
+.co-top{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:2}
+.co-top .wrap{display:flex;justify-content:space-between;align-items:center;height:70px}
+.steps{display:flex;align-items:center;gap:10px;justify-content:center;padding:26px 0 8px;list-style:none}
+.steps li{display:flex;align-items:center;gap:8px;font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#aaa}
+.steps li i{font-style:normal;width:26px;height:26px;border-radius:50%;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:.72rem;letter-spacing:0}
+.steps li.on{color:var(--ink)}.steps li.on i{background:var(--ink);border-color:var(--ink);color:#fff}
+.steps li.done i{background:var(--gold);border-color:var(--gold);color:#fff}
+.steps .bar{width:46px;height:1px;background:#ddd}
+@media(max-width:480px){.steps .bar{width:18px}.steps li span{display:none}.steps li.on span{display:inline}}
+.co-body{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;padding:30px 20px 80px;max-width:1100px;margin:0 auto}
+.co h2{font-size:2rem;margin-bottom:.4rem}.co .sub{color:var(--muted);font-size:.9rem;margin-bottom:24px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.fg .full{grid-column:1/-1}
+.f label{display:block;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#555;margin-bottom:6px}
+.f label em{font-style:normal;color:var(--muted);text-transform:none;letter-spacing:0;font-weight:400}
+.f{margin-bottom:16px}
+.pays{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pays label{display:flex;align-items:center;gap:10px;border:1px solid #dcd7cd;padding:13px 14px;cursor:pointer;font-size:.88rem;text-transform:none;letter-spacing:0;color:var(--ink);font-weight:400;border-radius:var(--r);margin:0;transition:border-color .2s}
+.pays input{accent-color:var(--ink)}.pays label:has(input:checked){border-color:var(--ink);background:var(--soft)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:.86rem;color:#4a463f}
+.check input{margin-top:4px;accent-color:var(--ink);width:16px;height:16px;flex:none}
+.check button{background:none;border:0;color:var(--ink);text-decoration:underline;cursor:pointer;font:inherit;padding:0}
+.summary{background:var(--soft);padding:28px;align-self:start;position:sticky;top:96px;border-radius:var(--r)}
+.summary h3{font-size:1.4rem;margin-bottom:14px}
+.sitem{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.84rem}
+.sitem img{width:48px;height:60px;object-fit:cover}
+.sitem .q{color:var(--muted);font-size:.74rem}
+.sitem .v{margin-left:auto;font-weight:600;white-space:nowrap}
+.co-actions{display:flex;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap}
+.review{border:1px solid var(--line);padding:22px;margin-bottom:16px;border-radius:var(--r)}
+.review h4{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.review h4 button{background:none;border:0;color:var(--gold);cursor:pointer;font:inherit;letter-spacing:.1em}
+.review p{font-size:.92rem}
+.citems .item{grid-template-columns:72px 1fr auto}
+.thanks{max-width:620px;margin:0 auto;text-align:center;padding:60px 20px 90px}
+.thanks .ok{width:72px;height:72px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;margin:0 auto 22px}
+.thanks .ok svg{width:34px;height:34px;stroke:var(--ok);stroke-width:2;fill:none}
+.thanks h2{font-size:2.4rem}.thanks .num{display:inline-block;margin:18px 0;padding:12px 22px;border:1px dashed var(--gold);font-weight:600;letter-spacing:.12em}
+.thanks p{color:#4a463f;margin-bottom:12px}
+@media(max-width:860px){.co-body{grid-template-columns:1fr;gap:24px;padding-top:16px}.summary{position:static;order:-1;padding:20px}.fg{grid-template-columns:1fr}.pays{grid-template-columns:1fr 1fr}}
+/* reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.rv,.card{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="social">
-    <a href="#" aria-label="Facebook"><!-- REVISAR: enlace Facebook --><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg></a>
-    <a href="#" aria-label="Instagram"><!-- REVISAR: enlace Instagram --><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM17.5 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg></a>
-    <a href="#" aria-label="TikTok"><!-- REVISAR: enlace TikTok --><svg viewBox="0 0 24 24"><path d="M16 2c.3 2.4 1.8 4 4 4.2v3.3a7.6 7.6 0 0 1-4-1.2v6.9A6.2 6.2 0 1 1 9.8 9v3.4a2.9 2.9 0 1 0 2.9 2.8V2z"/></svg></a>
-  </div>
-  <a class="phone" href="#" onclick="openWA('Hola 😊');return false">☎ +57 300 891 8966</a>
-</div>
-<div class="marquee"><div class="track"><!-- REVISAR: mensajes de la franja -->
-  <span>Escríbenos para asesoría personalizada</span><span>Envíos a toda Colombia</span><span>Precios al detal</span><span>Joyería en oro laminado 18k</span>
-  <span>Escríbenos para asesoría personalizada</span><span>Envíos a toda Colombia</span><span>Precios al detal</span><span>Joyería en oro laminado 18k</span>
+<div class="topbar"><div class="wrap">
+  <div class="social" id="social"></div>
+  <a class="phone" href="#" data-wa="Hola, quiero información sobre sus joyas.">WhatsApp +57 300 891 8966</a>
 </div></div>
-<header class="main">
-  <a href="#" class="wordmark"><b>A&amp;M LAMINADO</b><small>FINE JEWELRY 18K</small></a>
+<div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
+
+<header class="main" id="hdr"><div class="wrap">
+  <a href="#inicio" class="wordmark" aria-label="A&amp;M Laminado 18k, inicio"><b>A&amp;M LAMINADO</b><small>FINE JEWELRY 18K</small></a>
+  <nav class="menu" id="menu" aria-label="Principal">
+    <a href="#catalogo">Catálogo</a><a href="#nosotros">Nosotros</a><a href="#envios">Envíos y pagos</a><a href="#cuidados">Cuidados</a><a href="#politicas">Políticas</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a>
+  </nav>
   <div class="hicons">
-    <button class="ibtn menu" onclick="nav.classList.toggle('open')" aria-label="Menú"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
-    <button class="ibtn" onclick="toggleCart(true)" aria-label="Carrito"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></svg><span id="count" class="badge">0</span></button>
-    <button class="ibtn" onclick="openSearch()" aria-label="Buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+    <button class="ibtn" onclick="goSearch()" aria-label="Buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="ibtn" onclick="openCart()" aria-label="Carrito"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="badge" id="count">0</span></button>
+    <button class="ibtn burger" onclick="toggleMenu()" aria-label="Menú"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
-  <nav id="nav"><a href="#catalogo">Catálogo</a><a href="#nosotros">Quiénes somos</a><a href="#mision">Misión y visión</a><a href="#porque">Por qué elegirnos</a><a href="#envios">Envíos y pagos</a><a href="#politicas">Políticas</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a></nav>
-</header>
+</div></header>
 
-<section class="hero2">
-  <img src="fotos/hero.jpg" alt="Joyería en oro laminado 18k A&amp;M">
-  <div class="hcap">
-    <p class="eyebrow">Oro laminado 18k · Colombia</p>
-    <h1>Joyas que brillan contigo, todos los días</h1>
-    <p class="offer">Precios especiales al detal</p>
-    <a href="#catalogo" class="btn">Ver catálogo</a>
-  </div>
+<main id="inicio">
+<section class="hero">
+  <img src="fotos/hero.jpg" alt="Joyas en oro laminado 18k A&amp;M" fetchpriority="high">
+  <div class="wrap"><div class="hero-copy">
+    <span class="eyebrow">Oro laminado 18k · Colombia</span>
+    <h1>Joyas que brillan <em>contigo</em>, todos los días</h1>
+    <p class="lead">Anillos, aretes, cadenas, dijes y pulseras en oro laminado 18k. Precios al detal, envíos a toda Colombia y asesoría personalizada por WhatsApp.</p>
+    <div class="ctas"><a href="#catalogo" class="btn">Ver catálogo</a><a href="#" class="btn ghost" data-wa="Hola, quiero asesoría para elegir una joya.">Asesoría por WhatsApp</a></div>
+  </div></div>
 </section>
-<div class="trust">
-  <div><span>🛡️</span><b>Garantía</b><small>Respaldo en cada joya</small></div>
-  <div><span>🚚</span><b>Envíos</b><small>A toda Colombia</small></div>
-  <div><span>🔒</span><b>Pagos seguros</b><small>Transferencia, Nequi, Daviplata</small></div>
-  <div><span>💬</span><b>Atención</b><small>Asesoría por WhatsApp</small></div>
-</div>
 
-<section id="catalogo">
-  <h2>Nuestro catálogo</h2>
-  <p class="sub">Precios en pesos colombianos (COP). Confirma disponibilidad por WhatsApp.</p>
-  <input id="q" class="search" placeholder="Buscar por nombre o referencia…" oninput="shown=PAGE;renderGrid()">
-  <div class="filters" id="filters"></div>
+<div class="trust"><div class="wrap">
+  <div><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><span><b>Garantía</b><small>Respaldo en cada joya</small></span></div>
+  <div><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg><span><b>Envíos</b><small>A toda Colombia</small></span></div>
+  <div><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span><b>Pago seguro</b><small>Transferencia, Nequi, Daviplata</small></span></div>
+  <div><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z"/></svg><span><b>Asesoría</b><small>Atención por WhatsApp</small></span></div>
+</div></div>
+
+<section class="sec" id="catalogo"><div class="wrap">
+  <div class="sec-head rv"><span class="eyebrow">Tienda</span><h2>Nuestro catálogo</h2><p>Precios al detal en pesos colombianos. Antes de despachar te confirmamos la disponibilidad por WhatsApp.</p></div>
+  <div class="toolbar">
+    <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Busca por nombre o referencia" aria-label="Buscar productos"></div>
+    <div class="filters" id="filters" role="tablist"></div>
+  </div>
+  <p class="count" id="resCount"></p>
   <div class="grid" id="grid"></div>
-  <p style="text-align:center;margin-top:2rem"><button class="btn" id="more" onclick="shown+=PAGE;renderGrid()">Ver más productos</button></p>
-</section>
+  <div class="more-wrap"><button class="btn ghost" id="more">Ver más productos</button></div>
+</div></section>
 
-<!-- REVISAR: textos de esta sección son un borrador; ajústalos a la historia real de la marca -->
-<section id="nosotros">
-  <div class="about">
-    <div class="box">✦ A&amp;M ✦<br><small style="font-size:1rem;font-family:Montserrat">Emprendimiento colombiano</small></div>
+<section class="sec soft" id="nosotros"><div class="wrap">
+  <div class="split rv">
+    <div class="img"><img src="fotos/p42_1.jpg" alt="Anillo en oro laminado 18k" loading="lazy"></div>
     <div>
-      <h2 style="text-align:left">Quiénes somos</h2>
-      <p><b>A&amp;M laminado 18k</b> es un emprendimiento colombiano que nació del gusto por las joyas bonitas y del deseo de que más personas puedan lucirlas sin pagar precios exagerados. Seleccionamos con cuidado cada pieza en oro laminado 18k —cadenas, aretes, anillos, collares, pulseras y pulseras tejidas— para ofrecerte brillo, calidad y estilo en cada detalle.</p>
-      <p style="margin-top:.7rem">Detrás de cada pedido hay un trato cercano y personal: te asesoramos por WhatsApp, empacamos con cariño y acompañamos tu compra de principio a fin.</p>
+      <span class="eyebrow">Quiénes somos</span>
+      <h2>Joyería pensada para acompañarte</h2>
+      <!-- REVISAR: ajustar con la historia real de la marca -->
+      <p>A&amp;M Laminado 18k es un emprendimiento colombiano de joyería en oro laminado 18k. Seleccionamos cada pieza por su diseño, su acabado y su durabilidad, para que puedas lucir joyas bonitas todos los días a un precio justo.</p>
+      <p>Te acompañamos en todo el proceso: te asesoramos por WhatsApp, empacamos tu pedido con cuidado y lo enviamos a cualquier lugar del país.</p>
     </div>
   </div>
-</section>
+</div></section>
 
-<section id="mision" style="padding-top:0">
-  <div class="mv">
-    <div><h3>🎯 Misión</h3><p>Ofrecer joyería en oro laminado 18k de excelente calidad y diseño, a precios accesibles, con una atención cercana que haga de cada compra una experiencia de confianza.</p></div>
-    <div id="vision"><h3>🔭 Visión</h3><p>Ser una marca colombiana reconocida por la calidad de sus joyas en oro laminado, por la confianza de sus clientes y por llevar brillo a cada rincón del país.</p></div>
+<section class="sec soft" style="padding-top:0"><div class="wrap">
+  <div class="mv rv">
+    <article><span class="eyebrow">Misión</span><h3>Lo que hacemos</h3><p>Ofrecer joyería en oro laminado 18k de buena calidad y diseño actual, a precios accesibles y con una atención cercana que haga de cada compra una experiencia confiable.</p></article>
+    <article><span class="eyebrow">Visión</span><h3>Hacia dónde vamos</h3><p>Ser una marca colombiana reconocida por la calidad de sus joyas, la confianza de sus clientes y la cercanía de su servicio en todo el país.</p></article>
   </div>
-  <h2 id="valores" style="margin-top:3rem">Nuestros valores</h2>
-  <p class="sub">Lo que nos mueve cada día</p>
-  <div class="vals">
-    <div><span>💎</span><b>Calidad</b><p>Piezas seleccionadas con acabados duraderos.</p></div>
-    <div><span>🤝</span><b>Confianza</b><p>Información clara, sin letra pequeña.</p></div>
-    <div><span>💛</span><b>Cercanía</b><p>Atención personalizada y amable.</p></div>
-    <div><span>✨</span><b>Estilo</b><p>Diseños actuales para cada ocasión.</p></div>
-    <div><span>⏱️</span><b>Cumplimiento</b><p>Respetamos tu tiempo y tus pedidos.</p></div>
-  </div>
-</section>
-
-<section class="dark" id="porque"><div class="wrap">
-  <h2>¿Por qué elegirnos?</h2><p class="sub">Razones para brillar con A&amp;M</p>
-  <div class="tips">
-    <div><b>✨ Oro laminado 18k</b>Brillo y apariencia de joya fina a un precio justo.</div>
-    <div><b>🛡️ Garantía</b>Respaldamos tus joyas por defectos de fabricación.<!-- REVISAR --></div>
-    <div><b>🚚 Envíos nacionales</b>Llegamos a toda Colombia.<!-- REVISAR --></div>
-    <div><b>💬 Asesoría por WhatsApp</b>Te ayudamos a elegir la pieza ideal o el regalo perfecto.</div>
+  <div class="sec-head rv" style="margin-bottom:36px"><span class="eyebrow">Valores</span><h2>Lo que nos define</h2></div>
+  <div class="vals rv">
+    <div><svg viewBox="0 0 24 24"><path d="M6 3h12l3 6-9 12L3 9l3-6z"/><path d="M3 9h18M9 3l3 18 3-18"/></svg><b>Calidad</b><p>Piezas seleccionadas con acabados duraderos.</p></div>
+    <div><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg><b>Confianza</b><p>Información clara en cada compra.</p></div>
+    <div><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><b>Cercanía</b><p>Atención amable y personalizada.</p></div>
+    <div><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg><b>Estilo</b><p>Diseños actuales para cada ocasión.</p></div>
+    <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><b>Cumplimiento</b><p>Respetamos tu tiempo y tu pedido.</p></div>
   </div>
 </div></section>
 
-<section class="care" id="cuidados"><div class="wrap">
-  <h2>Cuida tus joyas</h2><p class="sub">Consejos para que tu oro laminado brille por más tiempo</p>
-  <div class="tips">
-    <div><b>💧 Evita químicos</b>Retíralas antes de usar perfumes, cremas, cloro o productos de limpieza.</div>
-    <div><b>🏊 Agua y sudor</b>Quítatelas para bañarte, nadar o hacer ejercicio intenso.</div>
-    <div><b>🧽 Limpieza suave</b>Límpialas con un paño suave y seco después de usarlas.</div>
-    <div><b>👜 Guárdalas por separado</b>Usa una bolsita o estuche individual para evitar rayones.</div>
+<section class="sec dark" id="porque"><div class="wrap">
+  <div class="sec-head rv"><span class="eyebrow">Por qué elegirnos</span><h2>Compra con tranquilidad</h2></div>
+  <div class="feat rv">
+    <div><svg viewBox="0 0 24 24"><path d="M6 3h12l3 6-9 12L3 9l3-6z"/></svg><b>Oro laminado 18k</b><p>El brillo del oro con un precio accesible.</p></div>
+    <div><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><b>Garantía</b><p>Respondemos por defectos de fabricación.</p></div>
+    <div><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg><b>Envíos nacionales</b><p>Despachamos a todo el país por transportadora.</p></div>
+    <div><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z"/></svg><b>Asesoría personal</b><p>Te ayudamos a elegir la joya o el regalo ideal.</p></div>
   </div>
 </div></section>
 
-<!-- REVISAR: confirmar cobertura, tiempos, costos y medios de pago reales -->
-<section id="envios">
-  <h2>Envíos y medios de pago</h2><p class="sub">Compra fácil y segura desde cualquier lugar del país</p>
-  <div class="two">
-    <div class="panel"><h3>🚚 Envíos</h3><ul>
+<section class="sec" id="envios"><div class="wrap">
+  <div class="sec-head rv"><span class="eyebrow">Envíos y pagos</span><h2>Así recibes tu pedido</h2><p>Compra fácil desde cualquier lugar de Colombia.</p></div>
+  <!-- REVISAR: confirmar medios de pago y condiciones de envío -->
+  <div class="two rv">
+    <div class="panel"><h3>Envíos</h3><ul>
       <li>Enviamos a toda Colombia por transportadora.</li>
-      <li>El tiempo de entrega depende de la ciudad; te lo confirmamos por WhatsApp al hacer tu pedido.</li>
-      <li>El costo del envío se informa antes de confirmar la compra.</li>
-      <li>Te compartimos el número de guía para que sigas tu paquete.</li></ul></div>
-    <div class="panel"><h3>💳 Medios de pago</h3>
-      <div class="pays"><span>Transferencia bancaria</span><span>Nequi</span><span>Daviplata</span><span>Contraentrega*</span></div>
-      <p style="font-size:.85rem;margin-top:.8rem">*Contraentrega sujeto a disponibilidad según la ciudad. Los datos de pago se envían únicamente por nuestro WhatsApp oficial.</p></div>
-  </div>
-</section>
-
-<!-- REVISAR: testimonios de EJEMPLO, reemplazar por opiniones reales con autorización -->
-<section id="testimonios" style="padding-top:0">
-  <h2>Lo que dicen nuestros clientes</h2><p class="sub">Testimonios de <b>ejemplo</b></p>
-  <div class="tips testi">
-    <div><span class="tag" style="position:static">Ejemplo</span><p>“Las cadenas son hermosas y la atención por WhatsApp fue excelente.”</p><b>— Cliente de ejemplo</b></div>
-    <div><span class="tag" style="position:static">Ejemplo</span><p>“Compré unos aretes para regalar y llegaron muy bien empacados.”</p><b>— Cliente de ejemplo</b></div>
-    <div><span class="tag" style="position:static">Ejemplo</span><p>“Mi pulsera tejida sigue brillando como el primer día.”</p><b>— Cliente de ejemplo</b></div>
-  </div>
-</section>
-
-<section class="dark" id="politicas"><div class="wrap">
-  <h2>Políticas</h2><p class="sub">Información clara para que compres con tranquilidad</p>
-  <div class="tips">
-    <div id="garantia"><b>🛡️ Garantía</b>6 meses por defectos de fabricación y cambio de color con uso adecuado.<br><a href="#" onclick="openModal('m-garantia');return false" class="more">Ver detalles →</a></div>
-    <div id="cambios"><b>🔄 Cambios y devoluciones</b>Cambios dentro de los primeros días, con la pieza sin uso.<br><a href="#" onclick="openModal('m-cambios');return false" class="more">Ver detalles →</a></div>
-    <div id="terminos"><b>📄 Términos y condiciones</b>Condiciones de compra, precios, pagos y envíos.<br><a href="#" onclick="openModal('m-terminos');return false" class="more">Ver detalles →</a></div>
+      <li>El costo y el tiempo de entrega dependen de la transportadora y de tu ciudad; te los confirmamos por WhatsApp antes de despachar.</li>
+      <li>Te compartimos el número de guía para que sigas tu paquete.</li>
+    </ul></div>
+    <div class="panel"><h3>Medios de pago</h3>
+      <div class="chips"><span>Transferencia bancaria</span><span>Nequi</span><span>Daviplata</span><span>Contraentrega</span></div>
+      <p class="small">El pago contraentrega depende de la cobertura en tu ciudad. Solo compartimos los datos de pago desde nuestro WhatsApp oficial: +57 300 891 8966.</p>
+    </div>
   </div>
 </div></section>
 
-<section id="faq">
-  <h2>Preguntas frecuentes</h2><p class="sub">Resolvemos tus dudas</p>
-  <div class="faq">
-    <details><summary>¿Qué es el oro laminado 18k?</summary><p>Es una joya con una base metálica recubierta por capas de oro 18k, que le dan el brillo y la apariencia del oro a un precio mucho más accesible.</p></details>
-    <details><summary>¿Se pone negro o se pela?</summary><p>Con los cuidados adecuados (evitar químicos, agua y sudor excesivo) tu joya conserva su color por mucho tiempo. Además cuenta con garantía.<!-- REVISAR --></p></details>
-    <details><summary>¿Cómo hago un pedido?</summary><p>Agrega los productos al carrito y pulsa “Finalizar pedido por WhatsApp”. Te llegará el resumen y confirmamos contigo pago y envío.</p></details>
-    <details><summary>¿Hacen envíos a mi ciudad?</summary><p>Enviamos a toda Colombia. Escríbenos y te confirmamos tiempos y costo.<!-- REVISAR --></p></details>
-    <details><summary>¿Qué medios de pago aceptan?</summary><p>Transferencia, Nequi, Daviplata y contraentrega según disponibilidad.<!-- REVISAR --></p></details>
-    <details><summary>¿Venden al por mayor?</summary><p>Escríbenos por WhatsApp para conocer las condiciones para compras al por mayor.<!-- REVISAR --></p></details>
+<section class="sec soft" id="cuidados"><div class="wrap">
+  <div class="sec-head rv"><span class="eyebrow">Cuidados</span><h2>Cómo cuidar tus joyas</h2><p>Con estos hábitos tu oro laminado conserva su brillo por más tiempo.</p></div>
+  <div class="tips rv">
+    <div><b>Evita químicos</b><p>Quítatelas antes de aplicar perfume, cremas, cloro o productos de limpieza.</p></div>
+    <div><b>Agua y sudor</b><p>Retíralas para bañarte, nadar o hacer ejercicio intenso.</p></div>
+    <div><b>Limpieza suave</b><p>Después de usarlas, límpialas con un paño suave y seco.</p></div>
+    <div><b>Guárdalas por separado</b><p>Usa una bolsa o estuche individual para evitar rayones.</p></div>
   </div>
-</section>
-
-<section class="dark" id="contacto"><div class="wrap" style="max-width:640px">
-  <h2>Contáctanos</h2><p class="sub">Déjanos tu mensaje o suscríbete a novedades y lanzamientos. Te responderemos por WhatsApp.</p>
-  <form class="cform" onsubmit="sendContact(event)">
-    <input id="fn" placeholder="Nombre" required><input id="fc" placeholder="Ciudad">
-    <textarea id="fm" rows="3" placeholder="¿En qué te podemos ayudar?"></textarea>
-    <label style="font-size:.85rem"><input type="checkbox" id="fs" style="width:auto"> Quiero recibir novedades y promociones</label>
-    <button class="btn" style="width:100%;margin-top:.8rem">Enviar por WhatsApp</button>
-  </form>
 </div></section>
 
-<footer>
+<section class="sec" id="politicas"><div class="wrap">
+  <div class="sec-head rv"><span class="eyebrow">Políticas</span><h2>Compra informada</h2><p>Conoce las condiciones de compra, garantía y cambios.</p></div>
+  <div class="pol rv">
+    <button onclick="openModal('m-garantia')"><b>Garantía</b><p>Cobertura y cómo hacerla efectiva.</p><span class="lnk">Ver política →</span></button>
+    <button onclick="openModal('m-cambios')"><b>Cambios y devoluciones</b><p>Plazos y condiciones para cambios.</p><span class="lnk">Ver política →</span></button>
+    <button onclick="openModal('m-terminos')"><b>Términos y condiciones</b><p>Precios, pedidos, pagos y envíos.</p><span class="lnk">Ver política →</span></button>
+  </div>
+</div></section>
+
+<section class="sec soft" id="faq"><div class="wrap">
+  <div class="sec-head rv"><span class="eyebrow">Preguntas frecuentes</span><h2>Resolvemos tus dudas</h2></div>
+  <div class="faq rv">
+    <details><summary>¿Qué es el oro laminado 18k?</summary><p>Es una joya con base metálica recubierta con capas de oro 18k. Tiene el brillo y la apariencia del oro a un precio mucho más accesible.</p></details>
+    <details><summary>¿Las joyas se oscurecen o se pelan?</summary><p>Con los cuidados adecuados —evitar químicos, agua y sudor excesivo— tu joya conserva su color por mucho tiempo. Además, cuenta con garantía por defectos de fabricación.</p></details>
+    <details><summary>¿Cómo hago un pedido?</summary><p>Agrega tus productos al carrito, completa tus datos y confirma el pedido. Se abrirá WhatsApp con el resumen y allí te confirmamos disponibilidad, costo de envío y datos de pago.</p></details>
+    <details><summary>¿Cuánto cuesta el envío?</summary><p>Depende de la transportadora y de tu ciudad. Te informamos el valor exacto por WhatsApp antes de despachar.</p></details>
+    <details><summary>¿Qué medios de pago aceptan?</summary><p>Transferencia bancaria, Nequi, Daviplata y contraentrega, según la cobertura en tu ciudad.</p></details>
+    <details><summary>¿Venden al por mayor?</summary><p>Los precios de la página son al detal. Si te interesa comprar al por mayor, escríbenos por WhatsApp y te contamos las condiciones.</p></details>
+  </div>
+</div></section>
+
+<section class="sec" id="contacto"><div class="wrap">
+  <div class="sec-head rv"><span class="eyebrow">Contacto</span><h2>Hablemos</h2><p>Escríbenos para resolver dudas, pedir asesoría o contarnos tu experiencia.</p></div>
+  <div class="exp rv">
+    <form class="panel cform" id="contactForm" novalidate>
+      <div class="fg">
+        <div class="f"><label for="kn">Nombre</label><input class="in" id="kn" autocomplete="name" required><div class="msg">Escribe tu nombre.</div></div>
+        <div class="f"><label for="kc">Ciudad <em>(opcional)</em></label><input class="in" id="kc" autocomplete="address-level2"></div>
+        <div class="f full"><label for="km">Mensaje</label><textarea class="in" id="km" rows="4" required placeholder="¿En qué te podemos ayudar?"></textarea><div class="msg">Escribe tu mensaje.</div></div>
+      </div>
+      <button class="btn wa block">Enviar por WhatsApp</button>
+    </form>
+    <div class="panel">
+      <span class="eyebrow">Tu opinión</span>
+      <h3>Escríbenos tu experiencia</h3>
+      <p>¿Ya tienes una joya A&amp;M? Nos encantaría saber cómo te fue. Tus comentarios nos ayudan a mejorar y a otras personas a elegir.</p>
+      <a href="#" class="btn ghost" data-wa="Hola, quiero contarles mi experiencia con mi compra en A&M Laminado 18k:">Compartir mi experiencia</a>
+    </div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
   <div class="fgrid">
-    <div><span class="logo" style="font-size:1.4rem">A&amp;M laminado 18k</span><p>Joyería en oro laminado 18k.<br>Emprendimiento colombiano.</p></div>
-    <div><b>Tienda</b><a href="#catalogo">Catálogo</a><a href="#envios">Envíos y pagos</a><a href="#faq">Preguntas frecuentes</a><a href="#cuidados">Cuidados</a></div>
-    <div><b>Nosotros</b><a href="#nosotros">Quiénes somos</a><a href="#mision">Misión y visión</a><a href="#valores">Valores</a><a href="#contacto">Contacto</a></div>
-    <div><b>Políticas</b><a href="#" onclick="openModal('m-terminos');return false">Términos y condiciones</a><a href="#" onclick="openModal('m-garantia');return false">Garantía</a><a href="#" onclick="openModal('m-cambios');return false">Cambios y devoluciones</a></div>
-    <div><b>Contacto</b><a href="#" onclick="openWA('Hola 😊');return false">WhatsApp +57 300 891 8966</a><a href="#">Instagram</a><!-- REVISAR: enlace Instagram --></div>
+    <div><a href="#inicio" class="wordmark"><b>A&amp;M LAMINADO</b><small>FINE JEWELRY 18K</small></a><p>Joyería en oro laminado 18k. Emprendimiento colombiano con envíos a todo el país.</p><div class="social" id="social2"></div></div>
+    <div><h4>Tienda</h4><a href="#catalogo">Catálogo</a><a href="#envios">Envíos y pagos</a><a href="#cuidados">Cuidados</a><a href="#faq">Preguntas frecuentes</a></div>
+    <div><h4>Políticas</h4><a onclick="openModal('m-terminos')">Términos y condiciones</a><a onclick="openModal('m-garantia')">Garantía</a><a onclick="openModal('m-cambios')">Cambios y devoluciones</a><a onclick="openModal('m-datos')">Tratamiento de datos</a></div>
+    <div><h4>Contacto</h4><a href="#" data-wa="Hola, quiero información.">WhatsApp +57 300 891 8966</a><a href="#nosotros">Quiénes somos</a><a href="#contacto">Escríbenos</a></div>
   </div>
-  <small>© <span id="yr"></span> A&amp;M laminado 18k. Todos los derechos reservados.</small>
-</footer>
+  <div class="legal"><span>© <span id="yr"></span> A&amp;M Laminado 18k. Todos los derechos reservados.</span><span>Precios en COP, al detal.</span></div>
+</div></footer>
 
-<!-- REVISAR: textos legales en borrador; revisar con la dueña y, si es posible, con asesoría legal (Ley 1480 de 2011, Estatuto del Consumidor) -->
-<div class="modal" id="m-garantia"><div class="mbox"><button class="x" onclick="closeModal()">✕</button><h2>Garantía</h2>
+<a class="wa-float" href="#" data-wa="Hola, necesito ayuda con una compra." aria-label="Escríbenos por WhatsApp"><span class="tip" id="watip">¿Necesitas ayuda?<br><b>Escríbenos</b></span><span class="bub"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></span></a>
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+<aside class="drawer" id="drawer" aria-label="Carrito">
+  <div class="dhead"><h3>Tu carrito</h3><button class="x" onclick="closeAll()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="items" id="items"></div>
+  <div class="dfoot" id="dfoot">
+    <div class="row"><span>Subtotal</span><b id="sub">$0</b></div>
+    <div class="row"><span>Envío</span><span class="note">A convenir según transportadora</span></div>
+    <button class="btn block" style="margin-top:12px" onclick="startCheckout()">Continuar con el pedido</button>
+    <button class="btn ghost block" style="margin-top:8px" onclick="closeAll()">Seguir comprando</button>
+  </div>
+</aside>
+
+<!-- CHECKOUT -->
+<div class="co" id="co" role="dialog" aria-modal="true" aria-label="Finalizar pedido">
+  <div class="co-top"><div class="wrap">
+    <a href="#" class="wordmark" onclick="closeCheckout();return false"><b>A&amp;M LAMINADO</b><small>FINE JEWELRY 18K</small></a>
+    <button class="x" onclick="closeCheckout()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div></div>
+  <ol class="steps" id="steps"><li data-s="1"><i>1</i><span>Carrito</span></li><div class="bar"></div><li data-s="2"><i>2</i><span>Datos</span></li><div class="bar"></div><li data-s="3"><i>3</i><span>Confirmar</span></li></ol>
+  <div id="coView"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="modal" role="dialog" aria-modal="true" id="m-garantia"><div class="mbox"><button class="x" onclick="closeModal()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><h2>Garantía</h2>
 <p>Todas nuestras joyas cuentan con <b>garantía de 6 meses</b> desde la fecha de entrega.</p><h3>Cubre</h3><ul><li>Defectos de fabricación.</li><li>Cambio de color con uso adecuado.</li></ul>
 <h3>No cubre</h3><ul><li>Golpes, roturas, deformaciones o desgaste por mal uso.</li><li>Pérdida o robo.</li><li>Daños por contacto con químicos (perfumes, cremas, cloro, productos de limpieza), agua de mar o piscina.</li><li>Piezas modificadas o reparadas por terceros.</li></ul>
 <h3>¿Cómo hacerla efectiva?</h3><p>Escríbenos por WhatsApp con tu número de pedido, fotos de la pieza y una breve descripción. Revisaremos el caso y, si aplica, repararemos o cambiaremos la joya por una igual o similar.</p></div></div>
-<div class="modal" id="m-cambios"><div class="mbox"><button class="x" onclick="closeModal()">✕</button><h2>Cambios y devoluciones</h2>
+<div class="modal" role="dialog" aria-modal="true" id="m-cambios"><div class="mbox"><button class="x" onclick="closeModal()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><h2>Cambios y devoluciones</h2>
 <ul><li>Puedes solicitar cambio dentro de los <b>5 días hábiles</b> siguientes a recibir tu pedido.</li><li>La pieza debe estar sin uso, en perfecto estado y con su empaque.</li><li>Por higiene, los aretes no tienen cambio salvo por defecto de fabricación.</li><li>Los costos de envío del cambio corren por cuenta del cliente, excepto si se trata de un error nuestro o defecto de fabricación.</li><li>Si recibiste un producto equivocado o con defecto, escríbenos en las primeras 48 horas.</li><li>El derecho de retracto en compras a distancia se aplica según la ley colombiana.</li></ul></div></div>
-<div class="modal" id="m-terminos"><div class="mbox"><button class="x" onclick="closeModal()">✕</button><h2>Términos y condiciones</h2>
-<ul><li>Los precios están en pesos colombianos (COP) y pueden cambiar sin previo aviso; el precio válido es el confirmado por WhatsApp al momento del pedido.</li><li>Todo pedido se confirma por WhatsApp una vez verificada la disponibilidad y el pago (o aprobado el contraentrega).</li><li>Las imágenes son ilustrativas; puede haber ligeras variaciones de color o tamaño.</li><li>Los tiempos de entrega dependen de la transportadora y la ciudad de destino.</li><li>Los datos personales que compartes se usan solo para gestionar tu pedido y comunicarnos contigo, conforme a la Ley 1581 de 2012.</li><li>Al realizar un pedido aceptas estos términos, la política de garantía y la de cambios y devoluciones.</li></ul></div></div>
-
-<div class="wa-tip">¿Necesitas ayuda?<br><b>Escríbenos</b></div>
-<a class="wa-float" href="#" onclick="openWA('Hola A&M laminado 18k, quiero información 😊');return false" aria-label="WhatsApp">
-<svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a>
-
-<div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
-<aside class="drawer" id="drawer">
-  <header><span class="logo" style="font-size:1.2rem">Tu carrito</span><button class="cart-btn" onclick="toggleCart(false)">✕</button></header>
-  <div class="items" id="items"></div>
-  <div class="foot">
-    <p class="row"><span>Subtotal</span><span id="total">$0</span></p>
-    <p class="row ship"><span>Envío</span><span id="shipline">Se confirma por WhatsApp según transportadora y ciudad</span></p>
-    <p class="row big"><span>Total productos</span><span id="grand">$0</span></p>
-    <details id="cform" open><summary>Datos de envío</summary>
-      <input id="cname" placeholder="Nombre completo *" autocomplete="name">
-      <input id="cphone" placeholder="Celular / WhatsApp *" inputmode="tel" autocomplete="tel">
-      <input id="cemail" placeholder="Correo electrónico *" type="email" autocomplete="email">
-      <div class="two-in"><input id="cdept" placeholder="Departamento *"><input id="ccity" placeholder="Ciudad *" onchange="quoteShip()"></div>
-      <input id="caddr" placeholder="Dirección completa *" autocomplete="street-address">
-      <textarea id="cnotes" rows="2" placeholder="Notas (opcional)"></textarea>
-      <p id="cerr" class="cerr"></p>
-    </details>
-    <button class="btn pay" id="paybtn" style="width:100%;display:none" onclick="checkout('wompi')">Pagar en línea</button>
-    <button class="btn wa" style="width:100%" onclick="checkout('whatsapp')">Enviar pedido por WhatsApp</button>
-    <p class="muted-s" id="paynote"></p>
-  </div>
-</aside>
-<div class="toast" id="toast">Agregado al carrito ✓</div>
-
+<div class="modal" role="dialog" aria-modal="true" id="m-terminos"><div class="mbox"><button class="x" onclick="closeModal()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><h2>Términos y condiciones</h2>
+<ul><li>Los precios están en pesos colombianos (COP) y pueden cambiar sin previo aviso; el precio válido es el confirmado por WhatsApp al momento del pedido.</li><li>Todo pedido se confirma por WhatsApp una vez verificada la disponibilidad y el pago (o aprobado el contraentrega).</li><li>Las imágenes son ilustrativas; puede haber ligeras variaciones de color o tamaño.</li><li>Los tiempos de entrega dependen de la transportadora y la ciudad de destino.</li><li>Los datos personales que compartes se usan solo para gestionar tu pedido y comunicarnos contigo, conforme a la Ley 1581 de 2012.</li><li>Al realizar un pedido aceptas estos términos, la política de garantía y la de cambios y devoluciones.</li></ul></div></div><!-- REVISAR: política de tratamiento de datos (Ley 1581 de 2012) – reemplazar por el texto definitivo -->
+<div class="modal" role="dialog" aria-modal="true" id="m-datos"><div class="mbox"><button class="x" onclick="closeModal()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><h2>Tratamiento de datos personales</h2>
+<p>Los datos que compartes al hacer un pedido (nombre, cédula, teléfono, correo y dirección) se usan únicamente para gestionar tu compra, coordinar el envío y comunicarnos contigo.</p>
+<p>No vendemos ni compartimos tus datos con terceros, salvo con la transportadora encargada de entregar tu pedido.</p>
+<p>Puedes conocer, actualizar o solicitar la eliminación de tus datos escribiéndonos por WhatsApp al +57 300 891 8966, conforme a la Ley 1581 de 2012.</p></div></div>
 <script src="productos.js"></script>
 <script>
-// ====== CONFIGURACIÓN: cambia aquí tu número de WhatsApp (código país + número, sin + ni espacios) ======
+/* ===================== CONFIGURACIÓN ===================== */
 const WHATSAPP_NUMBER = "573008918966";
+// Redes sociales: deja vacío "" para ocultar el ícono.
+const SOCIAL = { facebook: "", instagram: "", tiktok: "" };
+const MARQUEE = ["Asesoría personalizada por WhatsApp", "Envíos a toda Colombia", "Joyería en oro laminado 18k", "Precios al detal"];
+const API_ORDERS = "/api/orders"; // opcional: si no existe, el pedido sigue por WhatsApp
+/* ========================================================= */
 
-// Catálogo real: se carga desde productos.js (generado a partir de las fotos del catálogo).
-// price: null => se muestra "Consultar precio" y el botón pregunta por WhatsApp.
-const PRODUCTS = window.CATALOGO || [];
-const PAGE = 24; let shown = PAGE;
-const G='url(#g)';
-const ICONS={
- chain:`<g fill="none" stroke="${G}" stroke-width="5">${[0,1,2,3,4].map(i=>`<ellipse cx="${20+i*15}" cy="${30+i*10}" rx="10" ry="6" transform="rotate(35 ${20+i*15} ${30+i*10})"/>`).join('')}</g>`,
- hoop:`<circle cx="50" cy="50" r="30" fill="none" stroke="${G}" stroke-width="7"/>`,
- ring:`<circle cx="50" cy="58" r="26" fill="none" stroke="${G}" stroke-width="7"/><path d="M40 30 L50 14 L60 30 Z" fill="${G}"/>`,
- heart:`<path d="M50 82 C10 55 18 20 50 38 C82 20 90 55 50 82Z" fill="${G}"/>`,
- star:`<path d="M50 12 L60 40 L90 40 L66 58 L75 88 L50 70 L25 88 L34 58 L10 40 L40 40Z" fill="${G}"/>`,
- weave:`<g fill="none" stroke="${G}" stroke-width="5"><path d="M10 50 Q20 35 30 50 T50 50 T70 50 T90 50"/><path d="M10 50 Q20 65 30 50 T50 50 T70 50 T90 50"/></g><circle cx="50" cy="66" r="6" fill="${G}"/>`
+const PRODUCTS = (window.CATALOGO || []).map(p => ({ ...p, id: Number(p.id) }));
+const BYID = new Map(PRODUCTS.map(p => [p.id, p]));
+const PAGE = 24;
+const DEPTOS = ["Amazonas","Antioquia","Arauca","Atlántico","Bogotá D.C.","Bolívar","Boyacá","Caldas","Caquetá","Casanare","Cauca","Cesar","Chocó","Córdoba","Cundinamarca","Guainía","Guaviare","Huila","La Guajira","Magdalena","Meta","Nariño","Norte de Santander","Putumayo","Quindío","Risaralda","San Andrés, Providencia y Santa Catalina","Santander","Sucre","Tolima","Valle del Cauca","Vaupés","Vichada"];
+const PAYS = ["Transferencia", "Nequi", "Daviplata", "Contraentrega"];
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = n => "$" + Number(n).toLocaleString("es-CO");
+const waURL = msg => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+const openWA = msg => window.open(waURL(msg), "_blank", "noopener");
+
+/* ---------- Redes, franja, año ---------- */
+const ICON = {
+  facebook: '<path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/>',
+  instagram: '<path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM17.5 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>',
+  tiktok: '<path d="M16 2c.3 2.4 1.8 4 4 4.2v3.3a7.6 7.6 0 0 1-4-1.2v6.9A6.2 6.2 0 1 1 9.8 9v3.4a2.9 2.9 0 1 0 2.9 2.8V2z"/>'
 };
-const svg=i=>`<svg viewBox="0 0 100 100"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5e1a4"/><stop offset=".5" stop-color="#c9a34a"/><stop offset="1" stop-color="#8a6a1f"/></linearGradient></defs>${ICONS[i]}</svg>`;
-const fmt=n=>"$"+n.toLocaleString("es-CO")+" COP";
+const soc = Object.entries(SOCIAL).filter(([, u]) => u).map(([k, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="${k}"><svg viewBox="0 0 24 24">${ICON[k]}</svg></a>`).join("");
+$("#social").innerHTML = soc; $("#social2").innerHTML = soc;
+$("#track").innerHTML = [...MARQUEE, ...MARQUEE, ...MARQUEE, ...MARQUEE].map(t => `<span>${esc(t)}</span>`).join("");
+$("#yr").textContent = new Date().getFullYear();
+document.addEventListener("click", e => { const a = e.target.closest("[data-wa]"); if (a) { e.preventDefault(); openWA(a.dataset.wa); } });
 
-let cart=JSON.parse(localStorage.getItem("am_cart_v2")||"{}"), filter="Todos";
-const cats=["Todos",...new Set(PRODUCTS.map(p=>p.cat))];
+/* ---------- Catálogo ---------- */
+let filter = "Todos", shown = PAGE;
+const cats = ["Todos", ...new Set(PRODUCTS.map(p => p.cat))];
+const catCount = c => c === "Todos" ? PRODUCTS.length : PRODUCTS.filter(p => p.cat === c).length;
+function renderFilters() {
+  $("#filters").innerHTML = cats.map(c => `<button role="tab" class="${c === filter ? "active" : ""}" data-c="${esc(c)}">${esc(c)}<span>${catCount(c)}</span></button>`).join("");
+}
+$("#filters").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; filter = b.dataset.c; shown = PAGE; renderFilters(); renderGrid(); });
+function filtered() {
+  const q = $("#q").value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+  return PRODUCTS.filter(p => (filter === "Todos" || p.cat === filter) && (!q || (p.name + " " + p.ref + " " + p.cat).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(q)));
+}
+function card(p, i) {
+  const price = p.price ? `<div class="price">${fmt(p.price)}</div>` : `<div class="price ask">Consultar precio</div>`;
+  const btn = p.price ? `<button class="add" data-add="${p.id}">Agregar al carrito</button>` : `<button class="add" data-ask="${p.id}">Consultar por WhatsApp</button>`;
+  return `<article class="card" style="animation-delay:${(i % PAGE) * 30}ms"><div class="ph"><img loading="lazy" src="${esc(p.img)}" alt="${esc(p.name)}"></div>
+  <div class="body"><span class="ref">${esc(p.ref)} · ${esc(p.cat)}</span><h3>${esc(p.name)}</h3>${price}${btn}</div></article>`;
+}
+function renderGrid() {
+  const list = filtered();
+  $("#grid").innerHTML = list.slice(0, shown).map(card).join("") || `<p class="empty" style="grid-column:1/-1">No encontramos productos con esa búsqueda.</p>`;
+  $("#resCount").textContent = list.length ? `${list.length} ${list.length === 1 ? "producto" : "productos"}` : "";
+  $("#more").style.display = list.length > shown ? "inline-flex" : "none";
+}
+$("#more").onclick = () => { shown += PAGE; renderGrid(); };
+let qT; $("#q").addEventListener("input", () => { clearTimeout(qT); qT = setTimeout(() => { shown = PAGE; renderGrid(); }, 180); });
+$("#grid").addEventListener("click", e => {
+  const a = e.target.closest("[data-add]"), k = e.target.closest("[data-ask]");
+  if (a) { add(+a.dataset.add); a.classList.add("done"); a.textContent = "Agregado ✓"; setTimeout(() => { a.classList.remove("done"); a.textContent = "Agregar al carrito"; }, 1400); }
+  if (k) { const p = BYID.get(+k.dataset.ask); openWA(`Hola, quiero conocer el precio y la disponibilidad de: ${p.name} (${p.ref}).`); }
+});
+function goSearch() { closeMenu(); location.hash = "catalogo"; setTimeout(() => $("#q").focus(), 350); }
 
-function renderFilters(){filters.innerHTML=cats.map(c=>`<button class="${c===filter?'active':''}" onclick="filter='${c}';shown=PAGE;renderFilters();renderGrid()">${c}</button>`).join('')}
-function renderGrid(){
- const q=(document.getElementById('q')?.value||'').toLowerCase().trim();
- const list=PRODUCTS.filter(p=>(filter==="Todos"||p.cat===filter)&&(!q||(p.name+' '+p.ref+' '+p.cat).toLowerCase().includes(q)));
- grid.innerHTML=list.slice(0,shown).map(p=>`
- <div class="card"><div class="img"><img loading="lazy" src="${p.img}" alt="${p.name}"></div>
- <div class="info"><span class="ref">${p.ref} · ${p.cat}</span><h3>${p.name}</h3>
- ${p.price?`<div class="price">${fmt(p.price)}</div><button onclick="add(${p.id})">Agregar al carrito</button>`
- :`<div class="price ask">Consultar precio</div><button onclick="askPrice(${p.id})">Consultar por WhatsApp</button>`}</div></div>`).join('')||'<p style="grid-column:1/-1;text-align:center;color:#999">No encontramos productos.</p>';
- more.style.display=list.length>shown?'inline-block':'none';
+/* ---------- Carrito ---------- */
+const CART_KEY = "am_cart_v3";
+let cart = {}; try { cart = JSON.parse(localStorage.getItem(CART_KEY) || "{}"); } catch { cart = {}; }
+function lines() { return Object.entries(cart).map(([id, q]) => ({ p: BYID.get(+id), q })).filter(l => l.p && l.p.price && l.q > 0); }
+const subtotal = () => lines().reduce((s, l) => s + l.p.price * l.q, 0);
+function save() { localStorage.setItem(CART_KEY, JSON.stringify(cart)); renderCart(); }
+function add(id) { cart[id] = (cart[id] || 0) + 1; save(); toast("Producto agregado al carrito"); const b = $("#count"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump"); }
+function setQty(id, d) { cart[id] = (cart[id] || 0) + d; if (cart[id] <= 0) delete cart[id]; save(); }
+function itemHTML(l, editable = true) {
+  return `<div class="item"><img src="${esc(l.p.img)}" alt=""><div><div class="rf">${esc(l.p.ref)}</div><div class="nm">${esc(l.p.name)}</div><div class="pr">${fmt(l.p.price)}</div>
+  ${editable ? `<button class="rm" data-rm="${l.p.id}">Quitar</button>` : ""}</div>
+  ${editable ? `<div class="qty"><button data-q="${l.p.id}" data-d="-1" aria-label="Menos">−</button><span>${l.q}</span><button data-q="${l.p.id}" data-d="1" aria-label="Más">+</button></div>` : `<div>×${l.q}</div>`}</div>`;
 }
-function askPrice(id){const p=PRODUCTS.find(x=>x.id==id);openWA(`Hola A&M laminado 18k, quiero el precio y disponibilidad de: ${p.name} (${p.ref})`)}
-function openSearch(){location.hash='catalogo';setTimeout(()=>q.focus(),300)}
-function save(){localStorage.setItem("am_cart_v2",JSON.stringify(cart));renderCart()}
-function add(id){cart[id]=(cart[id]||0)+1;save();toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1300)}
-function chg(id,d){cart[id]+=d;if(cart[id]<=0)delete cart[id];save()}
-function lines(){return Object.entries(cart).map(([id,q])=>({p:PRODUCTS.find(x=>x.id==id),q})).filter(l=>l.p)}
-function renderCart(){
- const L=lines(),tot=L.reduce((s,l)=>s+l.p.price*l.q,0);
- count.textContent=L.reduce((s,l)=>s+l.q,0); total.textContent=fmt(tot);
- const sc=SHIP&&SHIP.cost!=null?SHIP.cost:null; shipline.textContent=sc==null?'Se confirma por WhatsApp según transportadora y ciudad':(sc?fmt(sc):'Gratis'); grand.textContent=fmt(tot+(sc||0)); grand.previousElementSibling.textContent=sc==null?'Total productos':'Total';
- items.innerHTML=L.length?L.map(l=>`<div class="item"><div><b>${l.p.name}</b><br><small>${fmt(l.p.price)}</small></div>
- <div class="qty"><button onclick="chg(${l.p.id},-1)">−</button> ${l.q} <button onclick="chg(${l.p.id},1)">+</button></div></div>`).join(''):'<p style="text-align:center;color:#999;margin-top:2rem">Tu carrito está vacío</p>';
+function renderCart() {
+  const L = lines(), n = L.reduce((s, l) => s + l.q, 0);
+  const c = $("#count"); c.textContent = n; c.classList.toggle("on", n > 0);
+  $("#items").innerHTML = L.length ? L.map(l => itemHTML(l)).join("") : `<div class="empty"><p>Tu carrito está vacío.</p><br><a href="#catalogo" class="btn ghost" onclick="closeAll()">Ver catálogo</a></div>`;
+  $("#dfoot").style.display = L.length ? "block" : "none";
+  $("#sub").textContent = fmt(subtotal());
 }
-function toggleCart(o){drawer.classList.toggle('open',o);overlay.classList.toggle('show',o)}
-function openWA(msg){window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank')}
-let CFG={payments:false,shippingMode:'convenir'}, API=location.protocol.startsWith('http');
-if(API) fetch('/api/config').then(r=>r.ok?r.json():null).then(c=>{if(c){CFG=c;paybtn.style.display=c.payments?'block':'none';paynote.textContent=c.payments?'Pago seguro con Wompi: tarjeta, PSE, Nequi, Bancolombia.':''}}).catch(()=>{API=false});
-let SHIP=null;
-async function quoteShip(){
- if(!API||CFG.shippingMode==='convenir')return;
- try{const r=await fetch('/api/shipping/quote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({city:ccity.value,department:cdept.value,items:cartItems()})});SHIP=await r.json();renderCart()}catch(e){}
+document.addEventListener("click", e => {
+  const q = e.target.closest("[data-q]"), r = e.target.closest("[data-rm]");
+  if (q) setQty(+q.dataset.q, +q.dataset.d);
+  if (r) { delete cart[r.dataset.rm]; save(); }
+  if (q || r) { if ($("#co").classList.contains("show")) renderStep(); }
+});
+function openCart() { closeMenu(); $("#drawer").classList.add("open"); $("#overlay").classList.add("show"); }
+function closeAll() { $("#drawer").classList.remove("open"); $("#overlay").classList.remove("show"); closeMenu(); }
+function toggleMenu() { const m = $("#menu"), o = m.classList.toggle("open"); $("#overlay").classList.toggle("show", o); }
+function closeMenu() { $("#menu").classList.remove("open"); }
+$("#menu").addEventListener("click", e => { if (e.target.closest("a")) closeAll(); });
+let tT; function toast(m) { const t = $("#toast"); t.textContent = m; t.classList.add("show"); clearTimeout(tT); tT = setTimeout(() => t.classList.remove("show"), 1800); }
+
+/* ---------- Modales ---------- */
+function openModal(id) { document.getElementById(id).classList.add("show"); }
+function closeModal() { document.querySelectorAll(".modal").forEach(m => m.classList.remove("show")); }
+document.querySelectorAll(".modal").forEach(m => m.addEventListener("click", e => { if (e.target === m) closeModal(); }));
+document.addEventListener("keydown", e => { if (e.key === "Escape") { if (document.querySelector(".modal.show")) closeModal(); else if ($("#co").classList.contains("show")) closeCheckout(); else closeAll(); } });
+
+/* ---------- Checkout (Carrito → Datos → Confirmar) ---------- */
+let step = 1, lastOrder = null;
+const FORM_KEY = "am_form_v1";
+let form = { nombre: "", cedula: "", celular: "", correo: "", depto: "", ciudad: "", direccion: "", barrio: "", indicaciones: "", pago: "", acepta: false };
+try { Object.assign(form, JSON.parse(localStorage.getItem(FORM_KEY) || "{}"), { acepta: false }); } catch {}
+function startCheckout() { if (!lines().length) return; closeAll(); step = 1; $("#co").classList.add("show"); document.body.style.overflow = "hidden"; renderStep(); }
+function closeCheckout() { $("#co").classList.remove("show"); document.body.style.overflow = ""; if (step === 4) { step = 1; } }
+function setSteps() {
+  $("#steps").style.display = step === 4 ? "none" : "flex";
+  document.querySelectorAll("#steps li").forEach(li => { const s = +li.dataset.s; li.className = s === step ? "on" : s < step ? "done" : ""; li.querySelector("i").textContent = s < step ? "✓" : s; });
 }
-function cartItems(){return lines().map(l=>({id:l.p.id,qty:l.q}))}
-function waText(L,ref,tot){
- let m="¡Hola A&M laminado 18k! Quiero hacer este pedido"+(ref?` (${ref})`:'')+":\n\n"+L.map(l=>`• ${l.q} x ${l.p.name} (${l.p.ref}) — ${l.p.price?fmt(l.p.price*l.q):'consultar precio'}`).join("\n")+`\n\n*Total productos: ${fmt(tot)}*\nEnvío: a confirmar según transportadora y ciudad`;
- const f=[['Nombre',cname.value],['Celular',cphone.value],['Correo',cemail.value],['Ciudad',ccity.value],['Departamento',cdept.value],['Dirección',caddr.value],['Notas',cnotes.value]];
- f.forEach(([k,v])=>{if(v.trim())m+=`\n${k}: ${v.trim()}`});return m;
+function summaryHTML() {
+  const L = lines();
+  return `<aside class="summary"><h3>Resumen del pedido</h3>${L.map(l => `<div class="sitem"><img src="${esc(l.p.img)}" alt=""><div><div>${esc(l.p.name)}</div><div class="q">${esc(l.p.ref)} · ${l.q} × ${fmt(l.p.price)}</div></div><div class="v">${fmt(l.p.price * l.q)}</div></div>`).join("")}
+  <div style="margin-top:14px"><div class="row"><span>Subtotal</span><b>${fmt(subtotal())}</b></div><div class="row"><span>Envío</span><span class="note">A convenir según transportadora</span></div>
+  <div class="row tot"><span>Total productos</span><span>${fmt(subtotal())}</span></div></div></aside>`;
 }
-async function checkout(method){
- const L=lines(); if(!L.length){alert("Tu carrito está vacío");return}
- const tot=L.reduce((s,l)=>s+(l.p.price||0)*l.q,0); cerr.textContent='';
- const body={items:cartItems(),name:cname.value,phone:cphone.value,email:cemail.value,city:ccity.value,department:cdept.value,address:caddr.value,notes:cnotes.value,payment:method};
- if(method==='whatsapp'){
-  const hasPriceless=L.some(l=>!l.p.price);
-  let ref=null;
-  if(API&&!hasPriceless&&cname.value&&cphone.value&&cemail.value){try{const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json();if(j.ok)ref=j.reference}catch(e){}}
-  openWA(waText(L,ref,tot)); if(ref){cart={};save()} return;
- }
- try{
-  const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json();
-  if(!j.ok){cerr.innerHTML=[...Object.values(j.fieldErrors||{}),...(j.errors||[])].join('<br>');cform.open=true;return}
-  cart={};save(); location.href=j.checkoutUrl;
- }catch(e){cerr.textContent='No pudimos procesar el pago. Envía tu pedido por WhatsApp.'}
+const field = (id, label, opts = {}) => `<div class="f ${opts.full ? "full" : ""}" id="f-${id}"><label for="i-${id}">${label}${opts.opt ? " <em>(opcional)</em>" : ""}</label>${opts.html || `<input class="in" id="i-${id}" name="${id}" value="${esc(form[id])}" ${opts.attrs || ""}>`}<div class="msg"></div></div>`;
+function renderStep() {
+  setSteps(); const v = $("#coView"); $("#co").scrollTop = 0;
+  if (!lines().length && step < 4) { v.innerHTML = `<div class="thanks"><h2>Tu carrito está vacío</h2><p>Agrega productos para hacer tu pedido.</p><button class="btn" onclick="closeCheckout()">Ver catálogo</button></div>`; return; }
+  if (step === 1) {
+    v.innerHTML = `<div class="co-body"><div><h2>Revisa tu carrito</h2><p class="sub">Ajusta las cantidades antes de continuar.</p><div class="citems">${lines().map(l => itemHTML(l)).join("")}</div>
+    <div class="co-actions"><button class="btn ghost" onclick="closeCheckout()">Seguir comprando</button><button class="btn" onclick="go(2)">Continuar a mis datos</button></div></div>${summaryHTML()}</div>`;
+  } else if (step === 2) {
+    v.innerHTML = `<div class="co-body"><form id="dataForm" novalidate><h2>Tus datos de envío</h2><p class="sub">Los campos marcados como opcionales no son obligatorios.</p><div class="fg">
+    ${field("nombre", "Nombre completo", { full: true, attrs: 'autocomplete="name"' })}
+    ${field("cedula", "Cédula", { opt: true, attrs: 'inputmode="numeric" autocomplete="off"' })}
+    ${field("celular", "Celular", { attrs: 'inputmode="tel" autocomplete="tel-national" placeholder="300 123 4567"' })}
+    ${field("correo", "Correo electrónico", { full: true, attrs: 'type="email" inputmode="email" autocomplete="email"' })}
+    ${field("depto", "Departamento", { html: `<select class="in" id="i-depto" name="depto"><option value="">Selecciona…</option>${DEPTOS.map(d => `<option ${d === form.depto ? "selected" : ""}>${d}</option>`).join("")}</select>` })}
+    ${field("ciudad", "Ciudad o municipio", { attrs: 'autocomplete="address-level2"' })}
+    ${field("direccion", "Dirección", { full: true, attrs: 'autocomplete="street-address" placeholder="Calle, carrera, número, apto o casa"' })}
+    ${field("barrio", "Barrio")}
+    ${field("indicaciones", "Indicaciones de entrega", { opt: true, attrs: 'placeholder="Ej.: portería, horario, punto de referencia"' })}
+    ${field("pago", "Método de pago preferido", { full: true, html: `<div class="pays">${PAYS.map(p => `<label><input type="radio" name="pago" value="${p}" ${form.pago === p ? "checked" : ""}> ${p}</label>`).join("")}</div>` })}
+    <div class="f full" id="f-acepta"><label class="check" style="text-transform:none;letter-spacing:0;font-weight:400;font-size:.86rem;color:#4a463f"><input type="checkbox" id="i-acepta" ${form.acepta ? "checked" : ""}><span>Acepto los <button type="button" onclick="openModal('m-terminos')">términos y condiciones</button> y autorizo el <button type="button" onclick="openModal('m-datos')">tratamiento de mis datos personales</button>.</span></label><div class="msg"></div></div>
+    </div><div class="co-actions"><button type="button" class="btn ghost" onclick="go(1)">Volver</button><button class="btn">Revisar pedido</button></div></form>${summaryHTML()}</div>`;
+    const f = $("#dataForm");
+    f.addEventListener("input", e => { readForm(); const id = e.target.name || e.target.id.replace("i-", ""); if ($("#f-" + id)?.classList.contains("bad")) validate(id); });
+    f.addEventListener("change", e => { readForm(); validate(e.target.name || e.target.id.replace("i-", "")); });
+    f.addEventListener("focusout", e => { const id = e.target.name; if (id && e.target.value) validate(id); });
+    f.addEventListener("submit", e => { e.preventDefault(); readForm(); const bad = RULES_KEYS.filter(k => !validate(k)); if (bad.length) { document.getElementById("f-" + bad[0]).scrollIntoView({ behavior: "smooth", block: "center" }); return; } go(3); });
+  } else if (step === 3) {
+    const d = form;
+    v.innerHTML = `<div class="co-body"><div><h2>Confirma tu pedido</h2><p class="sub">Revisa que todo esté correcto. Al confirmar se abrirá WhatsApp con el resumen para terminar la compra.</p>
+    <div class="review"><h4>Datos de contacto <button onclick="go(2)">Editar</button></h4><p>${esc(d.nombre)}${d.cedula ? ` · C.C. ${esc(d.cedula)}` : ""}<br>${esc(fmtCel(d.celular))} · ${esc(d.correo)}</p></div>
+    <div class="review"><h4>Dirección de envío <button onclick="go(2)">Editar</button></h4><p>${esc(d.direccion)}, barrio ${esc(d.barrio)}<br>${esc(d.ciudad)}, ${esc(d.depto)}${d.indicaciones ? `<br><span class="small">${esc(d.indicaciones)}</span>` : ""}</p></div>
+    <div class="review"><h4>Pago y envío <button onclick="go(2)">Editar</button></h4><p>Método preferido: ${esc(d.pago)}<br><span class="small">El costo del envío se confirma por WhatsApp según la transportadora y tu ciudad.</span></p></div>
+    <div class="review"><h4>Productos <button onclick="go(1)">Editar</button></h4><div class="citems">${lines().map(l => itemHTML(l, false)).join("")}</div></div>
+    <div class="co-actions"><button class="btn ghost" onclick="go(2)">Volver</button><button class="btn wa" id="confirmBtn" onclick="submitOrder()">Confirmar pedido por WhatsApp</button></div></div>${summaryHTML()}</div>`;
+  } else {
+    const o = lastOrder;
+    v.innerHTML = `<div class="thanks"><div class="ok"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div><span class="eyebrow">Pedido registrado</span><h2>¡Gracias por tu compra, ${esc(o.nombre.split(" ")[0])}!</h2>
+    <div class="num">${esc(o.ref)}</div><p>Abrimos WhatsApp con el resumen de tu pedido. <b>Envía el mensaje</b> para que confirmemos disponibilidad, costo de envío y datos de pago.</p>
+    <p class="small">Total productos: ${fmt(o.total)} · Envío a convenir según transportadora.</p><br>
+    <div class="co-actions" style="justify-content:center"><a class="btn wa" href="${waURL(o.msg)}" target="_blank" rel="noopener">Abrir WhatsApp de nuevo</a><button class="btn ghost" onclick="closeCheckout()">Volver a la tienda</button></div></div>`;
+  }
 }
-function openModal(id){document.getElementById(id).classList.add('show')}
-function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))}
-document.querySelectorAll('.modal').forEach(m=>m.onclick=e=>{if(e.target===m)closeModal()});
-document.querySelectorAll('nav a').forEach(a=>a.onclick=()=>nav.classList.remove('open'));
-function sendContact(e){e.preventDefault();let m=`¡Hola A&M laminado 18k! Soy ${fn.value}`+(fc.value?` de ${fc.value}`:'')+'.';if(fm.value)m+=`\n${fm.value}`;if(fs.checked)m+='\nQuiero recibir novedades y promociones.';openWA(m)}
-yr.textContent=new Date().getFullYear();
-renderFilters();renderGrid();renderCart();
+function go(s) { step = s; renderStep(); }
+function readForm() {
+  const f = $("#dataForm"); if (!f) return;
+  ["nombre", "cedula", "celular", "correo", "depto", "ciudad", "direccion", "barrio", "indicaciones"].forEach(k => { const el = $("#i-" + k); if (el) form[k] = el.value; });
+  form.pago = (f.querySelector('input[name="pago"]:checked') || {}).value || "";
+  form.acepta = $("#i-acepta").checked;
+  const { acepta, ...keep } = form; localStorage.setItem(FORM_KEY, JSON.stringify(keep));
+}
+const digits = s => String(s || "").replace(/\D/g, "");
+const fmtCel = s => { const d = digits(s).slice(-10); return d.replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3"); };
+const RULES = {
+  nombre: v => v.trim().split(/\s+/).filter(w => w.length > 1).length >= 2 || "Escribe tu nombre y apellido.",
+  cedula: v => !v.trim() || /^\d{5,10}$/.test(digits(v)) && digits(v).length === v.replace(/[.\s]/g, "").length || "La cédula debe tener entre 5 y 10 dígitos, sin letras.",
+  celular: v => { const d = digits(v).replace(/^57(?=\d{10}$)/, ""); return /^3\d{9}$/.test(d) || "Escribe un celular colombiano de 10 dígitos que empiece por 3."; },
+  correo: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || "Escribe un correo válido, por ejemplo nombre@correo.com.",
+  depto: v => !!v || "Selecciona tu departamento.",
+  ciudad: v => v.trim().length >= 3 || "Escribe tu ciudad o municipio.",
+  direccion: v => v.trim().length >= 6 && /\d/.test(v) || "Escribe la dirección completa con número.",
+  barrio: v => v.trim().length >= 3 || "Escribe tu barrio.",
+  pago: v => !!v || "Elige un método de pago.",
+  acepta: v => v === true || "Debes aceptar los términos y el tratamiento de datos para continuar."
+};
+const RULES_KEYS = Object.keys(RULES);
+function validate(k) {
+  if (!RULES[k]) return true;
+  const r = RULES[k](form[k]); const box = document.getElementById("f-" + k); if (!box) return r === true;
+  box.classList.toggle("bad", r !== true); box.classList.toggle("good", r === true && k !== "acepta" && k !== "pago");
+  box.querySelector(".msg").textContent = r === true ? "" : r; return r === true;
+}
+function orderRef() {
+  const d = new Date(), p = n => String(n).padStart(2, "0");
+  const A = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let r = ""; const rnd = crypto.getRandomValues(new Uint8Array(4)); rnd.forEach(b => r += A[b % A.length]);
+  return `AM-${String(d.getFullYear()).slice(2)}${p(d.getMonth() + 1)}${p(d.getDate())}-${r}`;
+}
+function orderMessage(ref, L, d) {
+  const t = L.reduce((s, l) => s + l.p.price * l.q, 0);
+  return [`*NUEVO PEDIDO ${ref}*`, `A&M Laminado 18k`, ``, `*Productos*`,
+    ...L.map(l => `• ${l.q} × ${l.p.name}\n   ${l.p.ref} · ${fmt(l.p.price)} c/u = ${fmt(l.p.price * l.q)}`), ``,
+    `Subtotal: ${fmt(t)}`, `Envío: a convenir según transportadora`, `*Total productos: ${fmt(t)}*`, ``,
+    `*Datos del cliente*`, `Nombre: ${d.nombre.trim()}`, ...(d.cedula.trim() ? [`Cédula: ${d.cedula.trim()}`] : []), `Celular: ${fmtCel(d.celular)}`, `Correo: ${d.correo.trim()}`, ``,
+    `*Envío*`, `Departamento: ${d.depto}`, `Ciudad: ${d.ciudad.trim()}`, `Dirección: ${d.direccion.trim()}`, `Barrio: ${d.barrio.trim()}`, ...(d.indicaciones.trim() ? [`Indicaciones: ${d.indicaciones.trim()}`] : []), ``,
+    `Pago preferido: ${d.pago}`].join("\n");
+}
+async function submitOrder() {
+  const L = lines(); if (!L.length) return;
+  const btn = $("#confirmBtn"); btn.disabled = true; btn.textContent = "Procesando…";
+  const d = { ...form }, ref = orderRef(), msg = orderMessage(ref, L, d);
+  const win = window.open("", "_blank"); // abrir antes del await para evitar bloqueo de ventanas emergentes
+  try {
+    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 4000);
+    await fetch(API_ORDERS, { method: "POST", signal: ctl.signal, headers: { "Content-Type": "application/json" }, body: JSON.stringify({
+      client_reference: ref, items: L.map(l => ({ id: l.p.id, qty: l.q })), name: d.nombre, phone: digits(d.celular), email: d.correo,
+      city: d.ciudad, department: d.depto, address: `${d.direccion}, barrio ${d.barrio}`, payment: "whatsapp",
+      notes: [`Ref. web: ${ref}`, d.cedula && `Cédula: ${d.cedula}`, `Pago preferido: ${d.pago}`, d.indicaciones && `Indicaciones: ${d.indicaciones}`].filter(Boolean).join(" | ") }) });
+  } catch (e) { /* sitio estático: sin backend, seguimos por WhatsApp */ }
+  if (win) win.location.href = waURL(msg); else location.href = waURL(msg);
+  lastOrder = { ref, msg, nombre: d.nombre, total: L.reduce((s, l) => s + l.p.price * l.q, 0) };
+  cart = {}; save(); step = 4; renderStep();
+}
+
+/* ---------- Efectos ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll(".rv").forEach(el => io.observe(el));
+addEventListener("scroll", () => $("#hdr").classList.toggle("scrolled", scrollY > 10), { passive: true });
+setTimeout(() => $("#watip").classList.add("show"), 2500); setTimeout(() => $("#watip").classList.remove("show"), 11000);
+
+renderFilters(); renderGrid(); renderCart();
 </script>
-</body></html>
+</body>
+</html>
