@@ -99,3 +99,19 @@ test('inventario: marcar agotado bloquea el pedido y aparece en /api/stock', asy
   await fetch(base + '/admin/inventario', { method: 'POST', redirect: 'manual', headers: { cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ key, agotado: '0', _csrf: await csrf('/admin/inventario') }).toString() });
   assert.deepEqual((await (await fetch(base + '/api/stock')).json()).agotados, []);
 });
+test('admin: borrar pedido con confirmación y CSRF', async () => {
+  const j = await (await post('/api/orders', { ...cust, name: 'PRUEBA - borrar', items: [{ id: P1.id, qty: 1 }] })).json();
+  const o = await db.byRef(j.reference);
+  const conf = await (await fetch(base + `/admin/pedido/${o.id}/borrar`, { headers: { cookie } })).text();
+  assert.match(conf, /no se puede deshacer/); assert.match(conf, /definitivamente/);
+  const t = conf.match(/name="_csrf" value="([a-f0-9]+)"/)[1];
+  const H = { cookie, 'Content-Type': 'application/x-www-form-urlencoded' };
+  assert.equal((await fetch(base + `/admin/pedido/${o.id}/borrar`, { method: 'POST', redirect: 'manual', headers: H, body: '' })).status, 403);
+  assert.equal((await fetch(base + `/admin/pedido/${o.id}/borrar`, { method: 'POST', redirect: 'manual', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: '_csrf=' + t })).status, 302);
+  assert.ok(await db.byId(o.id), 'sigue existiendo sin sesión/CSRF');
+  const r = await fetch(base + `/admin/pedido/${o.id}/borrar`, { method: 'POST', redirect: 'manual', headers: H, body: '_csrf=' + t });
+  assert.equal(r.status, 303); assert.match(r.headers.get('location'), /borrado=AM-/);
+  assert.equal(await db.byId(o.id), null);
+  const list = await (await fetch(base + r.headers.get('location'), { headers: { cookie } })).text(); assert.match(list, /borrado definitivamente/);
+  const detail = await (await fetch(base + '/admin/pedido/1', { headers: { cookie } })).text(); assert.match(detail, /Borrar pedido/);
+});
