@@ -456,7 +456,7 @@ window.CATALOGO = [{"id":1,"ref":"REF 100","name":"Anillo Ajustable Doble Cartie
 {"id":587,"ref":"REF 312","name":"Candonga Eslabones Figura Tipo Pave 10 mm - Broche Clic","cat":"Candongas","price":127900,"img":"fotos/p587.jpg","gallery":[]},
 {"id":588,"ref":"REF 313","name":"Candonga Hoggie 2 Lineas Broche ( Circones 8 Clic","cat":"Candongas","price":144900,"img":"fotos/p588.jpg","gallery":[]},
 {"id":589,"ref":"REF 314","name":"Candonga Hoggie Doble Broche ( Circón Cristal 8 Clic","cat":"Candongas","price":127900,"img":"fotos/p589.jpg","gallery":[]},
-{"id":590,"ref":"REF 314","name":"Candonga Cristal","cat":"Candongas","price":null,"img":"fotos/p590.jpg","gallery":[]},
+{"id":590,"ref":"REF 314","name":"Candonga Cristal","cat":"Candongas","price":127900,"img":"fotos/p590.jpg","gallery":[]},
 {"id":591,"ref":"REF 316","name":"Candonga Clasica Swarovski Cristal 1l Broche Clic","cat":"Candongas","price":129900,"img":"fotos/p591.jpg","gallery":[]},
 {"id":592,"ref":"REF 317","name":"Candonga Hoggie 2 Lineas Turmalina Broche Clic","cat":"Candongas","price":115900,"img":"fotos/p592.jpg","gallery":[]},
 {"id":593,"ref":"REF 318","name":"Candonga Hoggie Baguette Cristal 10 Broche Clic","cat":"Candongas","price":129900,"img":"fotos/p593.jpg","gallery":[]},
