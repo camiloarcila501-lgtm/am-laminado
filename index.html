@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A&amp;M laminado 18k | Joyería en oro laminado 18k</title>
+<meta name="description" content="Joyería en oro laminado 18k: cadenas, aretes, anillos, collares y pulseras. Compra en línea o por WhatsApp.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c9a34a;--gold2:#e8cf8a;--black:#111;--cream:#f8f2e6;--text:#2a2a2a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Montserrat,sans-serif;color:var(--text);background:var(--cream);line-height:1.6}
+h1,h2,h3{font-family:'Cormorant Garamond',serif}
+a{color:inherit}
+header{position:sticky;top:0;z-index:20;background:var(--black);color:var(--gold2);display:flex;justify-content:space-between;align-items:center;padding:.8rem 1.2rem}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;text-decoration:none}
+nav a{margin-left:1rem;text-decoration:none;font-size:.85rem;display:none}
+@media(min-width:760px){nav a{display:inline}}
+.cart-btn{background:var(--gold);color:var(--black);border:0;border-radius:30px;padding:.5rem 1rem;font-weight:600;cursor:pointer;margin-left:1rem}
+.hero{background:radial-gradient(circle at 70% 30%,#3a2e14,#111 65%);color:var(--cream);text-align:center;padding:5rem 1.2rem 4.5rem}
+.hero h1{font-size:clamp(2.6rem,9vw,5rem);background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));-webkit-background-clip:text;color:transparent}
+.hero p{max-width:540px;margin:1rem auto 2rem;opacity:.9}
+.btn{display:inline-block;background:var(--gold);color:var(--black);padding:.85rem 1.8rem;border-radius:40px;text-decoration:none;font-weight:600;border:0;cursor:pointer}
+.btn.outline{background:transparent;color:var(--gold2);border:1px solid var(--gold);margin-left:.5rem}
+section{padding:3.5rem 1.2rem;max-width:1150px;margin:auto}
+section h2{font-size:2.3rem;text-align:center;margin-bottom:.4rem}
+.sub{text-align:center;color:#7a6a45;margin-bottom:2rem}
+.filters{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.5rem;margin-bottom:1.5rem;justify-content:flex-start}
+@media(min-width:760px){.filters{justify-content:center;flex-wrap:wrap}}
+.filters button{flex:none;border:1px solid var(--gold);background:#fff;padding:.45rem 1rem;border-radius:30px;cursor:pointer;font-family:inherit}
+.filters button.active{background:var(--black);color:var(--gold2)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr);gap:1.5rem}}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06);display:flex;flex-direction:column;position:relative}
+.card .img{aspect-ratio:1;background:linear-gradient(145deg,#1a1a1a,#2d2513);display:flex;align-items:center;justify-content:center}
+.card .img svg{width:62%;height:62%}
+.tag{position:absolute;top:8px;left:8px;background:var(--gold2);color:var(--black);font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:10px;text-transform:uppercase}
+.card .info{padding:.8rem;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:1.15rem;line-height:1.2}
+.price{font-weight:600;color:#8a6a1f;margin:.3rem 0 .7rem}
+.card button{margin-top:auto;background:var(--black);color:var(--gold2);border:0;padding:.6rem;border-radius:8px;cursor:pointer;font-family:inherit}
+.about{display:grid;gap:2rem;align-items:center}
+@media(min-width:760px){.about{grid-template-columns:1fr 1fr}}
+.about .box{background:var(--black);color:var(--gold2);border-radius:18px;padding:2.5rem;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-top:1.5rem}
+.feats div{background:#fff;padding:1rem;border-radius:12px;border-left:3px solid var(--gold);font-size:.9rem}
+.care{background:var(--black);color:var(--cream);max-width:none}
+.care .wrap{max-width:1150px;margin:auto}
+.care h2{color:var(--gold2)}.care .sub{color:#bba;}
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
+.tips div{border:1px solid #3d3420;border-radius:12px;padding:1.2rem}
+.tips b{color:var(--gold2);display:block;margin-bottom:.3rem}
+footer{background:#0a0a0a;color:#aaa;text-align:center;padding:2.5rem 1rem;font-size:.85rem}
+footer .logo{color:var(--gold2);display:block;margin-bottom:.5rem}
+.wa-float{position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.3);z-index:30}
+.drawer{position:fixed;top:0;right:-100%;width:min(420px,100%);height:100%;background:var(--cream);z-index:50;transition:right .3s;display:flex;flex-direction:column;box-shadow:-6px 0 20px rgba(0,0,0,.3)}
+.drawer.open{right:0}
+.drawer header{position:static}
+.items{flex:1;overflow:auto;padding:1rem}
+.item{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e3d9c3;padding:.7rem 0;gap:.5rem}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--gold);background:#fff;cursor:pointer}
+.drawer .foot{padding:1rem;border-top:1px solid #e3d9c3}
+.drawer input,.drawer textarea{width:100%;padding:.6rem;margin-bottom:.5rem;border:1px solid #d8c99f;border-radius:8px;font-family:inherit}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40;display:none}.overlay.show{display:block}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--black);color:var(--gold2);padding:.6rem 1.2rem;border-radius:30px;opacity:0;transition:.3s;z-index:60}
+.toast.show{opacity:1}
+
+header>div{display:flex;align-items:center}
+.menu{background:none;border:0;color:var(--gold2);font-size:1.5rem;margin-left:.6rem;cursor:pointer}
+@media(max-width:759px){nav.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--black);padding:.5rem 1.2rem 1rem}nav.open a{display:block;margin:0;padding:.5rem 0;border-bottom:1px solid #2a2415}}
+@media(min-width:760px){.menu{display:none}nav a{margin-left:.9rem;font-size:.78rem}}
+.dark{background:var(--black);color:var(--cream);max-width:none}.dark .wrap{max-width:1150px;margin:auto}.dark h2{color:var(--gold2)}.dark .sub{color:#bba}
+.mv{display:grid;gap:1rem}@media(min-width:760px){.mv{grid-template-columns:1fr 1fr}}
+.mv div{background:#fff;border-radius:16px;padding:1.6rem;border-top:4px solid var(--gold)}.mv h3{font-size:1.6rem}
+.vals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem}
+.vals div{background:#fff;border-radius:16px;padding:1.3rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.vals span{display:inline-flex;width:54px;height:54px;border-radius:50%;background:var(--black);align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:.5rem}
+.vals b{display:block;font-family:'Cormorant Garamond',serif;font-size:1.3rem}.vals p{font-size:.85rem}
+.two{display:grid;gap:1rem}@media(min-width:760px){.two{grid-template-columns:1fr 1fr}}
+.panel{background:#fff;border-radius:16px;padding:1.5rem}.panel h3{font-size:1.5rem;margin-bottom:.5rem}.panel ul,.mbox ul{padding-left:1.2rem}
+.pays{display:flex;flex-wrap:wrap;gap:.5rem}.pays span{border:1px solid var(--gold);border-radius:30px;padding:.35rem .9rem;font-size:.85rem}
+.testi div{background:#fff}.testi p{font-style:italic;margin:.6rem 0}
+.more{color:var(--gold2);font-size:.85rem;display:inline-block;margin-top:.5rem}
+.faq{max-width:760px;margin:auto}.faq details{background:#fff;border-radius:12px;margin-bottom:.6rem;padding:1rem 1.2rem}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between}.faq summary::after{content:'+';color:var(--gold)}
+.faq details[open] summary::after{content:'−'}.faq details p{margin-top:.6rem}
+.cform input,.cform textarea{width:100%;padding:.75rem;margin-bottom:.6rem;border-radius:10px;border:1px solid #3d3420;background:#1b1b1b;color:#fff;font-family:inherit}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.5rem;max-width:1150px;margin:0 auto 2rem;text-align:left}
+.fgrid b{color:var(--gold2);display:block;margin-bottom:.4rem}.fgrid a{display:block;text-decoration:none;padding:.15rem 0}.fgrid a:hover{color:var(--gold2)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:70;display:none;align-items:center;justify-content:center;padding:1rem}.modal.show{display:flex}
+.mbox{background:var(--cream);border-radius:16px;max-width:620px;max-height:85vh;overflow:auto;padding:2rem;position:relative}
+.mbox h2{text-align:left}.mbox h3{margin-top:1rem}.x{position:absolute;top:12px;right:12px;border:0;background:var(--black);color:var(--gold2);width:32px;height:32px;border-radius:50%;cursor:pointer}
+
+/* ===== estilo empresarial ===== */
+:root{--cream:#fff;--text:#1d1d1d}
+body{background:#fff}
+section{padding:4.5rem 1.2rem}
+section h2{font-weight:500;letter-spacing:.02em}
+.sub{color:#8a7a55}
+.topbar{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:.55rem 1.1rem}
+.social{display:flex;gap:1rem}.social svg{width:20px;height:20px;fill:#fff}
+.phone{text-decoration:none;font-size:.9rem;letter-spacing:.04em}
+.marquee{background:#000;overflow:hidden;padding:0 0 .55rem}
+.track{display:inline-flex;white-space:nowrap;background:#fff;color:#111;animation:mq 28s linear infinite;font-weight:600;font-size:.85rem}
+.track span{padding:.3rem 1.2rem}.track span::after{content:'•';margin-left:2.4rem;color:var(--gold)}
+@keyframes mq{to{transform:translateX(-50%)}}
+header.main{position:sticky;top:0;z-index:20;background:#fff;color:#111;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:1rem 1.2rem;border-bottom:1px solid #eee}
+.wordmark{text-decoration:none;display:flex;flex-direction:column;align-items:center;line-height:1.1}
+.wordmark b{font-family:'Cormorant Garamond',serif;font-size:1.55rem;letter-spacing:.08em}
+.wordmark small{font-size:.6rem;letter-spacing:.3em;color:#8a6a1f;margin-top:3px}
+.hicons{display:flex;gap:.9rem;align-items:center}
+.ibtn{position:relative;background:none;border:0;cursor:pointer;padding:6px}
+.ibtn svg{width:26px;height:26px;fill:none;stroke:#111;stroke-width:1.8;stroke-linecap:round}
+.ibtn.menu{background:#f1f1f1;border-radius:6px}
+.badge{position:absolute;top:-2px;right:-4px;background:#e0322b;color:#fff;font-size:.65rem;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:600}
+header.main nav{display:none;width:100%}
+header.main nav.open{display:flex;flex-direction:column;position:static;background:#fff;padding:.5rem 0 0}
+header.main nav a{display:block;margin:0;padding:.6rem 0;border-bottom:1px solid #eee;color:#111;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+@media(min-width:960px){header.main .menu{display:none}header.main nav{display:flex;width:auto;order:2}header.main nav a{border:0;padding:0;margin:0 .7rem;font-size:.72rem}header.main nav a:hover{color:#8a6a1f}.hicons{order:3}}
+.hero2{position:relative;padding:0;max-width:none;height:min(82vh,760px);overflow:hidden}
+.hero2 img{width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block}
+.hcap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(255,255,255,.92) 35%);padding:5rem 1.5rem 2.5rem;text-align:center}
+.eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#8a6a1f}
+.hcap h1{font-weight:500;font-size:clamp(2rem,6vw,3.6rem);line-height:1.1;margin:.5rem auto;max-width:760px;color:#111}
+.offer{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.2rem}
+.btn{background:#111;color:#fff;border-radius:0;letter-spacing:.15em;text-transform:uppercase;font-size:.8rem;padding:1rem 2.2rem}
+.btn:hover{background:var(--gold);color:#111}
+.trust{display:grid;grid-template-columns:repeat(2,1fr);border-bottom:1px solid #eee}
+@media(min-width:760px){.trust{grid-template-columns:repeat(4,1fr)}}
+.trust div{text-align:center;padding:1.4rem .6rem;border-right:1px solid #eee;border-top:1px solid #eee}
+.trust span{font-size:1.4rem;display:block}.trust b{display:block;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;margin-top:.3rem}.trust small{color:#777;font-size:.78rem}
+.search{display:block;width:100%;max-width:520px;margin:0 auto 1.2rem;padding:.8rem 1rem;border:1px solid #ddd;font-family:inherit}
+.filters button{border-radius:0;border-color:#ddd;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+.filters button.active{background:#111;color:#fff;border-color:#111}
+.card{border-radius:0;box-shadow:none;border:1px solid #eee}
+.card .img{background:#f6f4ef}.card .img img{width:100%;height:100%;object-fit:cover}
+.card h3{font-size:1.05rem;font-weight:500}
+.ref{font-size:.7rem;letter-spacing:.12em;color:#999;text-transform:uppercase}
+.price{color:#111}
+.price.ask{color:#8a6a1f;font-weight:500}
+.card button{border-radius:0;background:#111;color:#fff;letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
+.mv div,.vals div,.panel,.faq details,.testi div{border-radius:0;box-shadow:none;border:1px solid #eee}
+.vals span{background:#111}
+.wa-tip{position:fixed;right:86px;bottom:26px;background:#fff;border:1px solid #eee;box-shadow:0 4px 14px rgba(0,0,0,.12);padding:.5rem .9rem;font-size:.8rem;line-height:1.3;z-index:30;border-radius:8px}
+@media(max-width:600px){.wordmark b{font-size:1.2rem}.wordmark small{font-size:.52rem;letter-spacing:.25em}.hicons{gap:.2rem}.ibtn svg{width:23px;height:23px}.offer{font-size:1.05rem;letter-spacing:.08em}.hcap{padding:4rem 1rem 2rem}.hero2{height:78vh}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="social">
+    <a href="#" aria-label="Facebook"><!-- REVISAR: enlace Facebook --><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg></a>
+    <a href="#" aria-label="Instagram"><!-- REVISAR: enlace Instagram --><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM17.5 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg></a>
+    <a href="#" aria-label="TikTok"><!-- REVISAR: enlace TikTok --><svg viewBox="0 0 24 24"><path d="M16 2c.3 2.4 1.8 4 4 4.2v3.3a7.6 7.6 0 0 1-4-1.2v6.9A6.2 6.2 0 1 1 9.8 9v3.4a2.9 2.9 0 1 0 2.9 2.8V2z"/></svg></a>
+  </div>
+  <a class="phone" href="#" onclick="openWA('Hola 😊');return false">☎ +57 300 891 8966</a>
+</div>
+<div class="marquee"><div class="track"><!-- REVISAR: mensajes de la franja -->
+  <span>Escríbenos para asesoría personalizada</span><span>Envíos a toda Colombia</span><span>Precios al por mayor</span><span>Joyería en oro laminado 18k</span>
+  <span>Escríbenos para asesoría personalizada</span><span>Envíos a toda Colombia</span><span>Precios al por mayor</span><span>Joyería en oro laminado 18k</span>
+</div></div>
+<header class="main">
+  <a href="#" class="wordmark"><b>A&amp;M LAMINADO</b><small>FINE JEWELRY 18K</small></a>
+  <div class="hicons">
+    <button class="ibtn menu" onclick="nav.classList.toggle('open')" aria-label="Menú"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <button class="ibtn" onclick="toggleCart(true)" aria-label="Carrito"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></svg><span id="count" class="badge">0</span></button>
+    <button class="ibtn" onclick="openSearch()" aria-label="Buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+  </div>
+  <nav id="nav"><a href="#catalogo">Catálogo</a><a href="#nosotros">Quiénes somos</a><a href="#mision">Misión y visión</a><a href="#porque">Por qué elegirnos</a><a href="#envios">Envíos y pagos</a><a href="#politicas">Políticas</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a></nav>
+</header>
+
+<section class="hero2">
+  <img src="fotos/hero.jpg" alt="Joyería en oro laminado 18k A&amp;M">
+  <div class="hcap">
+    <p class="eyebrow">Oro laminado 18k · Colombia</p>
+    <h1>Joyas que brillan contigo, todos los días</h1>
+    <p class="offer">Precios especiales por mayor<!-- REVISAR: oferta del banner --></p>
+    <a href="#catalogo" class="btn">Ver catálogo</a>
+  </div>
+</section>
+<div class="trust">
+  <div><span>🛡️</span><b>Garantía</b><small>Respaldo en cada joya</small></div>
+  <div><span>🚚</span><b>Envíos</b><small>A toda Colombia</small></div>
+  <div><span>🔒</span><b>Pagos seguros</b><small>Transferencia, Nequi, Daviplata</small></div>
+  <div><span>💬</span><b>Atención</b><small>Asesoría por WhatsApp</small></div>
+</div>
+
+<section id="catalogo">
+  <h2>Nuestro catálogo</h2>
+  <p class="sub">Precios en pesos colombianos (COP). Confirma disponibilidad por WhatsApp.</p>
+  <input id="q" class="search" placeholder="Buscar por nombre o referencia…" oninput="shown=PAGE;renderGrid()">
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+  <p style="text-align:center;margin-top:2rem"><button class="btn" id="more" onclick="shown+=PAGE;renderGrid()">Ver más productos</button></p>
+</section>
+
+<!-- REVISAR: textos de esta sección son un borrador; ajústalos a la historia real de la marca -->
+<section id="nosotros">
+  <div class="about">
+    <div class="box">✦ A&amp;M ✦<br><small style="font-size:1rem;font-family:Montserrat">Emprendimiento colombiano</small></div>
+    <div>
+      <h2 style="text-align:left">Quiénes somos</h2>
+      <p><b>A&amp;M laminado 18k</b> es un emprendimiento colombiano que nació del gusto por las joyas bonitas y del deseo de que más personas puedan lucirlas sin pagar precios exagerados. Seleccionamos con cuidado cada pieza en oro laminado 18k —cadenas, aretes, anillos, collares, pulseras y pulseras tejidas— para ofrecerte brillo, calidad y estilo en cada detalle.</p>
+      <p style="margin-top:.7rem">Detrás de cada pedido hay un trato cercano y personal: te asesoramos por WhatsApp, empacamos con cariño y acompañamos tu compra de principio a fin.</p>
+    </div>
+  </div>
+</section>
+
+<section id="mision" style="padding-top:0">
+  <div class="mv">
+    <div><h3>🎯 Misión</h3><p>Ofrecer joyería en oro laminado 18k de excelente calidad y diseño, a precios accesibles, con una atención cercana que haga de cada compra una experiencia de confianza.</p></div>
+    <div id="vision"><h3>🔭 Visión</h3><p>Ser una marca colombiana reconocida por la calidad de sus joyas en oro laminado, por la confianza de sus clientes y por llevar brillo a cada rincón del país.</p></div>
+  </div>
+  <h2 id="valores" style="margin-top:3rem">Nuestros valores</h2>
+  <p class="sub">Lo que nos mueve cada día</p>
+  <div class="vals">
+    <div><span>💎</span><b>Calidad</b><p>Piezas seleccionadas con acabados duraderos.</p></div>
+    <div><span>🤝</span><b>Confianza</b><p>Información clara, sin letra pequeña.</p></div>
+    <div><span>💛</span><b>Cercanía</b><p>Atención personalizada y amable.</p></div>
+    <div><span>✨</span><b>Estilo</b><p>Diseños actuales para cada ocasión.</p></div>
+    <div><span>⏱️</span><b>Cumplimiento</b><p>Respetamos tu tiempo y tus pedidos.</p></div>
+  </div>
+</section>
+
+<section class="dark" id="porque"><div class="wrap">
+  <h2>¿Por qué elegirnos?</h2><p class="sub">Razones para brillar con A&amp;M</p>
+  <div class="tips">
+    <div><b>✨ Oro laminado 18k</b>Brillo y apariencia de joya fina a un precio justo.</div>
+    <div><b>🛡️ Garantía</b>Respaldamos tus joyas por defectos de fabricación.<!-- REVISAR --></div>
+    <div><b>🚚 Envíos nacionales</b>Llegamos a toda Colombia.<!-- REVISAR --></div>
+    <div><b>💬 Asesoría por WhatsApp</b>Te ayudamos a elegir la pieza ideal o el regalo perfecto.</div>
+  </div>
+</div></section>
+
+<section class="care" id="cuidados"><div class="wrap">
+  <h2>Cuida tus joyas</h2><p class="sub">Consejos para que tu oro laminado brille por más tiempo</p>
+  <div class="tips">
+    <div><b>💧 Evita químicos</b>Retíralas antes de usar perfumes, cremas, cloro o productos de limpieza.</div>
+    <div><b>🏊 Agua y sudor</b>Quítatelas para bañarte, nadar o hacer ejercicio intenso.</div>
+    <div><b>🧽 Limpieza suave</b>Límpialas con un paño suave y seco después de usarlas.</div>
+    <div><b>👜 Guárdalas por separado</b>Usa una bolsita o estuche individual para evitar rayones.</div>
+  </div>
+</div></section>
+
+<!-- REVISAR: confirmar cobertura, tiempos, costos y medios de pago reales -->
+<section id="envios">
+  <h2>Envíos y medios de pago</h2><p class="sub">Compra fácil y segura desde cualquier lugar del país</p>
+  <div class="two">
+    <div class="panel"><h3>🚚 Envíos</h3><ul>
+      <li>Enviamos a toda Colombia por transportadora.</li>
+      <li>El tiempo de entrega depende de la ciudad; te lo confirmamos por WhatsApp al hacer tu pedido.</li>
+      <li>El costo del envío se informa antes de confirmar la compra.</li>
+      <li>Te compartimos el número de guía para que sigas tu paquete.</li></ul></div>
+    <div class="panel"><h3>💳 Medios de pago</h3>
+      <div class="pays"><span>Transferencia bancaria</span><span>Nequi</span><span>Daviplata</span><span>Contraentrega*</span></div>
+      <p style="font-size:.85rem;margin-top:.8rem">*Contraentrega sujeto a disponibilidad según la ciudad. Los datos de pago se envían únicamente por nuestro WhatsApp oficial.</p></div>
+  </div>
+</section>
+
+<!-- REVISAR: testimonios de EJEMPLO, reemplazar por opiniones reales con autorización -->
+<section id="testimonios" style="padding-top:0">
+  <h2>Lo que dicen nuestros clientes</h2><p class="sub">Testimonios de <b>ejemplo</b></p>
+  <div class="tips testi">
+    <div><span class="tag" style="position:static">Ejemplo</span><p>“Las cadenas son hermosas y la atención por WhatsApp fue excelente.”</p><b>— Cliente de ejemplo</b></div>
+    <div><span class="tag" style="position:static">Ejemplo</span><p>“Compré unos aretes para regalar y llegaron muy bien empacados.”</p><b>— Cliente de ejemplo</b></div>
+    <div><span class="tag" style="position:static">Ejemplo</span><p>“Mi pulsera tejida sigue brillando como el primer día.”</p><b>— Cliente de ejemplo</b></div>
+  </div>
+</section>
+
+<section class="dark" id="politicas"><div class="wrap">
+  <h2>Políticas</h2><p class="sub">Información clara para que compres con tranquilidad</p>
+  <div class="tips">
+    <div id="garantia"><b>🛡️ Garantía</b>6 meses por defectos de fabricación y cambio de color con uso adecuado.<br><a href="#" onclick="openModal('m-garantia');return false" class="more">Ver detalles →</a></div>
+    <div id="cambios"><b>🔄 Cambios y devoluciones</b>Cambios dentro de los primeros días, con la pieza sin uso.<br><a href="#" onclick="openModal('m-cambios');return false" class="more">Ver detalles →</a></div>
+    <div id="terminos"><b>📄 Términos y condiciones</b>Condiciones de compra, precios, pagos y envíos.<br><a href="#" onclick="openModal('m-terminos');return false" class="more">Ver detalles →</a></div>
+  </div>
+</div></section>
+
+<section id="faq">
+  <h2>Preguntas frecuentes</h2><p class="sub">Resolvemos tus dudas</p>
+  <div class="faq">
+    <details><summary>¿Qué es el oro laminado 18k?</summary><p>Es una joya con una base metálica recubierta por capas de oro 18k, que le dan el brillo y la apariencia del oro a un precio mucho más accesible.</p></details>
+    <details><summary>¿Se pone negro o se pela?</summary><p>Con los cuidados adecuados (evitar químicos, agua y sudor excesivo) tu joya conserva su color por mucho tiempo. Además cuenta con garantía.<!-- REVISAR --></p></details>
+    <details><summary>¿Cómo hago un pedido?</summary><p>Agrega los productos al carrito y pulsa “Finalizar pedido por WhatsApp”. Te llegará el resumen y confirmamos contigo pago y envío.</p></details>
+    <details><summary>¿Hacen envíos a mi ciudad?</summary><p>Enviamos a toda Colombia. Escríbenos y te confirmamos tiempos y costo.<!-- REVISAR --></p></details>
+    <details><summary>¿Qué medios de pago aceptan?</summary><p>Transferencia, Nequi, Daviplata y contraentrega según disponibilidad.<!-- REVISAR --></p></details>
+    <details><summary>¿Venden al por mayor?</summary><p>Escríbenos por WhatsApp para conocer las condiciones para compras al por mayor.<!-- REVISAR --></p></details>
+  </div>
+</section>
+
+<section class="dark" id="contacto"><div class="wrap" style="max-width:640px">
+  <h2>Contáctanos</h2><p class="sub">Déjanos tu mensaje o suscríbete a novedades y lanzamientos. Te responderemos por WhatsApp.</p>
+  <form class="cform" onsubmit="sendContact(event)">
+    <input id="fn" placeholder="Nombre" required><input id="fc" placeholder="Ciudad">
+    <textarea id="fm" rows="3" placeholder="¿En qué te podemos ayudar?"></textarea>
+    <label style="font-size:.85rem"><input type="checkbox" id="fs" style="width:auto"> Quiero recibir novedades y promociones</label>
+    <button class="btn" style="width:100%;margin-top:.8rem">Enviar por WhatsApp</button>
+  </form>
+</div></section>
+
+<footer>
+  <div class="fgrid">
+    <div><span class="logo" style="font-size:1.4rem">A&amp;M laminado 18k</span><p>Joyería en oro laminado 18k.<br>Emprendimiento colombiano.</p></div>
+    <div><b>Tienda</b><a href="#catalogo">Catálogo</a><a href="#envios">Envíos y pagos</a><a href="#faq">Preguntas frecuentes</a><a href="#cuidados">Cuidados</a></div>
+    <div><b>Nosotros</b><a href="#nosotros">Quiénes somos</a><a href="#mision">Misión y visión</a><a href="#valores">Valores</a><a href="#contacto">Contacto</a></div>
+    <div><b>Políticas</b><a href="#" onclick="openModal('m-terminos');return false">Términos y condiciones</a><a href="#" onclick="openModal('m-garantia');return false">Garantía</a><a href="#" onclick="openModal('m-cambios');return false">Cambios y devoluciones</a></div>
+    <div><b>Contacto</b><a href="#" onclick="openWA('Hola 😊');return false">WhatsApp +57 300 891 8966</a><a href="#">Instagram</a><!-- REVISAR: enlace Instagram --></div>
+  </div>
+  <small>© <span id="yr"></span> A&amp;M laminado 18k. Todos los derechos reservados.</small>
+</footer>
+
+<!-- REVISAR: textos legales en borrador; revisar con la dueña y, si es posible, con asesoría legal (Ley 1480 de 2011, Estatuto del Consumidor) -->
+<div class="modal" id="m-garantia"><div class="mbox"><button class="x" onclick="closeModal()">✕</button><h2>Garantía</h2>
+<p>Todas nuestras joyas cuentan con <b>garantía de 6 meses</b> desde la fecha de entrega.</p><h3>Cubre</h3><ul><li>Defectos de fabricación.</li><li>Cambio de color con uso adecuado.</li></ul>
+<h3>No cubre</h3><ul><li>Golpes, roturas, deformaciones o desgaste por mal uso.</li><li>Pérdida o robo.</li><li>Daños por contacto con químicos (perfumes, cremas, cloro, productos de limpieza), agua de mar o piscina.</li><li>Piezas modificadas o reparadas por terceros.</li></ul>
+<h3>¿Cómo hacerla efectiva?</h3><p>Escríbenos por WhatsApp con tu número de pedido, fotos de la pieza y una breve descripción. Revisaremos el caso y, si aplica, repararemos o cambiaremos la joya por una igual o similar.</p></div></div>
+<div class="modal" id="m-cambios"><div class="mbox"><button class="x" onclick="closeModal()">✕</button><h2>Cambios y devoluciones</h2>
+<ul><li>Puedes solicitar cambio dentro de los <b>5 días hábiles</b> siguientes a recibir tu pedido.</li><li>La pieza debe estar sin uso, en perfecto estado y con su empaque.</li><li>Por higiene, los aretes no tienen cambio salvo por defecto de fabricación.</li><li>Los costos de envío del cambio corren por cuenta del cliente, excepto si se trata de un error nuestro o defecto de fabricación.</li><li>Si recibiste un producto equivocado o con defecto, escríbenos en las primeras 48 horas.</li><li>El derecho de retracto en compras a distancia se aplica según la ley colombiana.</li></ul></div></div>
+<div class="modal" id="m-terminos"><div class="mbox"><button class="x" onclick="closeModal()">✕</button><h2>Términos y condiciones</h2>
+<ul><li>Los precios están en pesos colombianos (COP) y pueden cambiar sin previo aviso; el precio válido es el confirmado por WhatsApp al momento del pedido.</li><li>Todo pedido se confirma por WhatsApp una vez verificada la disponibilidad y el pago (o aprobado el contraentrega).</li><li>Las imágenes son ilustrativas; puede haber ligeras variaciones de color o tamaño.</li><li>Los tiempos de entrega dependen de la transportadora y la ciudad de destino.</li><li>Los datos personales que compartes se usan solo para gestionar tu pedido y comunicarnos contigo, conforme a la Ley 1581 de 2012.</li><li>Al realizar un pedido aceptas estos términos, la política de garantía y la de cambios y devoluciones.</li></ul></div></div>
+
+<div class="wa-tip">¿Necesitas ayuda?<br><b>Escríbenos</b></div>
+<a class="wa-float" href="#" onclick="openWA('Hola A&M laminado 18k, quiero información 😊');return false" aria-label="WhatsApp">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a>
+
+<div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
+<aside class="drawer" id="drawer">
+  <header><span class="logo" style="font-size:1.2rem">Tu carrito</span><button class="cart-btn" onclick="toggleCart(false)">✕</button></header>
+  <div class="items" id="items"></div>
+  <div class="foot">
+    <p style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:.7rem"><span>Total</span><span id="total">$0</span></p>
+    <input id="cname" placeholder="Tu nombre"><input id="ccity" placeholder="Ciudad / dirección de envío">
+    <button class="btn" style="width:100%" onclick="checkout()">Finalizar pedido por WhatsApp</button>
+  </div>
+</aside>
+<div class="toast" id="toast">Agregado al carrito ✓</div>
+
+<script src="productos.js"></script>
+<script>
+// ====== CONFIGURACIÓN: cambia aquí tu número de WhatsApp (código país + número, sin + ni espacios) ======
+const WHATSAPP_NUMBER = "573008918966";
+
+// Catálogo real: se carga desde productos.js (generado a partir de las fotos del catálogo).
+// price: null => se muestra "Consultar precio" y el botón pregunta por WhatsApp.
+const PRODUCTS = window.CATALOGO || [];
+const PAGE = 24; let shown = PAGE;
+const G='url(#g)';
+const ICONS={
+ chain:`<g fill="none" stroke="${G}" stroke-width="5">${[0,1,2,3,4].map(i=>`<ellipse cx="${20+i*15}" cy="${30+i*10}" rx="10" ry="6" transform="rotate(35 ${20+i*15} ${30+i*10})"/>`).join('')}</g>`,
+ hoop:`<circle cx="50" cy="50" r="30" fill="none" stroke="${G}" stroke-width="7"/>`,
+ ring:`<circle cx="50" cy="58" r="26" fill="none" stroke="${G}" stroke-width="7"/><path d="M40 30 L50 14 L60 30 Z" fill="${G}"/>`,
+ heart:`<path d="M50 82 C10 55 18 20 50 38 C82 20 90 55 50 82Z" fill="${G}"/>`,
+ star:`<path d="M50 12 L60 40 L90 40 L66 58 L75 88 L50 70 L25 88 L34 58 L10 40 L40 40Z" fill="${G}"/>`,
+ weave:`<g fill="none" stroke="${G}" stroke-width="5"><path d="M10 50 Q20 35 30 50 T50 50 T70 50 T90 50"/><path d="M10 50 Q20 65 30 50 T50 50 T70 50 T90 50"/></g><circle cx="50" cy="66" r="6" fill="${G}"/>`
+};
+const svg=i=>`<svg viewBox="0 0 100 100"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5e1a4"/><stop offset=".5" stop-color="#c9a34a"/><stop offset="1" stop-color="#8a6a1f"/></linearGradient></defs>${ICONS[i]}</svg>`;
+const fmt=n=>"$"+n.toLocaleString("es-CO")+" COP";
+
+let cart=JSON.parse(localStorage.getItem("am_cart_v2")||"{}"), filter="Todos";
+const cats=["Todos",...new Set(PRODUCTS.map(p=>p.cat))];
+
+function renderFilters(){filters.innerHTML=cats.map(c=>`<button class="${c===filter?'active':''}" onclick="filter='${c}';shown=PAGE;renderFilters();renderGrid()">${c}</button>`).join('')}
+function renderGrid(){
+ const q=(document.getElementById('q')?.value||'').toLowerCase().trim();
+ const list=PRODUCTS.filter(p=>(filter==="Todos"||p.cat===filter)&&(!q||(p.name+' '+p.ref+' '+p.cat).toLowerCase().includes(q)));
+ grid.innerHTML=list.slice(0,shown).map(p=>`
+ <div class="card"><div class="img"><img loading="lazy" src="${p.img}" alt="${p.name}"></div>
+ <div class="info"><span class="ref">${p.ref} · ${p.cat}</span><h3>${p.name}</h3>
+ ${p.price?`<div class="price">${fmt(p.price)}</div><button onclick="add(${p.id})">Agregar al carrito</button>`
+ :`<div class="price ask">Consultar precio</div><button onclick="askPrice(${p.id})">Consultar por WhatsApp</button>`}</div></div>`).join('')||'<p style="grid-column:1/-1;text-align:center;color:#999">No encontramos productos.</p>';
+ more.style.display=list.length>shown?'inline-block':'none';
+}
+function askPrice(id){const p=PRODUCTS.find(x=>x.id==id);openWA(`Hola A&M laminado 18k, quiero el precio y disponibilidad de: ${p.name} (${p.ref})`)}
+function openSearch(){location.hash='catalogo';setTimeout(()=>q.focus(),300)}
+function save(){localStorage.setItem("am_cart_v2",JSON.stringify(cart));renderCart()}
+function add(id){cart[id]=(cart[id]||0)+1;save();toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1300)}
+function chg(id,d){cart[id]+=d;if(cart[id]<=0)delete cart[id];save()}
+function lines(){return Object.entries(cart).map(([id,q])=>({p:PRODUCTS.find(x=>x.id==id),q})).filter(l=>l.p)}
+function renderCart(){
+ const L=lines(),tot=L.reduce((s,l)=>s+l.p.price*l.q,0);
+ count.textContent=L.reduce((s,l)=>s+l.q,0); total.textContent=fmt(tot);
+ items.innerHTML=L.length?L.map(l=>`<div class="item"><div><b>${l.p.name}</b><br><small>${fmt(l.p.price)}</small></div>
+ <div class="qty"><button onclick="chg(${l.p.id},-1)">−</button> ${l.q} <button onclick="chg(${l.p.id},1)">+</button></div></div>`).join(''):'<p style="text-align:center;color:#999;margin-top:2rem">Tu carrito está vacío</p>';
+}
+function toggleCart(o){drawer.classList.toggle('open',o);overlay.classList.toggle('show',o)}
+function openWA(msg){window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank')}
+function checkout(){
+ const L=lines(); if(!L.length){alert("Tu carrito está vacío");return}
+ const tot=L.reduce((s,l)=>s+l.p.price*l.q,0);
+ let m="¡Hola A&M laminado 18k! Quiero hacer este pedido:\n\n"+L.map(l=>`• ${l.q} x ${l.p.name} (${l.p.ref}) — ${fmt(l.p.price*l.q)}`).join("\n")+`\n\n*Total: ${fmt(tot)}*`;
+ if(cname.value)m+=`\nNombre: ${cname.value}`; if(ccity.value)m+=`\nEnvío a: ${ccity.value}`;
+ openWA(m);
+}
+function openModal(id){document.getElementById(id).classList.add('show')}
+function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))}
+document.querySelectorAll('.modal').forEach(m=>m.onclick=e=>{if(e.target===m)closeModal()});
+document.querySelectorAll('nav a').forEach(a=>a.onclick=()=>nav.classList.remove('open'));
+function sendContact(e){e.preventDefault();let m=`¡Hola A&M laminado 18k! Soy ${fn.value}`+(fc.value?` de ${fc.value}`:'')+'.';if(fm.value)m+=`\n${fm.value}`;if(fs.checked)m+='\nQuiero recibir novedades y promociones.';openWA(m)}
+yr.textContent=new Date().getFullYear();
+renderFilters();renderGrid();renderCart();
+</script>
+</body></html>
