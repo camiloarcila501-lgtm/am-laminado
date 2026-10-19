@@ -38,6 +38,25 @@ app.get('/api/stock', async (req, res) => {
   catch (e) { console.error('[stock]', e.message); res.json({ agotados: [] }); }
 });
 
+// Compras recientes para el aviso de la tienda: nombre (solo primer nombre), ciudad, un producto y fecha. Sin datos personales.
+let recentCache = { t: 0, data: [] };
+const capFirst = s => { const w = String(s || '').trim().split(/\s+/)[0] || ''; return w ? w.charAt(0).toLocaleUpperCase('es-CO') + w.slice(1).toLocaleLowerCase('es-CO') : ''; };
+app.get('/api/compras-recientes', async (req, res) => {
+  try {
+    if (Date.now() - recentCache.t > 60000) {
+      const rows = await db.recent(7, 10);
+      recentCache = { t: Date.now(), data: rows.map(o => {
+        const it = Array.isArray(o.items) ? o.items[0] : null, nombre = capFirst(o.customer_name);
+        if (!nombre || !it || !it.name) return null;
+        const r = { nombre, producto: String(it.name).slice(0, 120), hace: new Date(o.created_at).toISOString() };
+        const c = String(o.city || '').trim(); if (c) r.ciudad = c.slice(0, 60);
+        return r;
+      }).filter(Boolean) };
+    }
+    res.set('Cache-Control', 'public, max-age=60').json(recentCache.data);
+  } catch (e) { console.error('[compras-recientes]', e.message); res.set('Cache-Control', 'no-store').json([]); }
+});
+
 app.post('/api/shipping/quote', async (req, res) => {
   const { city, department, items } = req.body || {};
   const { subtotal } = priceItems(items || []);
@@ -149,4 +168,4 @@ app.use(sec.errorHandler);
 
 const port = process.env.PORT || 3000;
 if (require.main === module) db.init().then(() => app.listen(port, () => console.log(`A&M laminado en http://localhost:${port}`)));
-module.exports = { app, priceItems };
+module.exports = { app, priceItems, resetRecentCache: () => { recentCache = { t: 0, data: [] }; } };

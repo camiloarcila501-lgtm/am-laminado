@@ -3,7 +3,7 @@ const test = require('node:test'), assert = require('node:assert'), crypto = req
 Object.assign(process.env, { ADMIN_PASSWORD: 'clave-prueba', WOMPI_PUBLIC_KEY: 'pub_test_abc', WOMPI_INTEGRITY_SECRET: 'test_integrity_xyz', WOMPI_EVENTS_SECRET: 'test_events_123', WOMPI_ENV: 'sandbox', WOMPI_ENABLED: 'true', ORDERS_RATE_LIMIT: '1000' });
 delete process.env.RESEND_API_KEY;
 const sha = s => crypto.createHash('sha256').update(s).digest('hex');
-const { app } = require('../server');
+const { app, resetRecentCache } = require('../server');
 const db = require('../lib/db'), catalog = require('../lib/catalog');
 let base, srv, cookie;
 const priced = catalog.list.filter(p => p.price);
@@ -23,6 +23,10 @@ let order;
 test('config pública', async () => {
   const c = await (await fetch(base + '/api/config')).json();
   assert.equal(c.payments, true); assert.equal(c.shippingMode, 'convenir');
+});
+test('compras recientes: arreglo vacío sin pedidos', async () => {
+  resetRecentCache(); const r = await fetch(base + '/api/compras-recientes');
+  assert.equal(r.status, 200); assert.deepEqual(await r.json(), []);
 });
 test('validación de datos y carrito', async () => {
   const r = await post('/api/orders', { items: [], name: 'x', email: 'malo' });
@@ -141,4 +145,16 @@ test('pedido con Bre-B / Nu (QR) se acepta y guarda el método', async () => {
   const j = await (await post('/api/orders', { ...cust, payment: 'whatsapp', payment_method: 'Bre-B / Nu (QR)', items: [{ id: P1.id, qty: 1 }] })).json();
   assert.equal(j.ok, true); assert.equal((await db.byRef(j.reference)).payment_method, 'Bre-B / Nu (QR)');
   const r = await fetch(base + '/img/qr-breb-nu.png'); assert.equal(r.status, 200); assert.match(r.headers.get('content-type'), /png/);
+});
+
+test('compras recientes: solo primer nombre, ciudad, producto y fecha (sin datos personales)', async () => {
+  resetRecentCache(); const r = await fetch(base + '/api/compras-recientes');
+  assert.equal(r.status, 200); const j = await r.json(); const txt = JSON.stringify(j);
+  assert.ok(Array.isArray(j) && j.length > 0 && j.length <= 10);
+  for (const x of j) {
+    for (const k of Object.keys(x)) assert.ok(['nombre', 'ciudad', 'producto', 'hace'].includes(k), k);
+    assert.ok(!/\s/.test(x.nombre)); assert.ok(!isNaN(Date.parse(x.hace))); assert.ok(x.producto);
+  }
+  for (const bad of ['Gómez', '3001234567', '300 123 4567', 'laura@example.com', 'Cra 43A', 'AM-', 'total', 'phone', 'email']) assert.ok(!txt.includes(bad), bad);
+  assert.ok(j.some(x => x.nombre === 'Laura' && x.ciudad === 'Medellín'));
 });
