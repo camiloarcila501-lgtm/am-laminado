@@ -287,10 +287,10 @@ function renderPD(id) {
     <div class="buy"><div class="qty"><button data-act="pdQ(-1)" aria-label="Menos">−</button><span id="pdQ">1</span><button data-act="pdQ(1)" aria-label="Más">+</button></div><button class="btn" data-act="pdAdd()">Agregar al carrito</button></div>
     <button class="btn ghost block" data-act="pdAdd(true)">Comprar ahora</button>` : `<div class="pp ask">Consultar precio</div><div class="tax">Te confirmamos precio y disponibilidad por WhatsApp.</div>`}
     <a href="#" class="btn wa block" style="margin-top:10px" data-wa="Hola, quiero información sobre: ${esc(p.name)} (${esc(p.ref)}).">Preguntar por WhatsApp</a>
-    <div class="perks"><div><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg>Garantía por defectos de fabricación</div><div><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/></svg>Envíos a toda Colombia</div></div>
+    <div class="perks"><div><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg>5 años de garantía</div><div><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/></svg>Envíos a toda Colombia</div></div>
     <div class="acc"><details open><summary>Descripción</summary><div><p>${esc(desc)}</p></div></details>
     <details><summary>Garantía</summary><div><p>Tu joya cuenta con 5 años de garantía por cambio de tonalidad o daño. <a href="#" data-act="openModal(&#39;m-garantia&#39;);return false">Ver política de garantía</a>.</p></div></details>
-    <details><summary>Cuidados</summary><div><ul><li>Evita perfumes, cremas, cloro y productos de limpieza.</li><li>Quítatela para bañarte, nadar o hacer ejercicio.</li><li>Límpiala con un paño suave y seco.</li><li>Guárdala en una bolsa o estuche individual.</li></ul></div></details>
+    <details><summary>Cuidados</summary><div><ul><li>Después del mar, enjuágala con abundante agua dulce para retirar el exceso de sal.</li><li>No es necesario limpiarla con paños.</li><li>No apliques productos como crema dental, porque pueden dañarla.</li></ul></div></details>
     <details><summary>Envíos y pagos</summary><div><p>Enviamos a toda Colombia. El costo del envío se confirma por WhatsApp según la transportadora y tu ciudad. Pagos por transferencia, Nequi, Daviplata o contraentrega.</p></div></details></div>
    </div></div>
    ${rel.length ? `<div class="related"><div class="rail-head"><div><span class="eyebrow">${esc(p.cat)}</span><h3>También te puede gustar</h3></div></div><div class="track-r">${rel.map(card).join("")}</div></div>` : ""}`;
