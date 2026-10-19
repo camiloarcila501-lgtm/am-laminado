@@ -485,7 +485,7 @@ window.CATALOGO = [{"id":1,"ref":"REF 100","name":"Anillo Ajustable Doble Cartie
 {"id":617,"ref":"REF 338","name":"Candonga Clasica Cristal 13 Circón, Broche Clic","cat":"Candongas","price":155900,"img":"fotos/p617.jpg","gallery":[]},
 {"id":618,"ref":"REF 339","name":"Candonga Clasica Pave Esmeraldas S12 mm","cat":"Candongas","price":194900,"img":"fotos/p618.jpg","gallery":[]},
 {"id":619,"ref":"REF 34","name":"Candonga Dije Cruz 10 mm","cat":"Candongas","price":71900,"img":"fotos/p619.jpg","gallery":[]},
-{"id":620,"ref":"REF 34","name":"Candonga Dije Cruz","cat":"Candongas","price":null,"img":"fotos/p620.jpg","gallery":["fotos/p620_1.jpg"]},
+{"id":620,"ref":"REF 34","name":"Candonga Dije Cruz","cat":"Candongas","price":71900,"img":"fotos/p620.jpg","gallery":["fotos/p620_1.jpg"]},
 {"id":621,"ref":"REF 340","name":"Candonga Clasica Pave Diamantes 12 mm","cat":"Candongas","price":194900,"img":"fotos/p621.jpg","gallery":[]},
 {"id":622,"ref":"REF 341","name":"Candonga Hoggie Centro Pave Cristal 12 mm, Broche - Clic","cat":"Candongas","price":195900,"img":"fotos/p622.jpg","gallery":[]},
 {"id":623,"ref":"REF 360","name":"Candonga Cristales 12 Cartier, Broche ( Clic","cat":"Candongas","price":168900,"img":"fotos/p623.jpg","gallery":[]},
