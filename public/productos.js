@@ -617,7 +617,7 @@ window.CATALOGO = [{"id":1,"ref":"REF 100","name":"Anillo Ajustable Doble Cartie
 {"id":380,"ref":"REF 383","name":"Tejido Cadena Cubana Alterna – 45 cm","cat":"Cadenas","price":189900,"img":"fotos/p380.jpg","gallery":[]},
 {"id":381,"ref":"REF 4","name":"Cadena Tejido Escalera 2 mm – 40 cm","cat":"Cadenas","price":161900,"img":"fotos/p381.jpg","gallery":[]},
 {"id":382,"ref":"REF 40","name":"Collar Tejido Avena 0.8, Aros 3 Oros – 45 cm","cat":"Cadenas","price":153900,"img":"fotos/p382.jpg","gallery":[]},
-{"id":383,"ref":"REF 40","name":"Cadena Collar 3 Oros","cat":"Cadenas","price":null,"img":"fotos/p383.jpg","gallery":[]},
+{"id":383,"ref":"REF 40","name":"Cadena Collar 3 Oros","cat":"Cadenas","price":153900,"img":"fotos/p383.jpg","gallery":[]},
 {"id":384,"ref":"REF 406","name":"Tejido Alterna Cadena Estampada – 45 cm","cat":"Cadenas","price":101900,"img":"fotos/p384.jpg","gallery":[]},
 {"id":385,"ref":"REF 416","name":"Cadena Tejido Argolla 0.1 mm – 45 cm","cat":"Cadenas","price":82900,"img":"fotos/p385.jpg","gallery":[]},
 {"id":386,"ref":"REF 42","name":"Cadena Tejido Singapur 1 mm – 45 cm","cat":"Cadenas","price":90900,"img":"fotos/p386.jpg","gallery":[]},
