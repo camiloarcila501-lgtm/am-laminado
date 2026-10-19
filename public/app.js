@@ -46,13 +46,27 @@ document.addEventListener("click", e => { const a = e.target.closest("[data-wa]"
 let filter = "Todos", shown = PAGE;
 const cats = ["Todos", ...new Set(PRODUCTS.map(p => p.cat))];
 const catCount = c => c === "Todos" ? PRODUCTS.length : PRODUCTS.filter(p => p.cat === c).length;
+const LEN_CAT = "Cadenas", LENS = ["40", "45", "50", "60"];
+const lenOf = p => { const m = p.name.match(/(\d+)\s*cm/); return m ? m[1] : ""; };
+let len = "", lenFor = filter;
+function renderLens() {
+  let box = document.getElementById("lenFilters");
+  if (!box) { box = document.createElement("div"); box.className = "filters"; box.id = "lenFilters"; box.setAttribute("role", "tablist"); $("#filters").after(box);
+    box.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; len = b.dataset.l; shown = PAGE; renderLens(); renderGrid(); }); }
+  if (filter !== LEN_CAT) { box.hidden = true; box.innerHTML = ""; return; }
+  const L = PRODUCTS.filter(p => p.cat === LEN_CAT);
+  box.hidden = false;
+  box.innerHTML = [["", "Todas", L.length], ...LENS.map(l => [l, l + " cm", L.filter(p => lenOf(p) === l).length])].map(([l, t, n]) => `<button role="tab" class="${l === len ? "active" : ""}" data-l="${l}">${esc(t)}<span>${n}</span></button>`).join("");
+}
 function renderFilters() {
   $("#filters").innerHTML = cats.map(c => `<button role="tab" class="${c === filter ? "active" : ""}" data-c="${esc(c)}">${esc(c)}<span>${catCount(c)}</span></button>`).join("");
+  if (filter !== lenFor) { len = ""; lenFor = filter; }
+  renderLens();
 }
 if (HAS_CAT) $("#filters").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; filter = b.dataset.c; shown = PAGE; renderFilters(); renderGrid(); });
 function filtered() {
   const q = $("#q").value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
-  return PRODUCTS.filter(p => (filter === "Todos" || p.cat === filter) && (!q || (p.name + " " + p.ref + " " + p.cat).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(q)));
+  return PRODUCTS.filter(p => (filter === "Todos" || p.cat === filter) && (!len || filter !== LEN_CAT || lenOf(p) === len) && (!q || (p.name + " " + p.ref + " " + p.cat).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(q)));
 }
 function card(p, i) {
   const price = p.price ? `<div class="price">${fmt(p.price)}</div>` : `<div class="price ask">Consultar precio</div>`;
