@@ -65,6 +65,9 @@ También se puede reemplazar el sitio estático por el servidor (que también mu
 
 ---
 
+## Seguridad
+Ver [`docs/seguridad.md`](docs/seguridad.md): qué está protegido y las cabeceras que debes agregar en Render → am-laminado18k → Headers.
+
 ## Variables de entorno
 Ver `.env.example`. Todas son opcionales.
 

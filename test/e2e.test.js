@@ -1,6 +1,6 @@
 // Pruebas end-to-end: node --test  (requiere TEST_DATABASE_URL o usa memoria)
 const test = require('node:test'), assert = require('node:assert'), crypto = require('crypto');
-Object.assign(process.env, { ADMIN_PASSWORD: 'clave-prueba', WOMPI_PUBLIC_KEY: 'pub_test_abc', WOMPI_INTEGRITY_SECRET: 'test_integrity_xyz', WOMPI_EVENTS_SECRET: 'test_events_123', WOMPI_ENV: 'sandbox', WOMPI_ENABLED: 'true' });
+Object.assign(process.env, { ADMIN_PASSWORD: 'clave-prueba', WOMPI_PUBLIC_KEY: 'pub_test_abc', WOMPI_INTEGRITY_SECRET: 'test_integrity_xyz', WOMPI_EVENTS_SECRET: 'test_events_123', WOMPI_ENV: 'sandbox', WOMPI_ENABLED: 'true', ORDERS_RATE_LIMIT: '1000' });
 delete process.env.RESEND_API_KEY;
 const sha = s => crypto.createHash('sha256').update(s).digest('hex');
 const { app } = require('../server');
@@ -9,6 +9,7 @@ let base, srv, cookie;
 const priced = catalog.list.filter(p => p.price);
 const P1 = priced[0], P2 = priced[5], NOPRICE = catalog.list.find(p => !p.price);
 const cust = { name: 'Laura Gómez', phone: '300 123 4567', email: 'laura@example.com', city: 'Medellín', department: 'Antioquia', address: 'Cra 43A # 1-50 apto 301' };
+const csrf = async (path = '/admin') => (await (await fetch(base + path, { headers: { cookie } })).text()).match(/name="_csrf" value="([a-f0-9]+)"/)?.[1] || '';
 const post = (u, b, h = {}) => fetch(base + u, { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify(b) });
 
 test.before(async () => {
@@ -76,7 +77,7 @@ test('admin: lista, filtro, cambio de estado + costo de envío, CSV', async () =
   const h = { headers: { cookie } };
   const html = await (await fetch(base + '/admin', h)).text(); assert.match(html, new RegExp(order.reference));
   const f = await (await fetch(base + '/admin?status=confirmado', h)).text(); assert.match(f, /Laura/); assert.doesNotMatch(f, /Carlos/);
-  const r = await fetch(base + `/admin/pedido/${order.id}`, { method: 'POST', redirect: 'manual', headers: { cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'status=enviado&shipping_cost=15000&tracking=Coordinadora+123&admin_notes=ok' });
+  const r = await fetch(base + `/admin/pedido/${order.id}`, { method: 'POST', redirect: 'manual', headers: { cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'status=enviado&shipping_cost=15000&tracking=Coordinadora+123&admin_notes=ok&_csrf=' + await csrf(`/admin/pedido/${order.id}`) });
   assert.equal(r.status, 302);
   const o = await db.byId(order.id); assert.equal(o.status, 'enviado'); assert.equal(o.shipping_cost, 15000); assert.equal(o.total, o.subtotal + 15000);
   const csv = await (await fetch(base + '/admin/export.csv', h)).text(); assert.match(csv, /referencia,fecha/); assert.match(csv, /Coordinadora 123/);
@@ -89,12 +90,12 @@ test('pedido con método de pago y referencia del cliente', async () => {
 });
 test('inventario: marcar agotado bloquea el pedido y aparece en /api/stock', async () => {
   const key = `${P2.ref}|${P2.cat}`;
-  const r = await fetch(base + '/admin/inventario', { method: 'POST', redirect: 'manual', headers: { cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ key, agotado: '1' }).toString() });
+  const r = await fetch(base + '/admin/inventario', { method: 'POST', redirect: 'manual', headers: { cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ key, agotado: '1', _csrf: await csrf('/admin/inventario') }).toString() });
   assert.equal(r.status, 302);
   const st = await (await fetch(base + '/api/stock')).json(); assert.deepEqual(st.agotados, [key]);
   const bad = await post('/api/orders', { ...cust, items: [{ id: P2.id, qty: 1 }] }); assert.equal(bad.status, 400);
   assert.match((await bad.json()).errors.join(), /agotado/);
   const inv = await (await fetch(base + '/admin/inventario?solo=agotados', { headers: { cookie } })).text(); assert.match(inv, /Marcar disponible/);
-  await fetch(base + '/admin/inventario', { method: 'POST', redirect: 'manual', headers: { cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ key, agotado: '0' }).toString() });
+  await fetch(base + '/admin/inventario', { method: 'POST', redirect: 'manual', headers: { cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ key, agotado: '0', _csrf: await csrf('/admin/inventario') }).toString() });
   assert.deepEqual((await (await fetch(base + '/api/stock')).json()).agotados, []);
 });
