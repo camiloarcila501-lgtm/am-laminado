@@ -518,7 +518,7 @@ window.CATALOGO = [{"id":1,"ref":"REF 100","name":"Anillo Ajustable Doble Cartie
 {"id":650,"ref":"REF 388","name":"Candonga Argolla Circón Tutti Martillado 12 mm","cat":"Candongas","price":142900,"img":"fotos/p650.jpg","gallery":[]},
 {"id":651,"ref":"REF 389","name":"Candonga Argolla Geométrica Circón Cristal 12 mm","cat":"Candongas","price":129900,"img":"fotos/p651.jpg","gallery":[]},
 {"id":652,"ref":"REF 39","name":"Candonga Tahi 1.3 cm, 3 mm","cat":"Candongas","price":195900,"img":"fotos/p652.jpg","gallery":[]},
-{"id":653,"ref":"REF 39","name":"Candonga Thai","cat":"Candongas","price":null,"img":"fotos/p653.jpg","gallery":[]},
+{"id":653,"ref":"REF 39","name":"Candonga Thai","cat":"Candongas","price":195900,"img":"fotos/p653.jpg","gallery":[]},
 {"id":654,"ref":"REF 390","name":"Candonga Silueta Lineal 12 mm","cat":"Candongas","price":181900,"img":"fotos/p654.jpg","gallery":[]},
 {"id":655,"ref":"REF 391","name":"Candonga Aro Circón Zafiro 17 mm","cat":"Candongas","price":182900,"img":"fotos/p655.jpg","gallery":[]},
 {"id":656,"ref":"REF 392","name":"Candonga Argolla Circón Cristal 10 mm","cat":"Candongas","price":129900,"img":"fotos/p656.jpg","gallery":[]},
