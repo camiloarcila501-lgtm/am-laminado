@@ -363,6 +363,13 @@ nav.menu a{white-space:nowrap}.wordmark b{white-space:nowrap}
 .so-badge{position:absolute;top:10px;left:10px;background:var(--ink);color:#fff;font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:5px 10px;border-radius:20px;z-index:2}
 .card.soldout .ph img{filter:grayscale(.6);opacity:.65}.add[disabled]{background:#f1efea;border-color:#e3dfd6;color:#9a958b;cursor:not-allowed}
 .hp{position:absolute!important;left:-10000px;width:1px;height:1px;overflow:hidden}
+.breb{display:flex;gap:18px;align-items:center;margin-top:14px;padding:16px;border:1px solid var(--line);background:#fff;border-radius:6px;text-align:left}
+.breb img{width:180px;height:180px;flex:0 0 auto;image-rendering:pixelated;border:1px solid #eee}
+.breb-t p{margin:6px 0;font-size:.86rem;line-height:1.5}.breb-l{font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#6b2bb5}
+.breb-k{display:flex;align-items:center;gap:8px;margin:6px 0}.breb-k code{font-size:1.05rem;font-weight:600;letter-spacing:.04em;background:var(--soft);padding:6px 10px;border-radius:4px}
+.copy{border:1px solid var(--ink);background:#fff;padding:6px 12px;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.rec{font-style:normal;font-size:.6rem;letter-spacing:.08em;color:#6b2bb5;margin-left:4px}
+@media(max-width:560px){.breb{flex-direction:column;text-align:center}.breb img{width:240px;height:240px}.breb-k{justify-content:center}}
 /* reveal */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}.rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.rv,.card{opacity:1;transform:none}}
@@ -413,7 +420,7 @@ nav.menu a{white-space:nowrap}.wordmark b{white-space:nowrap}
 <div class="trust"><div class="wrap">
   <div><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><span><b>Garantía</b><small>Respaldo en cada joya</small></span></div>
   <div><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg><span><b>Envíos</b><small>A toda Colombia</small></span></div>
-  <div><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span><b>Pago seguro</b><small>Transferencia, Nequi, Daviplata</small></span></div>
+  <div><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span><b>Pago seguro</b><small>Bre-B, transferencia, Nequi, Daviplata</small></span></div>
   <div><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z"/></svg><span><b>Asesoría</b><small>Atención por WhatsApp</small></span></div>
 </div></div>
 
@@ -488,7 +495,7 @@ nav.menu a{white-space:nowrap}.wordmark b{white-space:nowrap}
       <li>Te compartimos el número de guía para que sigas tu paquete.</li>
     </ul></div>
     <div class="panel"><h3>Medios de pago</h3>
-      <div class="chips"><span>Transferencia bancaria</span><span>Nequi</span><span>Daviplata</span><span>Contraentrega</span></div>
+      <div class="chips"><span>Bre-B (QR o llave, desde cualquier banco)</span><span>Transferencia bancaria</span><span>Nequi</span><span>Daviplata</span><span>Contraentrega</span></div>
       <p class="small">El pago contraentrega depende de la cobertura en tu ciudad. Solo compartimos los datos de pago desde nuestro WhatsApp oficial: +57 300 891 8966.</p>
     </div>
   </div>
@@ -520,7 +527,7 @@ nav.menu a{white-space:nowrap}.wordmark b{white-space:nowrap}
     <details><summary>¿Las joyas se oscurecen o se pelan?</summary><p>Con los cuidados adecuados —evitar químicos, agua y sudor excesivo— tu joya conserva su color por mucho tiempo. Además, cuenta con garantía por defectos de fabricación.</p></details>
     <details><summary>¿Cómo hago un pedido?</summary><p>Agrega tus productos al carrito, completa tus datos y confirma el pedido. Se abrirá WhatsApp con el resumen y allí te confirmamos disponibilidad, costo de envío y datos de pago.</p></details>
     <details><summary>¿Cuánto cuesta el envío?</summary><p>Depende de la transportadora y de tu ciudad. Te informamos el valor exacto por WhatsApp antes de despachar.</p></details>
-    <details><summary>¿Qué medios de pago aceptan?</summary><p>Transferencia bancaria, Nequi, Daviplata y contraentrega, según la cobertura en tu ciudad.</p></details>
+    <details><summary>¿Qué medios de pago aceptan?</summary><p>Bre-B: paga al instante desde cualquier banco, 24/7, escaneando nuestro QR o con la llave <b>@YZW629</b> (Nu). También transferencia bancaria, Nequi, Daviplata y contraentrega, según la cobertura en tu ciudad.</p></details>
     <details><summary>¿Venden al por mayor?</summary><p>Los precios de la página son al detal. Si te interesa comprar al por mayor, escríbenos por WhatsApp y te contamos las condiciones.</p></details>
   </div>
 </div></section>

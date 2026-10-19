@@ -14,7 +14,13 @@ const PRODUCTS = (window.CATALOGO || []).map(p => ({ ...p, id: Number(p.id) }));
 const BYID = new Map(PRODUCTS.map(p => [p.id, p]));
 const PAGE = 24;
 const DEPTOS = ["Amazonas","Antioquia","Arauca","Atlántico","Bogotá D.C.","Bolívar","Boyacá","Caldas","Caquetá","Casanare","Cauca","Cesar","Chocó","Córdoba","Cundinamarca","Guainía","Guaviare","Huila","La Guajira","Magdalena","Meta","Nariño","Norte de Santander","Putumayo","Quindío","Risaralda","San Andrés, Providencia y Santa Catalina","Santander","Sucre","Tolima","Valle del Cauca","Vaupés","Vichada"];
-const PAYS = ["Transferencia", "Nequi", "Daviplata", "Contraentrega"];
+const BREB = "Bre-B / Nu (QR)", BREB_KEY = "@YZW629";
+const PAYS = [BREB, "Transferencia", "Nequi", "Daviplata", "Contraentrega"];
+// Recuadro de pago Bre-B: QR + llave con botón copiar (sin JS en línea; el botón usa data-copy)
+const brebHTML = total => `<div class="breb"><img src="img/qr-breb-nu.png" width="240" height="240" alt="Código QR Bre-B de A&amp;M Laminado 18k (llave ${BREB_KEY})">
+  <div class="breb-t"><span class="breb-l">Bre-B · Nu</span><p>Paga al instante desde <b>cualquier banco</b>: escanea el QR desde la app de tu banco o usa la llave</p>
+  <div class="breb-k"><code>${BREB_KEY}</code><button type="button" class="copy" data-copy="${BREB_KEY}">Copiar llave</button></div>
+  <p class="small">Paga el valor exacto${total ? ` de tus productos (<b>${fmt(total)}</b>)` : ""} más el envío que te confirmemos por WhatsApp, y envíanos el <b>comprobante</b> por WhatsApp.</p></div></div>`;
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const fmt = n => "$" + Number(n).toLocaleString("es-CO");
@@ -144,7 +150,7 @@ function renderStep() {
     ${field("direccion", "Dirección", { full: true, attrs: 'autocomplete="street-address" placeholder="Calle, carrera, número, apto o casa"' })}
     ${field("barrio", "Barrio")}
     ${field("indicaciones", "Indicaciones de entrega", { opt: true, attrs: 'placeholder="Ej.: portería, horario, punto de referencia"' })}
-    ${field("pago", "Método de pago preferido", { full: true, html: `<div class="pays">${PAYS.map(p => `<label><input type="radio" name="pago" value="${p}" ${form.pago === p ? "checked" : ""}> ${p}</label>`).join("")}</div>` })}
+    ${field("pago", "Método de pago preferido", { full: true, html: `<div class="pays">${PAYS.map(p => `<label><input type="radio" name="pago" value="${esc(p)}" ${form.pago === p ? "checked" : ""}> ${esc(p)}${p === BREB ? ` <em class="rec">Desde cualquier banco</em>` : ""}</label>`).join("")}</div><div id="brebBox" ${form.pago === BREB ? "" : "hidden"}>${brebHTML(subtotal())}</div>` })}
     <div class="f full" id="f-acepta"><label class="check" style="text-transform:none;letter-spacing:0;font-weight:400;font-size:.86rem;color:#4a463f"><input type="checkbox" id="i-acepta" ${form.acepta ? "checked" : ""}><span>Acepto los <button type="button" data-act="openModal(&#39;m-terminos&#39;)">términos y condiciones</button> y autorizo el <button type="button" data-act="openModal(&#39;m-datos&#39;)">tratamiento de mis datos personales</button>.</span></label><div class="msg"></div></div>
     </div><div class="co-actions"><button type="button" class="btn ghost" data-act="go(1)">Volver</button><button class="btn">Revisar pedido</button></div></form>${summaryHTML()}</div>`;
     const f = $("#dataForm");
@@ -157,14 +163,14 @@ function renderStep() {
     v.innerHTML = `<div class="co-body"><div><h2>Confirma tu pedido</h2><p class="sub">Revisa que todo esté correcto. Al confirmar se abrirá WhatsApp con el resumen para terminar la compra.</p>
     <div class="review"><h4>Datos de contacto <button data-act="go(2)">Editar</button></h4><p>${esc(d.nombre)}${d.cedula ? ` · C.C. ${esc(d.cedula)}` : ""}<br>${esc(fmtCel(d.celular))} · ${esc(d.correo)}</p></div>
     <div class="review"><h4>Dirección de envío <button data-act="go(2)">Editar</button></h4><p>${esc(d.direccion)}, barrio ${esc(d.barrio)}<br>${esc(d.ciudad)}, ${esc(d.depto)}${d.indicaciones ? `<br><span class="small">${esc(d.indicaciones)}</span>` : ""}</p></div>
-    <div class="review"><h4>Pago y envío <button data-act="go(2)">Editar</button></h4><p>Método de pago: ${esc(d.pago)}<br><span class="small">El costo del envío se confirma por WhatsApp según la transportadora y tu ciudad.</span></p></div>
+    <div class="review"><h4>Pago y envío <button data-act="go(2)">Editar</button></h4><p>Método de pago: ${esc(d.pago)}<br><span class="small">El costo del envío se confirma por WhatsApp según la transportadora y tu ciudad.</span></p>${d.pago === BREB ? brebHTML(subtotal()) : ""}</div>
     <div class="review"><h4>Productos <button data-act="go(1)">Editar</button></h4><div class="citems">${lines().map(l => itemHTML(l, false)).join("")}</div></div>
     <div class="co-actions"><button class="btn ghost" data-act="go(2)">Volver</button><button class="btn wa" id="confirmBtn" data-act="submitOrder()">Confirmar pedido por WhatsApp</button></div></div>${summaryHTML()}</div>`;
   } else {
     const o = lastOrder;
     v.innerHTML = `<div class="thanks"><div class="ok"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div><span class="eyebrow">Pedido registrado</span><h2>¡Gracias por tu compra, ${esc(o.nombre.split(" ")[0])}!</h2>
     <div class="num">${esc(o.ref)}</div><p>Abrimos WhatsApp con el resumen de tu pedido. <b>Envía el mensaje</b> para que confirmemos disponibilidad, costo de envío y datos de pago.</p>
-    <p class="small">Total productos: ${fmt(o.total)} · Envío a convenir según transportadora.</p><br>
+    <p class="small">Total productos: ${fmt(o.total)} · Envío a convenir según transportadora.</p>${o.pago === BREB ? brebHTML(o.total) : ""}<br>
     <div class="co-actions" style="justify-content:center"><a class="btn wa" href="${waURL(o.msg)}" target="_blank" rel="noopener">Abrir WhatsApp de nuevo</a><button class="btn ghost" data-act="closeCheckout()">Volver a la tienda</button></div></div>`;
   }
 }
@@ -209,7 +215,7 @@ function orderMessage(ref, L, d) {
     `Subtotal: ${fmt(t)}`, `Envío: a convenir según transportadora`, `*Total productos: ${fmt(t)}*`, ``,
     `*Datos del cliente*`, `Nombre: ${d.nombre.trim()}`, ...(d.cedula.trim() ? [`Cédula: ${d.cedula.trim()}`] : []), `Celular: ${fmtCel(d.celular)}`, `Correo: ${d.correo.trim()}`, ``,
     `*Envío*`, `Departamento: ${d.depto}`, `Ciudad: ${d.ciudad.trim()}`, `Dirección: ${d.direccion.trim()}`, `Barrio: ${d.barrio.trim()}`, ...(d.indicaciones.trim() ? [`Indicaciones: ${d.indicaciones.trim()}`] : []), ``,
-    `*Método de pago:* ${d.pago}`].join("\n");
+    `*Método de pago:* ${d.pago}`, ...(d.pago === BREB ? [`Pagaré por Bre-B a la llave ${BREB_KEY} y enviaré el comprobante por aquí.`] : [])].join("\n");
 }
 let hpVal = ""; // trampa anti-bots (honeypot): las personas no ven este campo
 document.addEventListener("input", e => { if (e.target.id === "i-website") hpVal = e.target.value; });
@@ -226,7 +232,7 @@ async function submitOrder() {
       notes: [`Ref. web: ${ref}`, d.cedula && `Cédula: ${d.cedula}`, `Pago preferido: ${d.pago}`, d.indicaciones && `Indicaciones: ${d.indicaciones}`].filter(Boolean).join(" | ") }) });
   } catch (e) { /* sitio estático: sin backend, seguimos por WhatsApp */ }
   if (win) win.location.href = waURL(msg); else location.href = waURL(msg);
-  lastOrder = { ref, msg, nombre: d.nombre, total: L.reduce((s, l) => s + l.p.price * l.q, 0) };
+  lastOrder = { ref, msg, nombre: d.nombre, pago: d.pago, total: L.reduce((s, l) => s + l.p.price * l.q, 0) };
   cart = {}; save(); step = 4; renderStep();
 }
 
@@ -332,3 +338,15 @@ renderFilters(); renderGrid(); renderCart(); route();
     }
   });
 })();
+
+/* Bre-B: mostrar el QR al elegir el método y copiar la llave */
+document.addEventListener("change", e => {
+  if (e.target.name === "pago") { const b = $("#brebBox"); if (b) b.hidden = e.target.value !== BREB; }
+});
+document.addEventListener("click", async e => {
+  const c = e.target.closest("[data-copy]"); if (!c) return;
+  const t = c.dataset.copy;
+  try { await navigator.clipboard.writeText(t); }
+  catch { const i = document.createElement("textarea"); i.value = t; i.style.position = "fixed"; i.style.opacity = "0"; document.body.appendChild(i); i.select(); try { document.execCommand("copy"); } catch {} i.remove(); }
+  c.textContent = "Copiada ✓"; toast(`Llave ${t} copiada`); setTimeout(() => { c.textContent = "Copiar llave"; }, 1800);
+});

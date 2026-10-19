@@ -85,7 +85,7 @@ app.post('/api/orders', sec.ordersLimiter, async (req, res) => {
     const priced = priceItems(b.items, new Set(await db.soldOut()));
     if (!priced.items.length) priced.errors.push('El carrito está vacío');
     if (Object.keys(fieldErrors).length || priced.errors.length) return res.status(400).json({ ok: false, fieldErrors, errors: priced.errors });
-    const PAYS = ['Transferencia', 'Nequi', 'Daviplata', 'Contraentrega'];
+    const PAYS = ['Bre-B / Nu (QR)', 'Transferencia', 'Nequi', 'Daviplata', 'Contraentrega'];
     const wantsWompi = b.payment === 'wompi' && wompi.enabled() && process.env.WOMPI_ENABLED === 'true';
     const method = wantsWompi ? 'wompi' : (PAYS.includes(b.payment_method) ? b.payment_method : 'whatsapp');
     const q = await shipping.quote({ city: b.city, department: b.department, subtotal: priced.subtotal });

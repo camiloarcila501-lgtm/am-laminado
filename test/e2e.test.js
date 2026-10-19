@@ -133,3 +133,8 @@ test('admin: actualización automática (JSON con filtros, nuevos desde since, s
   const det = await (await fetch(base + `/admin/pedido/${b.nuevos[0].id}`, { headers: { cookie } })).text();
   assert.ok(!det.includes('pedidos.js'), 'el detalle no se actualiza solo'); assert.equal((det.match(/\/borrar"/g) || []).length, 1, 'un solo botón borrar en el detalle');
 });
+test('pedido con Bre-B / Nu (QR) se acepta y guarda el método', async () => {
+  const j = await (await post('/api/orders', { ...cust, payment: 'whatsapp', payment_method: 'Bre-B / Nu (QR)', items: [{ id: P1.id, qty: 1 }] })).json();
+  assert.equal(j.ok, true); assert.equal((await db.byRef(j.reference)).payment_method, 'Bre-B / Nu (QR)');
+  const r = await fetch(base + '/img/qr-breb-nu.png'); assert.equal(r.status, 200); assert.match(r.headers.get('content-type'), /png/);
+});
