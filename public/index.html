@@ -59,6 +59,9 @@ nav.menu a:after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px
 .burger{display:none}
 @media(max-width:1020px){
  nav.menu{position:fixed;inset:0 0 0 auto;width:min(320px,86vw);background:#fff;flex-direction:column;gap:0;padding:90px 28px 28px;transform:translateX(100%);transition:transform .35s ease;box-shadow:-10px 0 30px rgba(0,0,0,.08);z-index:60}
+ header.main{backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+ body.menu-open header.main{z-index:75}
+ nav.menu{height:100vh;height:100dvh;overflow-y:auto}
  nav.menu.open{transform:none}nav.menu a{padding:16px 0;border-bottom:1px solid var(--line);font-size:.78rem}
  .burger{display:flex}
 }
@@ -686,8 +689,8 @@ document.addEventListener("click", e => {
 });
 function openCart() { closeMenu(); $("#drawer").classList.add("open"); $("#overlay").classList.add("show"); }
 function closeAll() { $("#drawer").classList.remove("open"); $("#overlay").classList.remove("show"); closeMenu(); }
-function toggleMenu() { const m = $("#menu"), o = m.classList.toggle("open"); $("#overlay").classList.toggle("show", o); }
-function closeMenu() { $("#menu").classList.remove("open"); }
+function toggleMenu() { const m = $("#menu"), o = m.classList.toggle("open"); $("#overlay").classList.toggle("show", o); document.body.classList.toggle("menu-open", o); }
+function closeMenu() { $("#menu").classList.remove("open"); document.body.classList.remove("menu-open"); if (!$("#drawer").classList.contains("open")) $("#overlay").classList.remove("show"); }
 $("#menu").addEventListener("click", e => { if (e.target.closest("a")) closeAll(); });
 let tT; function toast(m) { const t = $("#toast"); t.textContent = m; t.classList.add("show"); clearTimeout(tT); tT = setTimeout(() => t.classList.remove("show"), 1800); }
 
