@@ -115,3 +115,21 @@ test('admin: borrar pedido con confirmación y CSRF', async () => {
   const list = await (await fetch(base + r.headers.get('location'), { headers: { cookie } })).text(); assert.match(list, /borrado definitivamente/);
   const detail = await (await fetch(base + '/admin/pedido/1', { headers: { cookie } })).text(); assert.match(detail, /Borrar pedido/);
 });
+test('admin: actualización automática (JSON con filtros, nuevos desde since, script externo)', async () => {
+  assert.equal((await fetch(base + '/admin/api/pedidos', { redirect: 'manual' })).status, 302, 'requiere sesión');
+  const page = await (await fetch(base + '/admin?status=nuevo', { headers: { cookie } })).text();
+  assert.match(page, /<script src="\/admin\/static\/pedidos.js" defer><\/script>/); assert.ok(!/<script>/.test(page), 'sin JS en línea');
+  assert.match(page, /Activar avisos/); assert.match(page, /id="live" data-max="\d+"/);
+  const js = await fetch(base + '/admin/static/pedidos.js'); assert.equal(js.status, 200); assert.match(js.headers.get('content-type'), /javascript/);
+  const a = await (await fetch(base + '/admin/api/pedidos?status=nuevo', { headers: { cookie } })).json();
+  const j = await (await post('/api/orders', { ...cust, name: 'Cliente <b>Nuevo</b>', items: [{ id: P1.id, qty: 2 }] })).json();
+  const b = await (await fetch(base + `/admin/api/pedidos?status=nuevo&since=${a.maxId}`, { headers: { cookie } })).json();
+  assert.equal(b.nuevos.length, 1); assert.equal(b.nuevos[0].reference, j.reference); assert.equal(b.total, a.total + 1);
+  assert.ok(b.html.includes('&lt;b&gt;Nuevo') && !b.html.includes('<b>Nuevo'), 'HTML escapado');
+  const c = await (await fetch(base + `/admin/api/pedidos?status=entregado&since=${a.maxId}`, { headers: { cookie } })).json();
+  assert.equal(c.nuevos.length, 0, 'respeta el filtro de estado');
+  const del = await (await fetch(base + `/admin/pedido/${b.nuevos[0].id}/borrar`, { headers: { cookie } })).text();
+  assert.ok(!del.includes('pedidos.js'), 'la confirmación de borrado no se actualiza sola');
+  const det = await (await fetch(base + `/admin/pedido/${b.nuevos[0].id}`, { headers: { cookie } })).text();
+  assert.ok(!det.includes('pedidos.js'), 'el detalle no se actualiza solo'); assert.equal((det.match(/\/borrar"/g) || []).length, 1, 'un solo botón borrar en el detalle');
+});
