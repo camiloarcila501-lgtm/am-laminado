@@ -602,7 +602,7 @@ window.CATALOGO = [{"id":1,"ref":"REF 100","name":"Anillo Ajustable Doble Cartie
 {"id":365,"ref":"REF 286","name":"Cadena Tejido Cartier 3 mm – 50 cm","cat":"Cadenas","price":297900,"img":"fotos/p365.jpg","gallery":[]},
 {"id":366,"ref":"REF 296","name":"Cadena Tejido Militar Balín 1.5 mm – 50 cm","cat":"Cadenas","price":195900,"img":"fotos/p366.jpg","gallery":[]},
 {"id":367,"ref":"REF 3","name":"Tejido Cadena Singapur – 40 cm","cat":"Cadenas","price":127900,"img":"fotos/p367.jpg","gallery":[]},
-{"id":368,"ref":"REF 3","name":"Cadena Singapur 40 cm","cat":"Cadenas","price":null,"img":"fotos/p368.jpg","gallery":[]},
+{"id":368,"ref":"REF 3","name":"Cadena Singapur 40 cm","cat":"Cadenas","price":127900,"img":"fotos/p368.jpg","gallery":[]},
 {"id":369,"ref":"REF 300","name":"Cadena Tejido Espejo 2 mm – 45 cm","cat":"Cadenas","price":194900,"img":"fotos/p369.jpg","gallery":[]},
 {"id":370,"ref":"REF 301","name":"Cadena Tejido Espejo 2 2.5 mm – 60 cm","cat":"Cadenas","price":254900,"img":"fotos/p370.jpg","gallery":[]},
 {"id":371,"ref":"REF 305","name":"Cadena Tejido Escalera Plana 1.5 mm – 45 cm","cat":"Cadenas","price":168900,"img":"fotos/p371.jpg","gallery":[]},
