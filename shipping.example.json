@@ -1,0 +1,9 @@
+{
+  "_nota": "TARIFAS DE EJEMPLO: el dueño debe definir los valores reales. Solo se usa con SHIPPING_MODE=tabla y renombrando este archivo a shipping.json.",
+  "free_shipping_min": 0,
+  "zones": [
+    { "name": "Medellín y área metropolitana", "cities": ["Medellín", "Envigado", "Itagüí", "Sabaneta", "Bello", "La Estrella", "Copacabana", "Girardota", "Caldas", "Barbosa"], "cost": 0 },
+    { "name": "Ciudades principales", "cities": ["Bogotá", "Cali", "Barranquilla", "Cartagena", "Bucaramanga", "Pereira", "Manizales", "Armenia", "Cúcuta", "Santa Marta", "Ibagué", "Villavicencio", "Pasto", "Montería"], "cost": 0 }
+  ],
+  "default": 0
+}

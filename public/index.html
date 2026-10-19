@@ -142,6 +142,10 @@ header.main nav a{display:block;margin:0;padding:.6rem 0;border-bottom:1px solid
 .vals span{background:#111}
 .wa-tip{position:fixed;right:86px;bottom:26px;background:#fff;border:1px solid #eee;box-shadow:0 4px 14px rgba(0,0,0,.12);padding:.5rem .9rem;font-size:.8rem;line-height:1.3;z-index:30;border-radius:8px}
 @media(max-width:600px){.wordmark b{font-size:1.2rem}.wordmark small{font-size:.52rem;letter-spacing:.25em}.hicons{gap:.2rem}.ibtn svg{width:23px;height:23px}.offer{font-size:1.05rem;letter-spacing:.08em}.hcap{padding:4rem 1rem 2rem}.hero2{height:78vh}}
+.drawer{overflow-y:auto}.drawer .items{flex:none;max-height:38vh}
+.foot .row{display:flex;justify-content:space-between;gap:1rem;margin-bottom:.35rem;font-size:.9rem}.foot .row.ship span:last-child{text-align:right;color:#8a6a1f;font-size:.8rem;max-width:62%}.foot .row.big{font-weight:600;font-size:1.05rem;border-top:1px solid #e3d9c3;padding-top:.5rem;margin-bottom:.8rem}
+#cform summary{cursor:pointer;font-weight:600;margin-bottom:.5rem;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}.two-in{display:flex;gap:.5rem}.cerr{color:#c53030;font-size:.85rem}
+.btn.pay{margin-bottom:.5rem;background:#c9a34a;color:#111}.btn.wa{background:#25d366;color:#fff}.muted-s{font-size:.75rem;color:#777;text-align:center;margin-top:.4rem}
 </style>
 </head>
 <body>
@@ -326,9 +330,21 @@ header.main nav a{display:block;margin:0;padding:.6rem 0;border-bottom:1px solid
   <header><span class="logo" style="font-size:1.2rem">Tu carrito</span><button class="cart-btn" onclick="toggleCart(false)">✕</button></header>
   <div class="items" id="items"></div>
   <div class="foot">
-    <p style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:.7rem"><span>Total</span><span id="total">$0</span></p>
-    <input id="cname" placeholder="Tu nombre"><input id="ccity" placeholder="Ciudad / dirección de envío">
-    <button class="btn" style="width:100%" onclick="checkout()">Finalizar pedido por WhatsApp</button>
+    <p class="row"><span>Subtotal</span><span id="total">$0</span></p>
+    <p class="row ship"><span>Envío</span><span id="shipline">Se confirma por WhatsApp según transportadora y ciudad</span></p>
+    <p class="row big"><span>Total productos</span><span id="grand">$0</span></p>
+    <details id="cform" open><summary>Datos de envío</summary>
+      <input id="cname" placeholder="Nombre completo *" autocomplete="name">
+      <input id="cphone" placeholder="Celular / WhatsApp *" inputmode="tel" autocomplete="tel">
+      <input id="cemail" placeholder="Correo electrónico *" type="email" autocomplete="email">
+      <div class="two-in"><input id="cdept" placeholder="Departamento *"><input id="ccity" placeholder="Ciudad *" onchange="quoteShip()"></div>
+      <input id="caddr" placeholder="Dirección completa *" autocomplete="street-address">
+      <textarea id="cnotes" rows="2" placeholder="Notas (opcional)"></textarea>
+      <p id="cerr" class="cerr"></p>
+    </details>
+    <button class="btn pay" id="paybtn" style="width:100%;display:none" onclick="checkout('wompi')">Pagar en línea</button>
+    <button class="btn wa" style="width:100%" onclick="checkout('whatsapp')">Enviar pedido por WhatsApp</button>
+    <p class="muted-s" id="paynote"></p>
   </div>
 </aside>
 <div class="toast" id="toast">Agregado al carrito ✓</div>
@@ -377,17 +393,40 @@ function lines(){return Object.entries(cart).map(([id,q])=>({p:PRODUCTS.find(x=>
 function renderCart(){
  const L=lines(),tot=L.reduce((s,l)=>s+l.p.price*l.q,0);
  count.textContent=L.reduce((s,l)=>s+l.q,0); total.textContent=fmt(tot);
+ const sc=SHIP&&SHIP.cost!=null?SHIP.cost:null; shipline.textContent=sc==null?'Se confirma por WhatsApp según transportadora y ciudad':(sc?fmt(sc):'Gratis'); grand.textContent=fmt(tot+(sc||0)); grand.previousElementSibling.textContent=sc==null?'Total productos':'Total';
  items.innerHTML=L.length?L.map(l=>`<div class="item"><div><b>${l.p.name}</b><br><small>${fmt(l.p.price)}</small></div>
  <div class="qty"><button onclick="chg(${l.p.id},-1)">−</button> ${l.q} <button onclick="chg(${l.p.id},1)">+</button></div></div>`).join(''):'<p style="text-align:center;color:#999;margin-top:2rem">Tu carrito está vacío</p>';
 }
 function toggleCart(o){drawer.classList.toggle('open',o);overlay.classList.toggle('show',o)}
 function openWA(msg){window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank')}
-function checkout(){
+let CFG={payments:false,shippingMode:'convenir'}, API=location.protocol.startsWith('http');
+if(API) fetch('/api/config').then(r=>r.ok?r.json():null).then(c=>{if(c){CFG=c;paybtn.style.display=c.payments?'block':'none';paynote.textContent=c.payments?'Pago seguro con Wompi: tarjeta, PSE, Nequi, Bancolombia.':''}}).catch(()=>{API=false});
+let SHIP=null;
+async function quoteShip(){
+ if(!API||CFG.shippingMode==='convenir')return;
+ try{const r=await fetch('/api/shipping/quote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({city:ccity.value,department:cdept.value,items:cartItems()})});SHIP=await r.json();renderCart()}catch(e){}
+}
+function cartItems(){return lines().map(l=>({id:l.p.id,qty:l.q}))}
+function waText(L,ref,tot){
+ let m="¡Hola A&M laminado 18k! Quiero hacer este pedido"+(ref?` (${ref})`:'')+":\n\n"+L.map(l=>`• ${l.q} x ${l.p.name} (${l.p.ref}) — ${l.p.price?fmt(l.p.price*l.q):'consultar precio'}`).join("\n")+`\n\n*Total productos: ${fmt(tot)}*\nEnvío: a confirmar según transportadora y ciudad`;
+ const f=[['Nombre',cname.value],['Celular',cphone.value],['Correo',cemail.value],['Ciudad',ccity.value],['Departamento',cdept.value],['Dirección',caddr.value],['Notas',cnotes.value]];
+ f.forEach(([k,v])=>{if(v.trim())m+=`\n${k}: ${v.trim()}`});return m;
+}
+async function checkout(method){
  const L=lines(); if(!L.length){alert("Tu carrito está vacío");return}
- const tot=L.reduce((s,l)=>s+l.p.price*l.q,0);
- let m="¡Hola A&M laminado 18k! Quiero hacer este pedido:\n\n"+L.map(l=>`• ${l.q} x ${l.p.name} (${l.p.ref}) — ${fmt(l.p.price*l.q)}`).join("\n")+`\n\n*Total: ${fmt(tot)}*`;
- if(cname.value)m+=`\nNombre: ${cname.value}`; if(ccity.value)m+=`\nEnvío a: ${ccity.value}`;
- openWA(m);
+ const tot=L.reduce((s,l)=>s+(l.p.price||0)*l.q,0); cerr.textContent='';
+ const body={items:cartItems(),name:cname.value,phone:cphone.value,email:cemail.value,city:ccity.value,department:cdept.value,address:caddr.value,notes:cnotes.value,payment:method};
+ if(method==='whatsapp'){
+  const hasPriceless=L.some(l=>!l.p.price);
+  let ref=null;
+  if(API&&!hasPriceless&&cname.value&&cphone.value&&cemail.value){try{const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json();if(j.ok)ref=j.reference}catch(e){}}
+  openWA(waText(L,ref,tot)); if(ref){cart={};save()} return;
+ }
+ try{
+  const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json();
+  if(!j.ok){cerr.innerHTML=[...Object.values(j.fieldErrors||{}),...(j.errors||[])].join('<br>');cform.open=true;return}
+  cart={};save(); location.href=j.checkoutUrl;
+ }catch(e){cerr.textContent='No pudimos procesar el pago. Envía tu pedido por WhatsApp.'}
 }
 function openModal(id){document.getElementById(id).classList.add('show')}
 function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))}
