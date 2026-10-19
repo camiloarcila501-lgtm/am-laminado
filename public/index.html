@@ -265,6 +265,98 @@ footer .social{margin-top:16px}
 .thanks h2{font-size:2.4rem}.thanks .num{display:inline-block;margin:18px 0;padding:12px 22px;border:1px dashed var(--gold);font-weight:600;letter-spacing:.12em}
 .thanks p{color:#4a463f;margin-bottom:12px}
 @media(max-width:860px){.co-body{grid-template-columns:1fr;gap:24px;padding-top:16px}.summary{position:static;order:-1;padding:20px}.fg{grid-template-columns:1fr}.pays{grid-template-columns:1fr 1fr}}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.slider{display:block;min-height:0;height:min(84vh,780px);background:#ece6dc}
+.slider:before{display:none}
+.slide{position:absolute;inset:0;display:flex;align-items:center;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s}
+.slide.on{opacity:1;visibility:visible}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 35%;animation:none;transform:scale(1.06);transition:transform 7s ease-out}
+.slide.on img{transform:scale(1)}
+.slide:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.82) 36%,rgba(255,255,255,0) 66%)}
+.slide .wrap{position:relative;z-index:2;width:100%}
+.slide .hero-copy>*{opacity:0;transform:translateY(16px);transition:all .8s ease}
+.slide.on .hero-copy>*{opacity:1;transform:none}.slide.on .hero-copy>*:nth-child(2){transition-delay:.12s}.slide.on .hero-copy>*:nth-child(3){transition-delay:.24s}.slide.on .hero-copy>*:nth-child(4){transition-delay:.36s}
+.h1{font-size:clamp(2.4rem,5.4vw,4.3rem);font-weight:400;margin-bottom:1.1rem}.h1 em{font-style:italic;color:var(--gold)}
+.sl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:46px;height:46px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.85);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.sl-arrow:hover{background:#fff}.sl-arrow svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:1.6}
+.sl-arrow.prev{left:18px}.sl-arrow.next{right:18px}
+.dots{position:absolute;left:0;right:0;bottom:22px;z-index:5;display:flex;justify-content:center;gap:10px}
+.dots button{width:28px;height:2px;border:0;background:rgba(0,0,0,.2);cursor:pointer;padding:0;position:relative;overflow:hidden}
+.dots button.on:after{content:'';position:absolute;inset:0;background:var(--ink);animation:prog 6s linear forwards}
+@keyframes prog{from{transform:translateX(-100%)}to{transform:none}}
+@media(max-width:760px){
+ .slider{height:auto}.slide{position:relative;display:none;flex-direction:column;align-items:stretch;opacity:1;visibility:visible}.slide.on{display:flex;animation:fade .6s}
+ .slide img{position:relative;height:58vh;min-height:360px;object-position:60% 30%}
+ .slide:after{display:none}.slide .wrap{padding:28px 20px 56px;text-align:center}.slide .hero-copy{margin:0 auto}
+ .sl-arrow{top:29vh;width:38px;height:38px}.sl-arrow.prev{left:10px}.sl-arrow.next{right:10px}.dots{bottom:22px}
+}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.tile{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:var(--r);text-decoration:none;color:#fff;background:var(--soft);cursor:pointer;border:0;padding:0;font:inherit}
+.tile img{width:100%;height:100%;object-fit:cover;object-position:center 58%;transition:transform .8s ease}
+.tile:hover img{transform:scale(1.07)}
+.tile:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.62))}
+.tile span{position:absolute;left:0;right:0;bottom:16px;z-index:2;text-align:center}
+.tile b{display:block;font-family:var(--serif);font-weight:500;font-size:1.35rem;letter-spacing:.02em}
+.tile small{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+@media(max-width:1020px){.tiles{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.tiles{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:0 20px 6px;gap:10px;scrollbar-width:none}.tiles::-webkit-scrollbar{display:none}.tile{flex:0 0 42%;scroll-snap-align:start}.tile b{font-size:1.15rem}}
+.rail{margin-bottom:64px}.rail:last-child{margin-bottom:0}
+.rail-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;gap:16px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.rail-head h3{font-size:clamp(1.6rem,3vw,2.1rem)}
+.rail-head .eyebrow{margin-bottom:.3rem}
+.rail-nav{display:flex;gap:8px;align-items:center}
+.rail-nav a{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;font-weight:500;margin-right:8px;color:var(--gold);cursor:pointer}
+.rail-nav button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.rail-nav button:hover{border-color:var(--ink)}.rail-nav svg{width:15px;height:15px;fill:none;stroke:var(--ink);stroke-width:1.7}
+.track-r{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 66px)/4);gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:4px}
+.track-r::-webkit-scrollbar{display:none}.track-r .card{scroll-snap-align:start;background:transparent}
+@media(max-width:1020px){.track-r{grid-auto-columns:calc((100% - 44px)/3)}}
+@media(max-width:700px){.track-r{grid-auto-columns:46%;gap:12px}.rail-nav button{display:none}}
+.promo{padding:0 0 88px;background:var(--soft)}
+.promo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pbox{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;border-radius:var(--r);color:#fff;text-decoration:none}
+.pbox img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform 1s ease}.pbox:hover img{transform:scale(1.05)}
+.pbox:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.58),rgba(0,0,0,.05) 70%)}
+.pbox span{position:absolute;left:34px;bottom:30px;right:34px;z-index:2;max-width:330px}
+.pbox em{display:block;font-style:normal;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-l);margin-bottom:8px}
+.pbox b{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.15;margin-bottom:14px}
+.pbox i{font-style:normal;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:3px}
+@media(max-width:760px){.promo-grid{grid-template-columns:1fr}.pbox{aspect-ratio:4/3}.pbox span{left:22px;bottom:22px}.promo{padding-bottom:64px}}
+.card .ph,.card h3{cursor:pointer}
+/* detalle de producto */
+.pd{position:fixed;inset:0;z-index:86;background:#fff;overflow-y:auto;display:none}
+.pd.show{display:block;animation:fade .25s}
+.pd-body{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;max-width:1160px;margin:0 auto;padding:36px 20px 60px}
+.crumbs{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}.crumbs a{text-decoration:none;cursor:pointer}.crumbs a:hover{color:var(--gold)}
+.gal{display:grid;grid-template-columns:76px 1fr;gap:14px;align-self:start;position:sticky;top:90px}
+.gal .thumbs{display:flex;flex-direction:column;gap:10px}
+.gal .thumbs button{border:1px solid var(--line);padding:0;background:var(--soft);cursor:pointer;aspect-ratio:4/5;overflow:hidden;border-radius:var(--r)}
+.gal .thumbs button.on{border-color:var(--ink)}.gal .thumbs img{width:100%;height:100%;object-fit:cover}
+.gal .main{aspect-ratio:4/5;background:var(--soft);overflow:hidden;border-radius:var(--r);cursor:zoom-in;position:relative}
+.gal .main img{width:100%;height:100%;object-fit:contain;transition:transform .3s}
+.gal .main.zoom img{transform:scale(1.8);cursor:zoom-out}
+.pinfo .ref{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.pinfo h2{font-size:clamp(2rem,3.6vw,2.7rem);margin:.4rem 0 .9rem}
+.pinfo .pp{font-size:1.5rem;font-weight:600;margin-bottom:.3rem}.pinfo .pp.ask{color:var(--gold);font-size:1.15rem;font-weight:500}
+.pinfo .tax{font-size:.8rem;color:var(--muted);margin-bottom:1.6rem}
+.buy{display:flex;gap:12px;margin-bottom:12px}
+.buy .qty{height:50px}.buy .qty button{width:42px;height:48px}.buy .qty span{min-width:34px}
+.buy .btn{flex:1}
+.acc{margin-top:28px;border-top:1px solid var(--line)}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;cursor:pointer;padding:18px 0;font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;display:flex;justify-content:space-between}
+.acc summary::-webkit-details-marker{display:none}.acc summary:after{content:'+';font-size:1.1rem;font-weight:300}.acc details[open] summary:after{content:'−'}
+.acc p,.acc li{font-size:.9rem;color:#4a463f}.acc details>div{padding:0 0 18px}.acc ul{padding-left:1.1rem}
+.perks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.perks div{display:flex;gap:10px;align-items:center;font-size:.8rem;color:#4a463f;background:var(--soft);padding:12px;border-radius:var(--r)}
+.perks svg{width:20px;height:20px;fill:none;stroke:var(--gold);stroke-width:1.4;flex:none}
+.related{max-width:1160px;margin:0 auto;padding:0 20px 80px}
+@media(max-width:860px){.pd-body{grid-template-columns:1fr;gap:26px;padding-top:18px}.gal{position:static;grid-template-columns:1fr}.gal .thumbs{flex-direction:row;order:2}.gal .thumbs button{width:64px}.buy{flex-wrap:wrap}.buy .btn{flex:1 1 60%}}
+nav.menu a{white-space:nowrap}.wordmark b{white-space:nowrap}
+@media(min-width:1021px) and (max-width:1240px){nav.menu{gap:18px}nav.menu a{font-size:.66rem;letter-spacing:.12em}}
+.card .ph img{transform:scale(1.2)}.card:hover .ph img{transform:scale(1.26)}
+.tile img.studio{transform:scale(1.25)}.tile:hover img.studio{transform:scale(1.32)}
 /* reveal */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}.rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.rv,.card{opacity:1;transform:none}}
@@ -280,7 +372,7 @@ footer .social{margin-top:16px}
 <header class="main" id="hdr"><div class="wrap">
   <a href="#inicio" class="wordmark" aria-label="A&amp;M Laminado 18k, inicio"><b>A&amp;M LAMINADO</b><small>FINE JEWELRY 18K</small></a>
   <nav class="menu" id="menu" aria-label="Principal">
-    <a href="#catalogo">Catálogo</a><a href="#nosotros">Nosotros</a><a href="#envios">Envíos y pagos</a><a href="#cuidados">Cuidados</a><a href="#politicas">Políticas</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a>
+    <a href="#categorias">Categorías</a><a href="#catalogo">Catálogo</a><a href="#nosotros">Nosotros</a><a href="#envios">Envíos y pagos</a><a href="#cuidados">Cuidados</a><a href="#politicas">Políticas</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a>
   </nav>
   <div class="hicons">
     <button class="ibtn" onclick="goSearch()" aria-label="Buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
@@ -290,15 +382,27 @@ footer .social{margin-top:16px}
 </div></header>
 
 <main id="inicio">
-<section class="hero">
-  <img src="fotos/hero.jpg" alt="Joyas en oro laminado 18k A&amp;M" fetchpriority="high">
-  <div class="wrap"><div class="hero-copy">
-    <span class="eyebrow">Oro laminado 18k · Colombia</span>
-    <h1>Joyas que brillan <em>contigo</em>, todos los días</h1>
-    <p class="lead">Anillos, aretes, cadenas, dijes y pulseras en oro laminado 18k. Precios al detal, envíos a toda Colombia y asesoría personalizada por WhatsApp.</p>
-    <div class="ctas"><a href="#catalogo" class="btn">Ver catálogo</a><a href="#" class="btn ghost" data-wa="Hola, quiero asesoría para elegir una joya.">Asesoría por WhatsApp</a></div>
-  </div></div>
+<section class="hero slider" id="slider" aria-roledescription="carrusel">
+  <div class="slide on"><img src="fotos/hero.jpg" alt="Joyas en oro laminado 18k" fetchpriority="high">
+    <div class="wrap"><div class="hero-copy"><span class="eyebrow">Oro laminado 18k · Colombia</span>
+    <h2 class="h1">Joyas que brillan <em>contigo</em>, todos los días</h2>
+    <p class="lead">Anillos, aretes, cadenas, dijes y pulseras en oro laminado 18k. Precios al detal y envíos a toda Colombia.</p>
+    <div class="ctas"><a href="#catalogo" class="btn">Ver catálogo</a><a href="#" class="btn ghost" data-wa="Hola, quiero asesoría para elegir una joya.">Asesoría por WhatsApp</a></div></div></div></div>
+  <div class="slide"><img src="fotos/p34_1.jpg" alt="Anillos en oro laminado 18k" loading="lazy">
+    <div class="wrap"><div class="hero-copy"><span class="eyebrow">Colección de anillos</span>
+    <h2 class="h1">Anillos ajustables para <em>cada estilo</em></h2>
+    <p class="lead">Diseños delicados con circones y acabados que acompañan tu día a día.</p>
+    <div class="ctas"><a href="#catalogo" class="btn" data-cat="Anillos">Ver anillos</a></div></div></div></div>
+  <div class="slide"><img src="fotos/p478_1.jpg" alt="Candongas en oro laminado 18k" loading="lazy">
+    <div class="wrap"><div class="hero-copy"><span class="eyebrow">Aretes y candongas</span>
+    <h2 class="h1">El detalle que <em>completa</em> tu look</h2>
+    <p class="lead">Topos, aretes y candongas en oro laminado 18k para regalar o regalarte.</p>
+    <div class="ctas"><a href="#catalogo" class="btn" data-cat="Candongas">Ver candongas</a><a href="#catalogo" class="btn ghost" data-cat="Aretes y topos">Ver aretes</a></div></div></div></div>
+  <button class="sl-arrow prev" aria-label="Anterior" onclick="slideGo(-1)"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="sl-arrow next" aria-label="Siguiente" onclick="slideGo(1)"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="dots" id="dots"></div>
 </section>
+<h1 class="sr">A&amp;M Laminado 18k · Joyería en oro laminado 18k</h1>
 
 <div class="trust"><div class="wrap">
   <div><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><span><b>Garantía</b><small>Respaldo en cada joya</small></span></div>
@@ -307,8 +411,20 @@ footer .social{margin-top:16px}
   <div><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z"/></svg><span><b>Asesoría</b><small>Atención por WhatsApp</small></span></div>
 </div></div>
 
+<section class="sec" id="categorias"><div class="wrap">
+  <div class="sec-head rv"><span class="eyebrow">Explora</span><h2>Compra por categoría</h2></div>
+  <div class="tiles rv" id="tiles"></div>
+</div></section>
+
+<section class="sec soft" id="destacados"><div class="wrap" id="rails"></div></section>
+
+<section class="promo"><div class="wrap promo-grid rv">
+  <a href="#catalogo" class="pbox" data-cat="Anillos"><img src="fotos/p32_1.jpg" alt="" loading="lazy"><span><em>Para regalar</em><b>Anillos que se quedan en la memoria</b><i>Ver anillos →</i></span></a>
+  <a href="#" class="pbox" data-wa="Hola, quiero asesoría para elegir un regalo."><img src="fotos/p620_1.jpg" alt="" loading="lazy"><span><em>Asesoría personalizada</em><b>¿No sabes cuál elegir? Te ayudamos</b><i>Escríbenos →</i></span></a>
+</div></section>
+
 <section class="sec" id="catalogo"><div class="wrap">
-  <div class="sec-head rv"><span class="eyebrow">Tienda</span><h2>Nuestro catálogo</h2><p>Precios al detal en pesos colombianos. Antes de despachar te confirmamos la disponibilidad por WhatsApp.</p></div>
+  <div class="sec-head rv"><span class="eyebrow">Tienda</span><h2>Catálogo completo</h2><p>Precios al detal en pesos colombianos. Antes de despachar te confirmamos la disponibilidad por WhatsApp.</p></div>
   <div class="toolbar">
     <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Busca por nombre o referencia" aria-label="Buscar productos"></div>
     <div class="filters" id="filters" role="tablist"></div>
@@ -458,6 +574,11 @@ footer .social{margin-top:16px}
   <div id="coView"></div>
 </div>
 
+<div class="pd" id="pd" role="dialog" aria-modal="true" aria-label="Detalle del producto">
+  <div class="co-top"><div class="wrap"><a href="#" class="wordmark" onclick="closePD();return false"><b>A&amp;M LAMINADO</b><small>FINE JEWELRY 18K</small></a>
+  <div class="hicons"><button class="ibtn" onclick="closePD();openCart()" aria-label="Carrito"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></button><button class="x" onclick="closePD()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></div></div>
+  <div id="pdView"></div>
+</div>
 <div class="toast" id="toast"></div>
 <div class="modal" role="dialog" aria-modal="true" id="m-garantia"><div class="mbox"><button class="x" onclick="closeModal()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><h2>Garantía</h2>
 <p>Todas nuestras joyas cuentan con <b>garantía de 6 meses</b> desde la fecha de entrega.</p><h3>Cubre</h3><ul><li>Defectos de fabricación.</li><li>Cambio de color con uso adecuado.</li></ul>
@@ -519,7 +640,7 @@ function filtered() {
 function card(p, i) {
   const price = p.price ? `<div class="price">${fmt(p.price)}</div>` : `<div class="price ask">Consultar precio</div>`;
   const btn = p.price ? `<button class="add" data-add="${p.id}">Agregar al carrito</button>` : `<button class="add" data-ask="${p.id}">Consultar por WhatsApp</button>`;
-  return `<article class="card" style="animation-delay:${(i % PAGE) * 30}ms"><div class="ph"><img loading="lazy" src="${esc(p.img)}" alt="${esc(p.name)}"></div>
+  return `<article class="card" data-id="${p.id}" style="animation-delay:${(i % PAGE) * 30}ms"><div class="ph"><img loading="lazy" src="${esc(p.img)}" alt="${esc(p.name)}"></div>
   <div class="body"><span class="ref">${esc(p.ref)} · ${esc(p.cat)}</span><h3>${esc(p.name)}</h3>${price}${btn}</div></article>`;
 }
 function renderGrid() {
@@ -574,7 +695,7 @@ let tT; function toast(m) { const t = $("#toast"); t.textContent = m; t.classLis
 function openModal(id) { document.getElementById(id).classList.add("show"); }
 function closeModal() { document.querySelectorAll(".modal").forEach(m => m.classList.remove("show")); }
 document.querySelectorAll(".modal").forEach(m => m.addEventListener("click", e => { if (e.target === m) closeModal(); }));
-document.addEventListener("keydown", e => { if (e.key === "Escape") { if (document.querySelector(".modal.show")) closeModal(); else if ($("#co").classList.contains("show")) closeCheckout(); else closeAll(); } });
+document.addEventListener("keydown", e => { if (e.key === "Escape") { if (document.querySelector(".modal.show")) closeModal(); else if ($("#co").classList.contains("show")) closeCheckout(); else if ($("#pd").classList.contains("show")) closePD(); else closeAll(); } });
 
 /* ---------- Checkout (Carrito → Datos → Confirmar) ---------- */
 let step = 1, lastOrder = null;
@@ -695,13 +816,82 @@ async function submitOrder() {
   cart = {}; save(); step = 4; renderStep();
 }
 
+/* ---------- Slider ---------- */
+const slides = [...document.querySelectorAll("#slider .slide")]; let si = 0, sT;
+$("#dots").innerHTML = slides.map((_, i) => `<button aria-label="Ir a la diapositiva ${i + 1}" data-i="${i}"></button>`).join("");
+function slideTo(i) { si = (i + slides.length) % slides.length; slides.forEach((s, k) => s.classList.toggle("on", k === si));
+  document.querySelectorAll("#dots button").forEach((d, k) => { d.classList.remove("on"); if (k === si) { void d.offsetWidth; d.classList.add("on"); } });
+  const img = slides[si].querySelector("img"); if (img.loading === "lazy") img.loading = "eager";
+  clearTimeout(sT); sT = setTimeout(() => slideTo(si + 1), 6000); }
+function slideGo(d) { slideTo(si + d); }
+$("#dots").addEventListener("click", e => { const b = e.target.closest("button"); if (b) slideTo(+b.dataset.i); });
+let tx0 = null; $("#slider").addEventListener("touchstart", e => tx0 = e.touches[0].clientX, { passive: true });
+$("#slider").addEventListener("touchend", e => { if (tx0 == null) return; const dx = e.changedTouches[0].clientX - tx0; if (Math.abs(dx) > 45) slideGo(dx < 0 ? 1 : -1); tx0 = null; });
+slideTo(0);
+
+/* ---------- Categorías y destacados ---------- */
+const TILE_IMG = { "Anillos": "fotos/p32_1.jpg", "Candongas": "fotos/p620_1.jpg" };
+const TILE_CATS = ["Anillos", "Aretes y topos", "Candongas", "Cadenas", "Dijes", "Pulseras"].filter(c => PRODUCTS.some(p => p.cat === c));
+const firstImg = c => (PRODUCTS.find(p => p.cat === c && p.price) || PRODUCTS.find(p => p.cat === c)).img;
+$("#tiles").innerHTML = TILE_CATS.map(c => `<button class="tile" data-cat="${esc(c)}"><img loading="lazy" class="${TILE_IMG[c] ? "" : "studio"}" src="${TILE_IMG[c] || firstImg(c)}" alt=""><span><b>${esc(c)}</b><small>${catCount(c)} piezas</small></span></button>`).join("");
+const RAILS = [["Anillos", "Selección", "Anillos destacados"], ["Candongas", "Para todos los días", "Candongas"], ["Cadenas", "Esenciales", "Cadenas"], ["Pulseras", "Para tu muñeca", "Pulseras"]];
+function pick(c, n = 12) { const L = PRODUCTS.filter(p => p.cat === c && p.price); const step = Math.max(1, Math.floor(L.length / n)); return L.filter((_, i) => i % step === 0).slice(0, n); }
+$("#rails").innerHTML = RAILS.filter(([c]) => catCount(c)).map(([c, e, t], k) => `<div class="rail rv"><div class="rail-head"><div><span class="eyebrow">${esc(e)}</span><h3>${esc(t)}</h3></div>
+  <div class="rail-nav"><a data-cat="${esc(c)}">Ver todo</a><button aria-label="Anterior" data-rail="${k}" data-d="-1"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button aria-label="Siguiente" data-rail="${k}" data-d="1"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div></div>
+  <div class="track-r" id="rail${k}">${pick(c).map(card).join("")}</div></div>`).join("");
+document.querySelectorAll("#rails .rv").forEach(el => io2(el));
+function io2(el) { new IntersectionObserver((es, o) => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); o.disconnect(); } }), { threshold: .1 }).observe(el); }
+document.addEventListener("click", e => {
+  const r = e.target.closest("[data-rail]"); if (r) { const t = $("#rail" + r.dataset.rail); t.scrollBy({ left: t.clientWidth * .9 * +r.dataset.d }); return; }
+  const c = e.target.closest("[data-cat]"); if (c) { e.preventDefault(); filter = c.dataset.cat; shown = PAGE; $("#q").value = ""; renderFilters(); renderGrid(); closePD(); $("#catalogo").scrollIntoView({ behavior: "smooth" }); return; }
+  const o = e.target.closest(".card .ph, .card h3"); if (o) { const id = o.closest(".card").dataset.id; if (id) openPD(+id); }
+  const add2 = e.target.closest("#rails [data-add], #pdView [data-add]"); if (add2) { add(+add2.dataset.add); add2.classList.add("done"); add2.textContent = "Agregado ✓"; setTimeout(() => { add2.classList.remove("done"); add2.textContent = "Agregar al carrito"; }, 1400); }
+  const ask2 = e.target.closest("#rails [data-ask], #pdView [data-ask]"); if (ask2) { const p = BYID.get(+ask2.dataset.ask); openWA(`Hola, quiero conocer el precio y la disponibilidad de: ${p.name} (${p.ref}).`); }
+});
+
+/* ---------- Detalle de producto (#producto-ID) ---------- */
+let pdQty = 1, pdCur = null;
+function openPD(id) { if (location.hash !== "#producto-" + id) history.pushState(null, "", "#producto-" + id); renderPD(id); }
+function closePD() { if (!$("#pd").classList.contains("show")) return; $("#pd").classList.remove("show"); document.body.style.overflow = ""; if (location.hash.startsWith("#producto-")) history.pushState(null, "", location.pathname + location.search); }
+function renderPD(id) {
+  const p = BYID.get(id); if (!p) return; pdCur = p; pdQty = 1;
+  const imgs = [p.img, ...(p.gallery || [])];
+  const desc = `${p.name}. Pieza en oro laminado 18k de la categoría ${p.cat.toLowerCase()}, referencia ${p.ref.replace("REF ", "")}.`;
+  const rel = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id && x.price).slice(0, 8);
+  $("#pdView").innerHTML = `<div class="pd-body">
+   <div class="gal"><div class="thumbs">${imgs.length > 1 ? imgs.map((u, i) => `<button class="${i ? "" : "on"}" data-img="${esc(u)}"><img src="${esc(u)}" alt=""></button>`).join("") : ""}</div>
+   <div class="main" id="pdMain"><img src="${esc(p.img)}" alt="${esc(p.name)}"></div></div>
+   <div class="pinfo"><div class="crumbs"><a onclick="closePD()">Inicio</a> / <a data-cat="${esc(p.cat)}">${esc(p.cat)}</a></div>
+    <span class="ref">${esc(p.ref)}</span><h2>${esc(p.name)}</h2>
+    ${p.price ? `<div class="pp">${fmt(p.price)}</div><div class="tax">Precio al detal · Envío a convenir según transportadora</div>
+    <div class="buy"><div class="qty"><button onclick="pdQ(-1)" aria-label="Menos">−</button><span id="pdQ">1</span><button onclick="pdQ(1)" aria-label="Más">+</button></div><button class="btn" onclick="pdAdd()">Agregar al carrito</button></div>
+    <button class="btn ghost block" onclick="pdAdd(true)">Comprar ahora</button>` : `<div class="pp ask">Consultar precio</div><div class="tax">Te confirmamos precio y disponibilidad por WhatsApp.</div>`}
+    <a href="#" class="btn wa block" style="margin-top:10px" data-wa="Hola, quiero información sobre: ${esc(p.name)} (${esc(p.ref)}).">Preguntar por WhatsApp</a>
+    <div class="perks"><div><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg>Garantía por defectos de fabricación</div><div><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/></svg>Envíos a toda Colombia</div></div>
+    <div class="acc"><details open><summary>Descripción</summary><div><p>${esc(desc)}</p></div></details>
+    <details><summary>Garantía</summary><div><p>Tu joya cuenta con garantía por defectos de fabricación. <a href="#" onclick="openModal('m-garantia');return false">Ver política de garantía</a>.</p></div></details>
+    <details><summary>Cuidados</summary><div><ul><li>Evita perfumes, cremas, cloro y productos de limpieza.</li><li>Quítatela para bañarte, nadar o hacer ejercicio.</li><li>Límpiala con un paño suave y seco.</li><li>Guárdala en una bolsa o estuche individual.</li></ul></div></details>
+    <details><summary>Envíos y pagos</summary><div><p>Enviamos a toda Colombia. El costo del envío se confirma por WhatsApp según la transportadora y tu ciudad. Pagos por transferencia, Nequi, Daviplata o contraentrega.</p></div></details></div>
+   </div></div>
+   ${rel.length ? `<div class="related"><div class="rail-head"><div><span class="eyebrow">${esc(p.cat)}</span><h3>También te puede gustar</h3></div></div><div class="track-r">${rel.map(card).join("")}</div></div>` : ""}`;
+  $("#pd").classList.add("show"); $("#pd").scrollTop = 0; document.body.style.overflow = "hidden";
+}
+function pdQ(d) { pdQty = Math.max(1, Math.min(99, pdQty + d)); $("#pdQ").textContent = pdQty; }
+function pdAdd(buyNow) { cart[pdCur.id] = (cart[pdCur.id] || 0) + pdQty; save(); toast(`${pdQty} ${pdQty > 1 ? "unidades agregadas" : "unidad agregada"} al carrito`); if (buyNow) { closePD(); startCheckout(); } }
+$("#pdView").addEventListener("click", e => {
+  const t = e.target.closest("[data-img]"); if (t) { $("#pdMain img").src = t.dataset.img; document.querySelectorAll("#pdView .thumbs button").forEach(b => b.classList.toggle("on", b === t)); }
+  const m = e.target.closest("#pdMain"); if (m) m.classList.toggle("zoom");
+});
+function route() { const m = location.hash.match(/^#producto-(\d+)$/); if (m) renderPD(+m[1]); else if ($("#pd").classList.contains("show")) { $("#pd").classList.remove("show"); document.body.style.overflow = ""; } }
+addEventListener("popstate", route); addEventListener("hashchange", route);
+
 /* ---------- Efectos ---------- */
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
 document.querySelectorAll(".rv").forEach(el => io.observe(el));
 addEventListener("scroll", () => $("#hdr").classList.toggle("scrolled", scrollY > 10), { passive: true });
 setTimeout(() => $("#watip").classList.add("show"), 2500); setTimeout(() => $("#watip").classList.remove("show"), 11000);
 
-renderFilters(); renderGrid(); renderCart();
+renderFilters(); renderGrid(); renderCart(); route();
 </script>
 </body>
 </html>
