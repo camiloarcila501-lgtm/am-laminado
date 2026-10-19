@@ -34,7 +34,7 @@ window.CATALOGO = [{"id":1,"ref":"REF 100","name":"Anillo Ajustable Doble Cartie
 {"id":33,"ref":"REF 20","name":"Anillo Ajustable Punta y Bola en Circones","cat":"Anillos","price":192900,"img":"fotos/p33.jpg","gallery":["fotos/p33_1.jpg"]},
 {"id":34,"ref":"REF 21","name":"Anillo Ajustable Semi Espiral Estelar Circones","cat":"Anillos","price":192900,"img":"fotos/p34.jpg","gallery":["fotos/p34_1.jpg"]},
 {"id":35,"ref":"REF 25","name":"Anillo Ajustable Doble Trébol Liso y Circones","cat":"Anillos","price":153900,"img":"fotos/p35.jpg","gallery":["fotos/p35_1.jpg"]},
-{"id":36,"ref":"REF 26","name":"Anillo","cat":"Anillos","price":null,"img":"fotos/p36.jpg","gallery":["fotos/p36_1.jpg"]},
+{"id":36,"ref":"REF 26","name":"Anillo","cat":"Anillos","price":176900,"img":"fotos/p36.jpg","gallery":["fotos/p36_1.jpg"]},
 {"id":37,"ref":"REF 27","name":"Anillo Ajustable Cartier Micro Circones","cat":"Anillos","price":191900,"img":"fotos/p37.jpg","gallery":["fotos/p37_1.jpg"]},
 {"id":38,"ref":"REF 30","name":"Anillo Ajustable Doble Gucci, ( Carril Cristales","cat":"Anillos","price":205900,"img":"fotos/p38.jpg","gallery":[]},
 {"id":39,"ref":"REF 32","name":"Anillo Ajustable Centro Cupula y Flor de Piedras Rosa y Verde","cat":"Anillos","price":191900,"img":"fotos/p39.jpg","gallery":[]},
