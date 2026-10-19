@@ -34,6 +34,9 @@ const ICON = {
   tiktok: '<path d="M16 2c.3 2.4 1.8 4 4 4.2v3.3a7.6 7.6 0 0 1-4-1.2v6.9A6.2 6.2 0 1 1 9.8 9v3.4a2.9 2.9 0 1 0 2.9 2.8V2z"/>'
 };
 const soc = Object.entries(SOCIAL).filter(([, u]) => u).map(([k, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="${k}"><svg viewBox="0 0 24 24">${ICON[k]}</svg></a>`).join("");
+const HAS_CAT = !!document.getElementById("grid"); // solo el inicio tiene catálogo
+const HAS_SLIDER = !!document.getElementById("slider");
+const goCatalog = (cat, buscar) => { location.href = "index.html" + (cat ? "?cat=" + encodeURIComponent(cat) : buscar ? "?buscar=1" : "") + "#catalogo"; };
 $("#social").innerHTML = soc; $("#social2").innerHTML = soc;
 $("#track").innerHTML = [...MARQUEE, ...MARQUEE, ...MARQUEE, ...MARQUEE].map(t => `<span>${esc(t)}</span>`).join("");
 $("#yr").textContent = new Date().getFullYear();
@@ -46,7 +49,7 @@ const catCount = c => c === "Todos" ? PRODUCTS.length : PRODUCTS.filter(p => p.c
 function renderFilters() {
   $("#filters").innerHTML = cats.map(c => `<button role="tab" class="${c === filter ? "active" : ""}" data-c="${esc(c)}">${esc(c)}<span>${catCount(c)}</span></button>`).join("");
 }
-$("#filters").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; filter = b.dataset.c; shown = PAGE; renderFilters(); renderGrid(); });
+if (HAS_CAT) $("#filters").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; filter = b.dataset.c; shown = PAGE; renderFilters(); renderGrid(); });
 function filtered() {
   const q = $("#q").value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
   return PRODUCTS.filter(p => (filter === "Todos" || p.cat === filter) && (!q || (p.name + " " + p.ref + " " + p.cat).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(q)));
@@ -64,14 +67,14 @@ function renderGrid() {
   $("#resCount").textContent = list.length ? `${list.length} ${list.length === 1 ? "producto" : "productos"}` : "";
   $("#more").style.display = list.length > shown ? "inline-flex" : "none";
 }
-$("#more").onclick = () => { shown += PAGE; renderGrid(); };
-let qT; $("#q").addEventListener("input", () => { clearTimeout(qT); qT = setTimeout(() => { shown = PAGE; renderGrid(); }, 180); });
-$("#grid").addEventListener("click", e => {
+if (HAS_CAT) { $("#more").onclick = () => { shown += PAGE; renderGrid(); }; }
+let qT; if (HAS_CAT) $("#q").addEventListener("input", () => { clearTimeout(qT); qT = setTimeout(() => { shown = PAGE; renderGrid(); }, 180); });
+if (HAS_CAT) $("#grid").addEventListener("click", e => {
   const a = e.target.closest("[data-add]"), k = e.target.closest("[data-ask]");
   if (a) { add(+a.dataset.add); a.classList.add("done"); a.textContent = "Agregado ✓"; setTimeout(() => { a.classList.remove("done"); a.textContent = "Agregar al carrito"; }, 1400); }
   if (k) { const p = BYID.get(+k.dataset.ask); openWA(`Hola, quiero conocer el precio y la disponibilidad de: ${p.name} (${p.ref}).`); }
 });
-function goSearch() { closeMenu(); location.hash = "catalogo"; setTimeout(() => $("#q").focus(), 350); }
+function goSearch() { closeMenu(); if (!HAS_CAT) return goCatalog("", true); location.hash = "catalogo"; setTimeout(() => $("#q").focus(), 350); }
 
 /* ---------- Carrito ---------- */
 const CART_KEY = "am_cart_v3";
@@ -91,7 +94,7 @@ function itemHTML(l, editable = true) {
 function renderCart() {
   const L = lines(), n = L.reduce((s, l) => s + l.q, 0);
   const c = $("#count"); c.textContent = n; c.classList.toggle("on", n > 0);
-  $("#items").innerHTML = L.length ? L.map(l => itemHTML(l)).join("") : `<div class="empty"><p>Tu carrito está vacío.</p><br><a href="#catalogo" class="btn ghost" data-act="closeAll()">Ver catálogo</a></div>`;
+  $("#items").innerHTML = L.length ? L.map(l => itemHTML(l)).join("") : `<div class="empty"><p>Tu carrito está vacío.</p><br><a href="index.html#catalogo" class="btn ghost" data-act="closeAll()">Ver catálogo</a></div>`;
   $("#dfoot").style.display = L.length ? "block" : "none";
   $("#sub").textContent = fmt(subtotal());
 }
@@ -238,32 +241,32 @@ async function submitOrder() {
 
 /* ---------- Slider ---------- */
 const slides = [...document.querySelectorAll("#slider .slide")]; let si = 0, sT;
-$("#dots").innerHTML = slides.map((_, i) => `<button aria-label="Ir a la diapositiva ${i + 1}" data-i="${i}"></button>`).join("");
+if (HAS_SLIDER) $("#dots").innerHTML = slides.map((_, i) => `<button aria-label="Ir a la diapositiva ${i + 1}" data-i="${i}"></button>`).join("");
 function slideTo(i) { si = (i + slides.length) % slides.length; slides.forEach((s, k) => s.classList.toggle("on", k === si));
   document.querySelectorAll("#dots button").forEach((d, k) => { d.classList.remove("on"); if (k === si) { void d.offsetWidth; d.classList.add("on"); } });
   const img = slides[si].querySelector("img"); if (img.loading === "lazy") img.loading = "eager";
   clearTimeout(sT); sT = setTimeout(() => slideTo(si + 1), 6000); }
 function slideGo(d) { slideTo(si + d); }
-$("#dots").addEventListener("click", e => { const b = e.target.closest("button"); if (b) slideTo(+b.dataset.i); });
-let tx0 = null; $("#slider").addEventListener("touchstart", e => tx0 = e.touches[0].clientX, { passive: true });
-$("#slider").addEventListener("touchend", e => { if (tx0 == null) return; const dx = e.changedTouches[0].clientX - tx0; if (Math.abs(dx) > 45) slideGo(dx < 0 ? 1 : -1); tx0 = null; });
-slideTo(0);
+if (HAS_SLIDER) $("#dots").addEventListener("click", e => { const b = e.target.closest("button"); if (b) slideTo(+b.dataset.i); });
+let tx0 = null; if (HAS_SLIDER) $("#slider").addEventListener("touchstart", e => tx0 = e.touches[0].clientX, { passive: true });
+if (HAS_SLIDER) $("#slider").addEventListener("touchend", e => { if (tx0 == null) return; const dx = e.changedTouches[0].clientX - tx0; if (Math.abs(dx) > 45) slideGo(dx < 0 ? 1 : -1); tx0 = null; });
+if (HAS_SLIDER && slides.length) slideTo(0);
 
 /* ---------- Categorías y destacados ---------- */
 const TILE_IMG = { "Anillos": "fotos/p32_1.jpg", "Candongas": "fotos/p620_1.jpg" };
 const TILE_CATS = ["Anillos", "Aretes y topos", "Candongas", "Cadenas", "Dijes", "Pulseras"].filter(c => PRODUCTS.some(p => p.cat === c));
 const firstImg = c => (PRODUCTS.find(p => p.cat === c && p.price) || PRODUCTS.find(p => p.cat === c)).img;
-$("#tiles").innerHTML = TILE_CATS.map(c => `<button class="tile" data-cat="${esc(c)}"><img loading="lazy" class="${TILE_IMG[c] ? "" : "studio"}" src="${esc(TILE_IMG[c] || firstImg(c))}" alt=""><span><b>${esc(c)}</b><small>${catCount(c)} piezas</small></span></button>`).join("");
+if (document.getElementById("tiles")) $("#tiles").innerHTML = TILE_CATS.map(c => `<button class="tile" data-cat="${esc(c)}"><img loading="lazy" class="${TILE_IMG[c] ? "" : "studio"}" src="${esc(TILE_IMG[c] || firstImg(c))}" alt=""><span><b>${esc(c)}</b><small>${catCount(c)} piezas</small></span></button>`).join("");
 const RAILS = [["Anillos", "Selección", "Anillos destacados"], ["Candongas", "Para todos los días", "Candongas"], ["Cadenas", "Esenciales", "Cadenas"], ["Pulseras", "Para tu muñeca", "Pulseras"]];
 function pick(c, n = 12) { const L = PRODUCTS.filter(p => p.cat === c && p.price); const step = Math.max(1, Math.floor(L.length / n)); return L.filter((_, i) => i % step === 0).slice(0, n); }
-$("#rails").innerHTML = RAILS.filter(([c]) => catCount(c)).map(([c, e, t], k) => `<div class="rail rv"><div class="rail-head"><div><span class="eyebrow">${esc(e)}</span><h3>${esc(t)}</h3></div>
+if (document.getElementById("rails")) $("#rails").innerHTML = RAILS.filter(([c]) => catCount(c)).map(([c, e, t], k) => `<div class="rail rv"><div class="rail-head"><div><span class="eyebrow">${esc(e)}</span><h3>${esc(t)}</h3></div>
   <div class="rail-nav"><a data-cat="${esc(c)}">Ver todo</a><button aria-label="Anterior" data-rail="${k}" data-d="-1"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button aria-label="Siguiente" data-rail="${k}" data-d="1"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div></div>
   <div class="track-r" id="rail${k}">${pick(c).map(card).join("")}</div></div>`).join("");
 document.querySelectorAll("#rails .rv").forEach(el => io2(el));
 function io2(el) { new IntersectionObserver((es, o) => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); o.disconnect(); } }), { threshold: .1 }).observe(el); }
 document.addEventListener("click", e => {
   const r = e.target.closest("[data-rail]"); if (r) { const t = $("#rail" + r.dataset.rail); t.scrollBy({ left: t.clientWidth * .9 * +r.dataset.d }); return; }
-  const c = e.target.closest("[data-cat]"); if (c) { e.preventDefault(); filter = c.dataset.cat; shown = PAGE; $("#q").value = ""; renderFilters(); renderGrid(); closePD(); $("#catalogo").scrollIntoView({ behavior: "smooth" }); return; }
+  const c = e.target.closest("[data-cat]"); if (c) { e.preventDefault(); if (!HAS_CAT) return goCatalog(c.dataset.cat); filter = c.dataset.cat; shown = PAGE; $("#q").value = ""; renderFilters(); renderGrid(); closePD(); $("#catalogo").scrollIntoView({ behavior: "smooth" }); return; }
   const o = e.target.closest(".card .ph, .card h3"); if (o) { const id = o.closest(".card").dataset.id; if (id) openPD(+id); }
   const add2 = e.target.closest("#rails [data-add], #pdView [data-add]"); if (add2) { add(+add2.dataset.add); add2.classList.add("done"); add2.textContent = "Agregado ✓"; setTimeout(() => { add2.classList.remove("done"); add2.textContent = "Agregar al carrito"; }, 1400); }
   const ask2 = e.target.closest("#rails [data-ask], #pdView [data-ask]"); if (ask2) { const p = BYID.get(+ask2.dataset.ask); openWA(`Hola, quiero conocer el precio y la disponibilidad de: ${p.name} (${p.ref}).`); }
@@ -289,7 +292,7 @@ function renderPD(id) {
     <a href="#" class="btn wa block" style="margin-top:10px" data-wa="Hola, quiero información sobre: ${esc(p.name)} (${esc(p.ref)}).">Preguntar por WhatsApp</a>
     <div class="perks"><div><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg>5 años de garantía</div><div><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/></svg>Envíos a toda Colombia</div></div>
     <div class="acc"><details open><summary>Descripción</summary><div><p>${esc(desc)}</p></div></details>
-    <details><summary>Garantía</summary><div><p>Tu joya cuenta con 5 años de garantía por cambio de tonalidad o daño. <a href="#" data-act="openModal(&#39;m-garantia&#39;);return false">Ver política de garantía</a>.</p></div></details>
+    <details><summary>Garantía</summary><div><p>Tu joya cuenta con 5 años de garantía por cambio de tonalidad o daño. <a href="garantia.html">Ver política de garantía</a>.</p></div></details>
     <details><summary>Cuidados</summary><div><ul><li>Después del mar, enjuágala con abundante agua dulce para retirar el exceso de sal.</li><li>No es necesario limpiarla con paños.</li><li>No apliques productos como crema dental, porque pueden dañarla.</li></ul></div></details>
     <details><summary>Envíos y pagos</summary><div><p>Enviamos a toda Colombia. El costo del envío se confirma por WhatsApp según la transportadora y tu ciudad. Pagos por transferencia, Nequi, Daviplata o contraentrega.</p></div></details></div>
    </div></div>
@@ -311,7 +314,21 @@ document.querySelectorAll(".rv").forEach(el => io.observe(el));
 addEventListener("scroll", () => $("#hdr").classList.toggle("scrolled", scrollY > 10), { passive: true });
 setTimeout(() => $("#watip").classList.add("show"), 2500); setTimeout(() => $("#watip").classList.remove("show"), 11000);
 
-renderFilters(); renderGrid(); renderCart(); route();
+if (HAS_CAT) {
+  const qp = new URLSearchParams(location.search), qc = qp.get("cat");
+  if (qc && cats.includes(qc)) filter = qc;
+  renderFilters(); renderGrid();
+  if (qp.get("buscar")) setTimeout(() => $("#q").focus(), 350);
+}
+renderCart(); route();
+/* Formulario de contacto → WhatsApp */
+const cf = document.getElementById("contactForm");
+if (cf) cf.addEventListener("submit", e => {
+  e.preventDefault(); const n = $("#kn"), c = $("#kc"), m = $("#km"); let ok = true;
+  [n, m].forEach(el => { const bad = !el.value.trim(); el.closest(".f").classList.toggle("bad", bad); if (bad) ok = false; });
+  if (!ok) return;
+  openWA(`Hola, soy ${n.value.trim()}${c.value.trim() ? ` de ${c.value.trim()}` : ""}. ${m.value.trim()}`);
+});
 (async () => {
   try {
     const ctl = new AbortController(); setTimeout(() => ctl.abort(), 4000);
@@ -319,7 +336,7 @@ renderFilters(); renderGrid(); renderCart(); route();
     if (!r.ok || !(r.headers.get("content-type") || "").includes("json")) return;
     const j = await r.json(); SOLD = new Set(Array.isArray(j.agotados) ? j.agotados : []);
     if (!SOLD.size) return;
-    renderGrid(); renderCart();
+    if (HAS_CAT) renderGrid(); renderCart();
     document.querySelectorAll(".track-r").forEach(t => t.querySelectorAll(".card").forEach(c => { const p = BYID.get(+c.dataset.id); if (p && isSoldOut(p)) c.outerHTML = card(p, 0); }));
     if ($("#pd").classList.contains("show") && pdCur) renderPD(pdCur.id);
   } catch (e) { /* sin servidor: todo disponible */ }
