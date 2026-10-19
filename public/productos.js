@@ -565,7 +565,7 @@ window.CATALOGO = [{"id":1,"ref":"REF 100","name":"Anillo Ajustable Doble Cartie
 {"id":697,"ref":"REF 52","name":"Candonga Hoggie Dije Clasica Dije Sol 8 mm","cat":"Candongas","price":77900,"img":"fotos/p697.jpg","gallery":[]},
 {"id":698,"ref":"REF 59","name":"Candonga Rectangular 1 1,4 cm – 1.4 cm","cat":"Candongas","price":124900,"img":"fotos/p698.jpg","gallery":[]},
 {"id":699,"ref":"REF 68","name":"Candonga Hilo Lisa 1.5 mm","cat":"Candongas","price":64900,"img":"fotos/p699.jpg","gallery":[]},
-{"id":700,"ref":"REF 68","name":"Candonga Hilo Lisa 1.5 mm","cat":"Candongas","price":null,"img":"fotos/p700.jpg","gallery":[]},
+{"id":700,"ref":"REF 68","name":"Candonga Hilo Lisa 1.5 mm","cat":"Candongas","price":64900,"img":"fotos/p700.jpg","gallery":[]},
 {"id":701,"ref":"REF 69","name":"Candonga Hilo Liso 1.7 cm","cat":"Candongas","price":72900,"img":"fotos/p701.jpg","gallery":[]},
 {"id":702,"ref":"REF 69","name":"Candonga Hilo Liso 1.7 cm","cat":"Candongas","price":null,"img":"fotos/p702.jpg","gallery":[]},
 {"id":703,"ref":"REF 70","name":"Candonga Hilo Liso 2 2.5 cm","cat":"Candongas","price":127900,"img":"fotos/p703.jpg","gallery":[]},
