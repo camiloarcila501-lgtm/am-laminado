@@ -373,3 +373,7 @@ nav.menu a{white-space:nowrap}.wordmark b{white-space:nowrap}
 @media(max-width:560px){.gar-steps li{padding:64px 18px 18px}.gar-steps li:before{left:18px;top:16px}}
 nav.menu a.active{color:var(--gold)}nav.menu a.active:after{width:100%}
 .page-main{padding-top:10px}
+/* Páginas internas: que el encabezado fijo no tape el inicio de las secciones */
+main [id],footer [id]{scroll-margin-top:170px}
+@media(max-width:860px){.page-main .split .img{order:2}.page-main>.sec:first-of-type{padding-top:48px}}
+.split p.closing{font-family:var(--serif);font-size:1.3rem;font-style:italic;color:var(--gold);margin-top:1.4rem}
