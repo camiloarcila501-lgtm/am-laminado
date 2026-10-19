@@ -28,8 +28,12 @@ test('validación de datos y carrito', async () => {
   const r = await post('/api/orders', { items: [], name: 'x', email: 'malo' });
   assert.equal(r.status, 400); const j = await r.json();
   assert.ok(j.fieldErrors.email && j.fieldErrors.phone && j.errors.length);
-  const r2 = await post('/api/orders', { ...cust, items: [{ id: NOPRICE.id, qty: 1 }] });
-  assert.equal(r2.status, 400);
+  if (NOPRICE) { // hoy todos los productos tienen precio; la prueba aplica si vuelve a haber uno sin precio
+    const r2 = await post('/api/orders', { ...cust, items: [{ id: NOPRICE.id, qty: 1 }] });
+    assert.equal(r2.status, 400);
+  }
+  const r3 = await post('/api/orders', { ...cust, items: [{ id: 999999, qty: 1 }] });
+  assert.equal(r3.status, 400);
 });
 test('pedido Wompi: precios recalculados en servidor y firma de integridad', async () => {
   const r = await post('/api/orders', { ...cust, payment: 'wompi', items: [{ id: P1.id, qty: 2, price: 1 }, { id: P2.id, qty: 1, price: 1 }] });

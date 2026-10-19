@@ -13,10 +13,9 @@ services:
         value: "20"
       - key: NODE_ENV
         value: production
+      # Base de datos en Neon (Postgres gratis). Se pega el link en Render > Environment.
       - key: DATABASE_URL
-        fromDatabase:
-          name: am-laminado-db
-          property: connectionString
+        sync: false
       - key: ADMIN_PASSWORD
         generateValue: true
       - key: SESSION_SECRET
