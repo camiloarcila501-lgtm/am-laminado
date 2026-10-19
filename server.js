@@ -38,6 +38,10 @@ app.get('/api/stock', async (req, res) => {
   catch (e) { console.error('[stock]', e.message); res.json({ agotados: [] }); }
 });
 
+// Contador de visitas propio (texto plano para que el navegador no haga preflight CORS)
+const visits = require('./lib/visits');
+app.post('/api/visita', sec.visitsLimiter, express.text({ type: 'text/plain', limit: '2kb' }), visits.handler(db, catalog));
+
 // Compras recientes para el aviso de la tienda: nombre (solo primer nombre), ciudad, un producto y fecha. Sin datos personales.
 let recentCache = { t: 0, data: [] };
 const capFirst = s => { const w = String(s || '').trim().split(/\s+/)[0] || ''; return w ? w.charAt(0).toLocaleUpperCase('es-CO') + w.slice(1).toLocaleLowerCase('es-CO') : ''; };

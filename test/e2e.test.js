@@ -158,3 +158,27 @@ test('compras recientes: solo primer nombre, ciudad, producto y fecha (sin datos
   for (const bad of ['Gómez', '3001234567', '300 123 4567', 'laura@example.com', 'Cra 43A', 'AM-', 'total', 'phone', 'email']) assert.ok(!txt.includes(bad), bad);
   assert.ok(j.some(x => x.nombre === 'Laura' && x.ciudad === 'Medellín'));
 });
+
+test('visitas: guarda sin IP ni navegador, ignora bots y admin, panel con login', async () => {
+  const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148';
+  const hit = (b, ua = UA) => fetch(base + '/api/visita', { method: 'POST', headers: { 'Content-Type': 'text/plain', 'User-Agent': ua, 'X-Forwarded-For': '203.0.113.9' }, body: JSON.stringify(b) });
+  const before = db._memVisits().length;
+  assert.equal((await hit({ t: 'pagina', p: '/index.html', r: 'https://l.instagram.com/x' })).status, 204);
+  assert.equal((await hit({ t: 'producto', p: '/index.html', id: P1.id })).status, 204);
+  await hit({ t: 'pagina', p: '/garantia.html' }, 'Googlebot/2.1 (+http://www.google.com/bot.html)');
+  await hit({ t: 'pagina', p: '/garantia.html' }, 'curl/8.0');
+  await hit({ t: 'pagina', p: '/admin/visitas' });
+  await hit({ t: 'producto', p: '/index.html', id: 999999 });
+  await new Promise(r => setTimeout(r, 100));
+  const rows = db._memVisits().slice(before);
+  assert.equal(rows.length, 2, JSON.stringify(rows));
+  const txt = JSON.stringify(rows);
+  assert.ok(!txt.includes('203.0.113.9') && !txt.includes('iPhone') && !txt.includes('Mozilla'));
+  assert.equal(rows[0].source, 'Instagram'); assert.equal(rows[0].device, 'Móvil'); assert.match(rows[0].visitor, /^[a-f0-9]{16}$/);
+  assert.equal(rows[1].visitor, rows[0].visitor); assert.equal(rows[1].product_id, P1.id); assert.ok(rows[1].product_name.includes(P1.ref));
+  const anon = await fetch(base + '/admin/visitas', { redirect: 'manual' });
+  assert.ok([302, 303].includes(anon.status) && /\/admin\/login/.test(anon.headers.get('location')));
+  const page = await (await fetch(base + '/admin/visitas', { headers: { cookie } })).text();
+  assert.match(page, /Visitas a la tienda/); assert.match(page, /Instagram/); assert.match(page, new RegExp(P1.ref));
+  assert.match(await (await fetch(base + '/admin', { headers: { cookie } })).text(), /Visitas hoy/);
+});
