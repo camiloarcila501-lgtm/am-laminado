@@ -1,6 +1,7 @@
+# Blueprint de Render: servidor de la tienda (pedidos, admin, correos, inventario) + base de datos Postgres gratis.
 services:
   - type: web
-    name: am-laminado
+    name: am-laminado-api
     runtime: node
     plan: free
     region: oregon
@@ -14,29 +15,25 @@ services:
         fromDatabase:
           name: am-laminado-db
           property: connectionString
+      - key: ADMIN_PASSWORD
+        generateValue: true
       - key: SESSION_SECRET
         generateValue: true
       - key: WHATSAPP_NUMBER
         value: "573008918966"
       - key: SHIPPING_MODE
         value: convenir
-      - key: WOMPI_ENV
-        value: sandbox
-      - key: ADMIN_PASSWORD
-        sync: false
-      - key: PUBLIC_URL
-        sync: false
+      - key: STATUS_EMAILS
+        value: "true"
+      - key: ALLOWED_ORIGINS
+        value: https://am-laminado18k.onrender.com
       - key: RESEND_API_KEY
         sync: false
       - key: EMAIL_FROM
         sync: false
       - key: OWNER_EMAIL
         sync: false
-      - key: WOMPI_PUBLIC_KEY
-        sync: false
-      - key: WOMPI_INTEGRITY_SECRET
-        sync: false
-      - key: WOMPI_EVENTS_SECRET
+      - key: PUBLIC_URL
         sync: false
 
 databases:

@@ -357,6 +357,8 @@ nav.menu a{white-space:nowrap}.wordmark b{white-space:nowrap}
 @media(min-width:1021px) and (max-width:1240px){nav.menu{gap:18px}nav.menu a{font-size:.66rem;letter-spacing:.12em}}
 .card .ph img{transform:scale(1.2)}.card:hover .ph img{transform:scale(1.26)}
 .tile img.studio{transform:scale(1.25)}.tile:hover img.studio{transform:scale(1.32)}
+.so-badge{position:absolute;top:10px;left:10px;background:var(--ink);color:#fff;font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:5px 10px;border-radius:20px;z-index:2}
+.card.soldout .ph img{filter:grayscale(.6);opacity:.65}.add[disabled]{background:#f1efea;border-color:#e3dfd6;color:#9a958b;cursor:not-allowed}
 /* reveal */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}.rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.rv,.card{opacity:1;transform:none}}
@@ -592,6 +594,7 @@ nav.menu a{white-space:nowrap}.wordmark b{white-space:nowrap}
 <p>Los datos que compartes al hacer un pedido (nombre, cédula, teléfono, correo y dirección) se usan únicamente para gestionar tu compra, coordinar el envío y comunicarnos contigo.</p>
 <p>No vendemos ni compartimos tus datos con terceros, salvo con la transportadora encargada de entregar tu pedido.</p>
 <p>Puedes conocer, actualizar o solicitar la eliminación de tus datos escribiéndonos por WhatsApp al +57 300 891 8966, conforme a la Ley 1581 de 2012.</p></div></div>
+<script src="config.js"></script>
 <script src="productos.js"></script>
 <script>
 /* ===================== CONFIGURACIÓN ===================== */
@@ -599,7 +602,11 @@ const WHATSAPP_NUMBER = "573008918966";
 // Redes sociales: deja vacío "" para ocultar el ícono.
 const SOCIAL = { facebook: "", instagram: "", tiktok: "" };
 const MARQUEE = ["Asesoría personalizada por WhatsApp", "Envíos a toda Colombia", "Joyería en oro laminado 18k", "Precios al detal"];
-const API_ORDERS = "/api/orders"; // opcional: si no existe, el pedido sigue por WhatsApp
+const API_BASE = window.AM_API_BASE || ""; // opcional: URL del servidor si la tienda está en otro dominio
+const API_ORDERS = API_BASE + "/api/orders"; // si no existe, el pedido sigue por WhatsApp
+const API_STOCK = API_BASE + "/api/stock";   // si no existe, todo se muestra disponible
+let SOLD = new Set();
+const isSoldOut = p => SOLD.has(`${p.ref}|${p.cat}`);
 /* ========================================================= */
 
 const PRODUCTS = (window.CATALOGO || []).map(p => ({ ...p, id: Number(p.id) }));
@@ -639,8 +646,9 @@ function filtered() {
 }
 function card(p, i) {
   const price = p.price ? `<div class="price">${fmt(p.price)}</div>` : `<div class="price ask">Consultar precio</div>`;
-  const btn = p.price ? `<button class="add" data-add="${p.id}">Agregar al carrito</button>` : `<button class="add" data-ask="${p.id}">Consultar por WhatsApp</button>`;
-  return `<article class="card" data-id="${p.id}" style="animation-delay:${(i % PAGE) * 30}ms"><div class="ph"><img loading="lazy" src="${esc(p.img)}" alt="${esc(p.name)}"></div>
+  const so = isSoldOut(p);
+  const btn = so ? `<button class="add" disabled>Agotado</button>` : p.price ? `<button class="add" data-add="${p.id}">Agregar al carrito</button>` : `<button class="add" data-ask="${p.id}">Consultar por WhatsApp</button>`;
+  return `<article class="card${so ? " soldout" : ""}" data-id="${p.id}" style="animation-delay:${(i % PAGE) * 30}ms"><div class="ph"><img loading="lazy" src="${esc(p.img)}" alt="${esc(p.name)}">${so ? `<span class="so-badge">Agotado</span>` : ""}</div>
   <div class="body"><span class="ref">${esc(p.ref)} · ${esc(p.cat)}</span><h3>${esc(p.name)}</h3>${price}${btn}</div></article>`;
 }
 function renderGrid() {
@@ -661,7 +669,7 @@ function goSearch() { closeMenu(); location.hash = "catalogo"; setTimeout(() => 
 /* ---------- Carrito ---------- */
 const CART_KEY = "am_cart_v3";
 let cart = {}; try { cart = JSON.parse(localStorage.getItem(CART_KEY) || "{}"); } catch { cart = {}; }
-function lines() { return Object.entries(cart).map(([id, q]) => ({ p: BYID.get(+id), q })).filter(l => l.p && l.p.price && l.q > 0); }
+function lines() { return Object.entries(cart).map(([id, q]) => ({ p: BYID.get(+id), q })).filter(l => l.p && l.p.price && l.q > 0 && !isSoldOut(l.p)); }
 const subtotal = () => lines().reduce((s, l) => s + l.p.price * l.q, 0);
 function save() { localStorage.setItem(CART_KEY, JSON.stringify(cart)); renderCart(); }
 function add(id) { cart[id] = (cart[id] || 0) + 1; save(); toast("Producto agregado al carrito"); const b = $("#count"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump"); }
@@ -809,7 +817,7 @@ async function submitOrder() {
     const ctl = new AbortController(); setTimeout(() => ctl.abort(), 4000);
     await fetch(API_ORDERS, { method: "POST", signal: ctl.signal, headers: { "Content-Type": "application/json" }, body: JSON.stringify({
       client_reference: ref, items: L.map(l => ({ id: l.p.id, qty: l.q })), name: d.nombre, phone: digits(d.celular), email: d.correo,
-      city: d.ciudad, department: d.depto, address: `${d.direccion}, barrio ${d.barrio}`, payment: "whatsapp",
+      city: d.ciudad, department: d.depto, address: `${d.direccion}, barrio ${d.barrio}`, payment: "whatsapp", payment_method: d.pago,
       notes: [`Ref. web: ${ref}`, d.cedula && `Cédula: ${d.cedula}`, `Pago preferido: ${d.pago}`, d.indicaciones && `Indicaciones: ${d.indicaciones}`].filter(Boolean).join(" | ") }) });
   } catch (e) { /* sitio estático: sin backend, seguimos por WhatsApp */ }
   if (win) win.location.href = waURL(msg); else location.href = waURL(msg);
@@ -864,7 +872,7 @@ function renderPD(id) {
    <div class="main" id="pdMain"><img src="${esc(p.img)}" alt="${esc(p.name)}"></div></div>
    <div class="pinfo"><div class="crumbs"><a onclick="closePD()">Inicio</a> / <a data-cat="${esc(p.cat)}">${esc(p.cat)}</a></div>
     <span class="ref">${esc(p.ref)}</span><h2>${esc(p.name)}</h2>
-    ${p.price ? `<div class="pp">${fmt(p.price)}</div><div class="tax">Precio al detal · Envío a convenir según transportadora</div>
+    ${isSoldOut(p) ? `<div class="pp">${p.price ? fmt(p.price) : ""}</div><div class="tax"><span class="so-badge" style="position:static;display:inline-block">Agotado</span> Escríbenos y te avisamos cuando vuelva a estar disponible.</div>` : p.price ? `<div class="pp">${fmt(p.price)}</div><div class="tax">Precio al detal · Envío a convenir según transportadora</div>
     <div class="buy"><div class="qty"><button onclick="pdQ(-1)" aria-label="Menos">−</button><span id="pdQ">1</span><button onclick="pdQ(1)" aria-label="Más">+</button></div><button class="btn" onclick="pdAdd()">Agregar al carrito</button></div>
     <button class="btn ghost block" onclick="pdAdd(true)">Comprar ahora</button>` : `<div class="pp ask">Consultar precio</div><div class="tax">Te confirmamos precio y disponibilidad por WhatsApp.</div>`}
     <a href="#" class="btn wa block" style="margin-top:10px" data-wa="Hola, quiero información sobre: ${esc(p.name)} (${esc(p.ref)}).">Preguntar por WhatsApp</a>
@@ -893,6 +901,18 @@ addEventListener("scroll", () => $("#hdr").classList.toggle("scrolled", scrollY 
 setTimeout(() => $("#watip").classList.add("show"), 2500); setTimeout(() => $("#watip").classList.remove("show"), 11000);
 
 renderFilters(); renderGrid(); renderCart(); route();
+(async () => {
+  try {
+    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 4000);
+    const r = await fetch(API_STOCK, { signal: ctl.signal, cache: "no-store" });
+    if (!r.ok || !(r.headers.get("content-type") || "").includes("json")) return;
+    const j = await r.json(); SOLD = new Set(Array.isArray(j.agotados) ? j.agotados : []);
+    if (!SOLD.size) return;
+    renderGrid(); renderCart();
+    document.querySelectorAll(".track-r").forEach(t => t.querySelectorAll(".card").forEach(c => { const p = BYID.get(+c.dataset.id); if (p && isSoldOut(p)) c.outerHTML = card(p, 0); }));
+    if ($("#pd").classList.contains("show") && pdCur) renderPD(pdCur.id);
+  } catch (e) { /* sin servidor: todo disponible */ }
+})();
 </script>
 </body>
 </html>

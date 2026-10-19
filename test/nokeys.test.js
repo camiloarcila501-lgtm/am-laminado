@@ -12,5 +12,6 @@ test('sin llaves', async () => {
   const j = await (await fetch(base + '/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: 'Ana Pérez', phone: '3001112233', email: 'ana@example.com', city: 'Bogotá', department: 'Cundinamarca', address: 'Calle 100 # 10-20', payment: 'wompi', items: [{ id: p.id, qty: 1 }] }) })).json();
   assert.equal(j.ok, true); assert.equal(j.checkoutUrl, undefined);
   assert.equal((await fetch(base + '/admin')).status, 503);
+  assert.deepEqual((await (await fetch(base + '/api/stock')).json()).agotados, []);
   assert.equal((await fetch(base + '/api/wompi/webhook', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' })).status, 401);
 });

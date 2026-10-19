@@ -1,62 +1,90 @@
-# A&M laminado 18k – Tienda en línea
+# A&M Laminado 18k – Tienda en línea y automatizaciones
 
-Tienda de joyería en oro laminado 18k: catálogo (`public/`), carrito, pedidos guardados en Postgres, panel privado `/admin`, correos con Resend y pagos con Wompi. Todas las integraciones son **opcionales**: sin ninguna variable configurada la página funciona y los pedidos se envían por WhatsApp.
+La tienda (`public/`) funciona sola como sitio estático: catálogo, carrito y pedido por WhatsApp.
+El **servidor** (`server.js`) agrega las automatizaciones:
 
-## Qué hace
-
-| Función | Requiere | Si falta |
+| Automatización | Qué hace | Necesita |
 |---|---|---|
-| Catálogo, carrito, pedido por WhatsApp | nada | — |
-| Guardar pedidos | `DATABASE_URL` | se guardan en memoria (se pierden al reiniciar) |
-| Panel `/admin` (pedidos, filtros, estados, costo de envío, CSV) | `ADMIN_PASSWORD` | el panel queda deshabilitado |
-| Correos al cliente y al dueño | `RESEND_API_KEY`, `EMAIL_FROM`, `OWNER_EMAIL` | no se envían correos |
-| Pago en línea (tarjeta, PSE, Nequi…) | `WOMPI_PUBLIC_KEY`, `WOMPI_INTEGRITY_SECRET`, `WOMPI_EVENTS_SECRET` | el botón "Pagar en línea" no aparece |
+| Pedidos guardados | Cada pedido del formulario se guarda en la base de datos y además se abre WhatsApp | `DATABASE_URL` |
+| Panel de administración | `/admin`: lista de pedidos, filtros por estado, detalle, cambio de estado (nuevo, confirmado, enviado, entregado, cancelado), costo de envío, guía, notas, exportar a Excel (CSV) | `ADMIN_PASSWORD` |
+| Inventario | `/admin/inventario`: marcar productos como **agotado** o **disponible**. La tienda muestra "Agotado" y no deja agregarlos al carrito | `DATABASE_URL` + `ADMIN_PASSWORD` |
+| Correos | Confirmación al cliente, aviso de pedido nuevo a la dueña y (opcional) correo al cliente cuando cambia el estado | `RESEND_API_KEY`, `EMAIL_FROM`, `OWNER_EMAIL` |
+| Respuestas de WhatsApp | Textos listos para WhatsApp Business | ver `docs/whatsapp-respuestas.md` |
 
-### Envíos
-Por defecto `SHIPPING_MODE=convenir`: el carrito muestra *"Envío: se confirma por WhatsApp según transportadora y ciudad"*, el total del pedido **no incluye el envío** y el dueño registra el costo de envío de cada pedido en `/admin` (el total se actualiza). Con Wompi, el cliente paga en línea solo los productos; el envío se cobra aparte (contraentrega o transferencia).
+**Si falta cualquier variable, nada se cae**: los correos se omiten (queda un aviso en el registro), y si la tienda no puede hablar con el servidor, el pedido sigue por WhatsApp y todos los productos se muestran disponibles.
 
-Opcional (deshabilitado por defecto):
-- `SHIPPING_MODE=tabla`: tarifas por ciudad/departamento desde `SHIPPING_RATES` (JSON) o `shipping.json` (copiar `shipping.example.json`; **las tarifas las define el dueño**). `FREE_SHIPPING_MIN` = envío gratis desde ese valor.
-- `SHIPPING_MODE=carrier`: adaptador para API de transportadora (`lib/shipping.js`, `carrierAdapter`), para cuando exista contrato con Coordinadora, Servientrega, etc. (`CARRIER_API_KEY`).
+Medios de pago en el formulario: Transferencia, Nequi, Daviplata, Contraentrega. Wompi está desactivado (solo se activa con `WOMPI_ENABLED=true` y sus llaves).
 
-### Seguridad
-- El servidor **recalcula los precios** desde `public/productos.js`; ignora precios enviados por el navegador. Productos sin precio ("Consultar precio") no se pueden pagar en línea.
-- Pagos: firma de integridad `SHA256(referencia + montoEnCentavos + COP + secretoIntegridad)`; el webhook verifica `SHA256(valores de signature.properties + timestamp + secretoEventos)` y que el monto coincida antes de marcar *pagado*.
-- Nunca subas el archivo `.env` (está en `.gitignore`).
+---
+
+## Paso a paso para publicar el servidor en Render (sin programar)
+
+La forma recomendada **mantiene la dirección actual de la tienda** `https://am-laminado18k.onrender.com`: la tienda sigue siendo el sitio estático que ya tienes, y se crea aparte un servidor para pedidos, panel e inventario.
+
+### 1. Crear el servidor y la base de datos (Blueprint)
+1. Entra a https://dashboard.render.com con tu cuenta.
+2. Arriba a la derecha: **New → Blueprint**.
+3. Elige el repositorio **am-laminado** y la rama **main** (cuando estos cambios ya estén en main).
+4. Render muestra lo que va a crear: un servicio web **am-laminado-api** y una base de datos **am-laminado-db**. Pulsa **Apply**.
+5. Te pedirá llenar algunas variables. Puedes dejarlas vacías por ahora y llenarlas después:
+   - `RESEND_API_KEY`, `EMAIL_FROM`, `OWNER_EMAIL` (correos, ver paso 4)
+   - `PUBLIC_URL`: la dirección del servidor, por ejemplo `https://am-laminado-api.onrender.com`
+6. Espera a que diga **Live** (unos minutos).
+
+### 2. Ver la contraseña del panel
+1. En Render abre el servicio **am-laminado-api → Environment**.
+2. Busca `ADMIN_PASSWORD` (Render la generó sola) y pulsa el ojo para verla. Puedes cambiarla por una tuya.
+3. Entra a `https://am-laminado-api.onrender.com/admin` (usa la dirección exacta que muestra Render arriba en el servicio).
+
+### 3. Conectar la tienda con el servidor
+1. En GitHub abre el archivo `public/config.js`.
+2. Cambia `window.AM_API_BASE = "";` por la dirección de tu servidor, por ejemplo:
+   `window.AM_API_BASE = "https://am-laminado-api.onrender.com";`
+3. Guarda (Commit). El sitio estático se actualiza solo en 1–2 minutos.
+4. La variable `ALLOWED_ORIGINS` del servidor debe tener la dirección **de la tienda** (`https://am-laminado18k.onrender.com`); ya viene puesta.
+
+### 4. Activar los correos (Resend)
+1. Crea una cuenta gratis en https://resend.com.
+2. **API Keys → Create API Key** → cópiala en `RESEND_API_KEY` (Render → am-laminado-api → Environment).
+3. Para enviar correos a tus clientes necesitas **un dominio propio verificado** en Resend (Domains → Add Domain, y copiar los registros DNS donde compraste el dominio). Sin dominio, Resend solo deja enviar al correo de tu propia cuenta.
+4. `EMAIL_FROM`: por ejemplo `A&M Laminado 18k <pedidos@tudominio.com>` (con el dominio verificado).
+5. `OWNER_EMAIL`: el correo donde quieres recibir los avisos de pedidos nuevos.
+6. Guarda los cambios: Render reinicia el servidor solo.
+
+### 5. Probar
+1. Haz un pedido de prueba en la tienda.
+2. Revisa que aparezca en `/admin`, cambia su estado a *confirmado*.
+3. En `/admin/inventario` marca un producto como agotado y revisa la tienda.
+
+### Notas importantes del plan gratis de Render
+- El servidor gratis "se duerme" tras 15 minutos sin uso; la tienda lo despierta al abrirse, pero si alguien compra justo en ese momento el pedido igual llega por WhatsApp (quizás sin guardarse en el panel).
+- La base de datos gratis de Render **vence a los 30 días**. Antes de eso pasa a un plan pago (aprox. 7 USD/mes) o usa una base de datos gratis de Supabase poniendo su dirección en `DATABASE_URL`.
+
+### Alternativa: un solo servicio
+También se puede reemplazar el sitio estático por el servidor (que también muestra la tienda). En ese caso la dirección **cambia** a la del servidor (por ejemplo `am-laminado-api.onrender.com`), salvo que uses un dominio propio.
+
+---
 
 ## Variables de entorno
-Ver `.env.example`.
+Ver `.env.example`. Todas son opcionales.
 
-| Variable | Descripción |
+| Variable | Para qué |
 |---|---|
-| `DATABASE_URL` | Conexión Postgres (Render la pone automáticamente; en Supabase: Project Settings → Database → Connection string) |
-| `ADMIN_PASSWORD` | Clave del panel `/admin` |
-| `SESSION_SECRET` | Firma de la cookie de sesión (Render la genera) |
-| `PUBLIC_URL` | URL pública, ej. `https://am-laminado.onrender.com` (para el regreso desde Wompi) |
+| `DATABASE_URL` | Base de datos (Render la pone sola) |
+| `ADMIN_PASSWORD` | Clave del panel (Render la genera) |
+| `SESSION_SECRET` | Seguridad de la sesión (Render la genera) |
+| `RESEND_API_KEY`, `EMAIL_FROM`, `OWNER_EMAIL` | Correos |
+| `STATUS_EMAILS` | `true`/`false`: correo al cliente al cambiar el estado |
+| `ALLOWED_ORIGINS` | Dirección de la tienda que puede enviar pedidos al servidor |
+| `PUBLIC_URL` | Dirección pública del servidor |
 | `WHATSAPP_NUMBER` | `573008918966` |
-| `RESEND_API_KEY` / `EMAIL_FROM` / `OWNER_EMAIL` | Correos (Resend) |
-| `WOMPI_ENV` | `sandbox` o `production` |
-| `WOMPI_PUBLIC_KEY` / `WOMPI_INTEGRITY_SECRET` / `WOMPI_EVENTS_SECRET` | Llaves de Wompi (Dashboard → Desarrolladores) |
-| `SHIPPING_MODE` | `convenir` (defecto), `tabla` o `carrier` |
-| `SHIPPING_RATES`, `FREE_SHIPPING_MIN`, `CARRIER_API_KEY` | Opcionales de envíos |
+| `SHIPPING_MODE` | `convenir` (el envío se confirma por WhatsApp) |
 
-## Publicar en Render (Blueprint)
-1. Entra a https://dashboard.render.com con tu cuenta (puedes entrar con GitHub).
-2. **New → Blueprint** y elige el repositorio `am-laminado`. Render lee `render.yaml` y crea el servicio web y la base de datos Postgres gratis.
-3. Llena las variables que pide (`ADMIN_PASSWORD`, `PUBLIC_URL`, y si ya las tienes las de Wompi y Resend; puedes dejarlas vacías) y pulsa **Apply**.
-4. Al terminar abre `https://<tu-servicio>.onrender.com`. Pon esa URL en `PUBLIC_URL` (Environment) si no la pusiste.
-5. Wompi: en el dashboard de Wompi → Desarrolladores → **URL de eventos**: `https://<tu-servicio>.onrender.com/api/wompi/webhook`.
-6. Panel: `https://<tu-servicio>.onrender.com/admin`.
-
-Notas del plan gratis de Render: el servicio "se duerme" tras 15 min sin visitas (la primera visita tarda ~1 min) y la base de datos gratis vence a los 30 días (pasar a plan pago o usar Supabase en `DATABASE_URL`).
-
-## Desarrollo local
+## Para desarrolladores
 ```bash
 npm install
-cp .env.example .env   # y edita
-npm start              # http://localhost:3000
+cp .env.example .env
+npm start                      # http://localhost:3000
 TEST_DATABASE_URL=postgresql://usuario:clave@localhost/am_test npm test
 ```
-
-## Actualizar el catálogo
-Edita `public/productos.js` (id, ref, name, cat, price en COP o `null` para "Consultar precio", img) y las fotos en `public/fotos/`.
+Catálogo: `public/productos.js`. Inventario: tabla `stock` (clave = REF + categoría, porque una misma REF se repite entre categorías).

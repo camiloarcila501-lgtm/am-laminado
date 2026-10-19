@@ -1,6 +1,6 @@
 // Pruebas end-to-end: node --test  (requiere TEST_DATABASE_URL o usa memoria)
 const test = require('node:test'), assert = require('node:assert'), crypto = require('crypto');
-Object.assign(process.env, { ADMIN_PASSWORD: 'clave-prueba', WOMPI_PUBLIC_KEY: 'pub_test_abc', WOMPI_INTEGRITY_SECRET: 'test_integrity_xyz', WOMPI_EVENTS_SECRET: 'test_events_123', WOMPI_ENV: 'sandbox' });
+Object.assign(process.env, { ADMIN_PASSWORD: 'clave-prueba', WOMPI_PUBLIC_KEY: 'pub_test_abc', WOMPI_INTEGRITY_SECRET: 'test_integrity_xyz', WOMPI_EVENTS_SECRET: 'test_events_123', WOMPI_ENV: 'sandbox', WOMPI_ENABLED: 'true' });
 delete process.env.RESEND_API_KEY;
 const sha = s => crypto.createHash('sha256').update(s).digest('hex');
 const { app } = require('../server');
@@ -13,7 +13,7 @@ const post = (u, b, h = {}) => fetch(base + u, { method: 'POST', headers: { 'Con
 
 test.before(async () => {
   await db.init(process.env.TEST_DATABASE_URL);
-  if (db._pool()) await db._pool().query('TRUNCATE orders RESTART IDENTITY');
+  if (db._pool()) await db._pool().query('TRUNCATE orders RESTART IDENTITY; TRUNCATE stock');
   await new Promise(r => { srv = app.listen(0, r); }); base = `http://127.0.0.1:${srv.address().port}`;
 });
 test.after(() => { srv.close(); db._pool()?.end(); });
@@ -39,7 +39,7 @@ test('pedido Wompi: precios recalculados en servidor y firma de integridad', asy
   assert.equal(u.origin + u.pathname, 'https://checkout.wompi.co/p/');
   assert.equal(u.searchParams.get('amount-in-cents'), String(expected * 100));
   assert.equal(u.searchParams.get('signature:integrity'), sha(`${j.reference}${expected * 100}COPtest_integrity_xyz`));
-  order = await db.byRef(j.reference); assert.equal(order.status, 'pendiente'); assert.equal(order.payment_method, 'wompi');
+  order = await db.byRef(j.reference); assert.equal(order.status, 'nuevo'); assert.equal(order.payment_method, 'wompi');
 });
 function event(tx, secret = 'test_events_123') {
   const timestamp = Math.floor(Date.now() / 1000);
@@ -49,17 +49,17 @@ function event(tx, secret = 'test_events_123') {
 test('webhook Wompi: checksum inválido rechazado', async () => {
   const e = event({ id: '1-tx', status: 'APPROVED', amount_in_cents: order.total * 100, reference: order.reference }, 'otro-secreto');
   assert.equal((await post('/api/wompi/webhook', e)).status, 401);
-  assert.equal((await db.byRef(order.reference)).status, 'pendiente');
+  assert.equal((await db.byRef(order.reference)).status, 'nuevo');
 });
 test('webhook Wompi: monto distinto no marca pagado', async () => {
   const e = event({ id: '2-tx', status: 'APPROVED', amount_in_cents: 100, reference: order.reference });
   assert.equal((await post('/api/wompi/webhook', e)).status, 200);
-  assert.equal((await db.byRef(order.reference)).status, 'pendiente');
+  assert.equal((await db.byRef(order.reference)).status, 'nuevo');
 });
 test('webhook Wompi: APPROVED válido marca pagado', async () => {
   const e = event({ id: '15113-1700000000-12345', status: 'APPROVED', amount_in_cents: order.total * 100, reference: order.reference });
   const r = await post('/api/wompi/webhook', e); assert.equal(r.status, 200);
-  const o = await db.byRef(order.reference); assert.equal(o.status, 'pagado'); assert.equal(o.payment_id, '15113-1700000000-12345');
+  const o = await db.byRef(order.reference); assert.equal(o.status, 'confirmado'); assert.equal(o.payment_id, '15113-1700000000-12345');
 });
 test('pedido por WhatsApp guardado sin pago', async () => {
   const j = await (await post('/api/orders', { ...cust, name: 'Carlos Ruiz', city: 'Cali', department: 'Valle del Cauca', payment: 'whatsapp', items: [{ id: P2.id, qty: 3 }] })).json();
@@ -75,9 +75,26 @@ test('admin: requiere login', async () => {
 test('admin: lista, filtro, cambio de estado + costo de envío, CSV', async () => {
   const h = { headers: { cookie } };
   const html = await (await fetch(base + '/admin', h)).text(); assert.match(html, new RegExp(order.reference));
-  const f = await (await fetch(base + '/admin?status=pagado', h)).text(); assert.match(f, /Laura/); assert.doesNotMatch(f, /Carlos/);
+  const f = await (await fetch(base + '/admin?status=confirmado', h)).text(); assert.match(f, /Laura/); assert.doesNotMatch(f, /Carlos/);
   const r = await fetch(base + `/admin/pedido/${order.id}`, { method: 'POST', redirect: 'manual', headers: { cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'status=enviado&shipping_cost=15000&tracking=Coordinadora+123&admin_notes=ok' });
   assert.equal(r.status, 302);
   const o = await db.byId(order.id); assert.equal(o.status, 'enviado'); assert.equal(o.shipping_cost, 15000); assert.equal(o.total, o.subtotal + 15000);
   const csv = await (await fetch(base + '/admin/export.csv', h)).text(); assert.match(csv, /referencia,fecha/); assert.match(csv, /Coordinadora 123/);
+});
+
+test('pedido con método de pago y referencia del cliente', async () => {
+  const j = await (await post('/api/orders', { ...cust, client_reference: 'AM-261019-ABCD', payment: 'whatsapp', payment_method: 'Nequi', items: [{ id: P1.id, qty: 1 }] })).json();
+  assert.equal(j.ok, true); assert.equal(j.reference, 'AM-261019-ABCD');
+  const o = await db.byRef('AM-261019-ABCD'); assert.equal(o.status, 'nuevo'); assert.equal(o.payment_method, 'Nequi');
+});
+test('inventario: marcar agotado bloquea el pedido y aparece en /api/stock', async () => {
+  const key = `${P2.ref}|${P2.cat}`;
+  const r = await fetch(base + '/admin/inventario', { method: 'POST', redirect: 'manual', headers: { cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ key, agotado: '1' }).toString() });
+  assert.equal(r.status, 302);
+  const st = await (await fetch(base + '/api/stock')).json(); assert.deepEqual(st.agotados, [key]);
+  const bad = await post('/api/orders', { ...cust, items: [{ id: P2.id, qty: 1 }] }); assert.equal(bad.status, 400);
+  assert.match((await bad.json()).errors.join(), /agotado/);
+  const inv = await (await fetch(base + '/admin/inventario?solo=agotados', { headers: { cookie } })).text(); assert.match(inv, /Marcar disponible/);
+  await fetch(base + '/admin/inventario', { method: 'POST', redirect: 'manual', headers: { cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ key, agotado: '0' }).toString() });
+  assert.deepEqual((await (await fetch(base + '/api/stock')).json()).agotados, []);
 });
