@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node --test test/"
+    "test": "node --test test/",
+    "build": "echo \"Sitio listo en public/\""
   },
   "repository": {
     "type": "git",
