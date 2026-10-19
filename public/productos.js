@@ -38,7 +38,7 @@ window.CATALOGO = [{"id":1,"ref":"REF 100","name":"Anillo Ajustable Doble Cartie
 {"id":37,"ref":"REF 27","name":"Anillo Ajustable Cartier Micro Circones","cat":"Anillos","price":191900,"img":"fotos/p37.jpg","gallery":["fotos/p37_1.jpg"]},
 {"id":38,"ref":"REF 30","name":"Anillo Ajustable Doble Gucci, ( Carril Cristales","cat":"Anillos","price":205900,"img":"fotos/p38.jpg","gallery":[]},
 {"id":39,"ref":"REF 32","name":"Anillo Ajustable Centro Cupula y Flor de Piedras Rosa y Verde","cat":"Anillos","price":191900,"img":"fotos/p39.jpg","gallery":[]},
-{"id":40,"ref":"REF 33","name":"Anillo","cat":"Anillos","price":null,"img":"fotos/p40.jpg","gallery":["fotos/p40_1.jpg"]},
+{"id":40,"ref":"REF 33","name":"Anillo","cat":"Anillos","price":144900,"img":"fotos/p40.jpg","gallery":["fotos/p40_1.jpg"]},
 {"id":41,"ref":"REF 34","name":"Anillo Ajustable Doble Linea Hermes, Eslabon Cuadrado Circón","cat":"Anillos","price":206900,"img":"fotos/p41.jpg","gallery":[]},
 {"id":42,"ref":"REF 36","name":"Anillo Ajustable Hermes Eslabones Micro Circón","cat":"Anillos","price":191900,"img":"fotos/p42.jpg","gallery":["fotos/p42_1.jpg"]},
 {"id":43,"ref":"REF 40","name":"Anillo Ajustable Hermes Doble Linea Cristales","cat":"Anillos","price":184900,"img":"fotos/p43.jpg","gallery":["fotos/p43_1.jpg"]},
